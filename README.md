@@ -15,3 +15,5 @@
 [npm-url]:       https://npmjs.org/package/xstatic
 [waffle-img]:    http://img.shields.io/github/issues/tcurdt/xstatic.svg?style=flat-square
 [waffle-url]:    http://waffle.io/tcurdt/xstatic
+
+[![Join the chat at https://gitter.im/tcurdt/xstatic](https://badges.gitter.im/tcurdt/xstatic.svg)](https://gitter.im/tcurdt/xstatic?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
