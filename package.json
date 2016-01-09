@@ -8,6 +8,9 @@
     "type": "git",
     "url": "git://github.com/tcurdt/xstatic.git"
   },
+  "engines": {
+    "node": ">= 4.2.0"
+  },
   "main": "index.js",
   "dependencies": {
     "chokidar": "^1.4.2",
@@ -39,6 +42,12 @@
     "coveralls": "^2.11.6",
     "codecov.io": "^0.1.6"
   },
+  "files": [
+    "LICENSE.txt",
+    "HISTORY.md",
+    "README.md",
+    "lib/"
+  ],
   "scripts": {
     "test": "istanbul test tape -- tests/*.js | ./node_modules/.bin/faucet",
     "coverage": "npm_config_coverage=1 npm test && ./node_modules/.bin/nyc report | cat",
