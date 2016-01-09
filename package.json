@@ -51,7 +51,7 @@
   "scripts": {
     "test": "istanbul test tape -- tests/*.js | ./node_modules/.bin/faucet",
     "coverage": "npm_config_coverage=1 npm test && ./node_modules/.bin/nyc report | cat",
-    "coverage-upload": "npm coverage && cat ./coverage/lcov.info | tee >(./node_modules/.bin/codecov) | ./node_modules/.bin/coveralls"
+    "coverage-upload": "cat ./coverage/lcov.info | tee >(./node_modules/.bin/codecov) | ./node_modules/.bin/coveralls"
   },
   "unused": {
     "coverage-coveralls": "npm_config_coverage=1 npm npm test && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
