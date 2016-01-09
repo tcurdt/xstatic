@@ -51,7 +51,7 @@
   "scripts": {
     "test": "istanbul test tape -- tests/*.js | ./node_modules/.bin/faucet",
     "coverage": "npm_config_coverage=1 npm test && ./node_modules/.bin/nyc report --reporter=text-lcov | cat",
-    "coverage-upload": "npm run coverage-upload-coveralls && npm run coverage-upload-codecov",
+    "coverage-upload": "npm run coverage && npm run coverage-upload-coveralls && npm run coverage-upload-codecov",
     "coverage-upload-coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
     "coverage-upload-codecov": "cat ./coverage/lcov.info | ./node_modules/.bin/codecov"
   },
