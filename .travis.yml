@@ -15,6 +15,5 @@ before_install:
   - $CXX --version
   - case ${TRAVIS_NODE_VERSION} in 0.8*|0.10*) npm install -g npm@2 ;; esac
 after_success:
-  - echo "npm_config_coverage=${npm_config_coverage}"
   - ls -la
   - npm run coverage-upload
