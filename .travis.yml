@@ -4,8 +4,7 @@ node_js:
   - "4.2"
   - "5.0"
 env:
-  - npm_config_coverage
-  - CXX=g++-4.8
+  - npm_config_coverage CXX=g++-4.8
 addons:
   apt:
     sources:
