@@ -1,3 +1,5 @@
 examples/blog
 examples/epub
 build
+.nyc_output
+coverage

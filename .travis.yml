@@ -15,4 +15,4 @@ before_install:
   - $CXX --version
   - case ${TRAVIS_NODE_VERSION} in 0.8*|0.10*) npm install -g npm@2 ;; esac
 after_success:
-  - bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
+  - npm run coverage
