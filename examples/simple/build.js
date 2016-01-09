@@ -1,4 +1,4 @@
-"use strict"
+'use strict'
 
 const xs = require('../../lib')
 const project = new xs('build')
