@@ -1,0 +1,48 @@
+{
+  "name": "xstatic",
+  "version": "1.0.0",
+  "description": "node based static site generator",
+  "author": "Torsten Curdt",
+  "license": "Apache-2.0",
+  "main": "index.js",
+  "dependencies": {
+    "chokidar": "^1.0.1",
+    "minimatch": "^2.0.10",
+    "browser-sync": "^2.7.13",
+    "moment": "^2.10.6",
+    "mkdirp": "^0.5.1",
+
+    "xmlbuilder": "^2.6.4",
+    "front-matter": "^1.0.0",
+    "babel": "^5.8.21",
+    "marked": "^0.3.5",
+    "highlight": "^0.2.3",
+    "less": "^2.5.3",
+    "node-sass": "^3.3.3",
+    "nunjucks": "^2.1.0",
+    "handlebars": "^4.0.5",
+
+  },
+  "unused": {
+    "stylus": "^0.52.4",
+    "swig": "^1.4.2",
+    "bluebird": "^2.9.34",
+    "parse5": "^1.5.0",
+    "shrthnd": "^0.0.6",
+    "baconjs": "^0.7.71",
+    "libxmljs": "^0.15.0",
+    "webpack": "^1.12.2",
+    "browserify": "^12.0.1",
+    "through2":"^2.0.0"
+  },
+  "devDependencies": {
+    "tape": "^4.2.0",
+    "blue-tape": "^0.1.10",
+    "istanbul": "^0.4.0",
+    "covert": "^1.1.0"
+  },
+  "scripts": {
+    "coverage": "covert -q tests/*.js",
+    "test": "istanbul test tape -- tests/*.js"
+  }
+}
