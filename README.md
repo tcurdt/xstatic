@@ -1,7 +1,7 @@
 [![Build Status][travis-img]][travis-url]
 [![Coverage Status][coveralls-img]][coveralls-url]
 [![Dependencies Status][david-img]][david-url]
-[![Codacity Status][codacity-img][codacity-url]
+[![Codacity Status][codacity-img]][codacity-url]
 [![Downloads][downloads-img]][npm-url]
 [![Chat][gitter-img]][gitter-url]
 
