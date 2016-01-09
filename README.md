@@ -1,5 +1,6 @@
 [![Build Status][travis-img]][travis-url]
 [![Coverage Status][coveralls-img]][coveralls-url]
+[![Dependencies Status][david-img]][david-url]
 [![Downloads][downloads-img]][npm-url]
 [![Chat][gitter-img]][gitter-url]
 
@@ -13,5 +14,7 @@
 [gitter-url]:    https://gitter.im/????
 [npm-img]:       http://img.shields.io/npm/v/xstatic.svg?style=flat-square
 [npm-url]:       https://npmjs.org/package/xstatic
+[david-img]:     https://david-dm.org/tcurdt/xstatic.svg
+[david-url]:     https://david-dm.org/tcurdt/xstatic
 [waffle-img]:    http://img.shields.io/github/issues/tcurdt/xstatic.svg?style=flat-square
 [waffle-url]:    http://waffle.io/tcurdt/xstatic
