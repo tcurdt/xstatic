@@ -134,7 +134,7 @@ Test('resolves extends', function(t) {
       type: Type.A,
       lmod: 1,
       path: 'content/index.txt',
-      load: _.lazyLoad({ body: "{% extends 'base.tpl' %}{% block content %}CHILD{% endblock %}" }),
+      load: _.lazyLoad({ body: '{% extends \'base.tpl\' %}{% block content %}CHILD{% endblock %}' }),
     },
     {
       type: Type.A,

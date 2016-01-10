@@ -23,7 +23,10 @@ Test('converts scss to css', function(t) {
       type: Type.A,
       lmod: 1,
       path: 'design/styles/test.scss',
-      load: _.lazyLoad({ body: '$color: black;\nh1 { color: $color }' }),
+      load: _.lazyLoad({
+        path: 'design/styles/test.scss',
+        body: '$color: black;\nh1 { color: $color }'
+      }),
     },
   ]).then(function(changes1){
 
@@ -49,13 +52,19 @@ Test('imports', function(t) {
       type: Type.A,
       lmod: 1,
       path: 'design/styles/other.scss',
-      load: _.lazyLoad({ body: 'h1 { color: black }' }),
+      load: _.lazyLoad({
+        path: 'design/styles/other.scss',
+        body: 'h1 { color: black }'
+      }),
     },
     {
       type: Type.A,
       lmod: 1,
       path: 'design/styles/test.scss',
-      load: _.lazyLoad({ body: '@import "other.scss"' }),
+      load: _.lazyLoad({
+        path: 'design/styles/test.scss',
+        body: '@import "other.scss"'
+      }),
     },
   ]).then(function(changes1){
 
