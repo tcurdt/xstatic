@@ -1,24 +1,24 @@
 'use strict'
 
-var Test = require('blue-tape')
+const Test = require('blue-tape')
 
-var Type = require('../lib/enum').changes
-var _ = require('../lib/utils')
+const Type = require('../lib/enum').changes
+const _ = require('../lib/utils')
 
 function setup(t, options) {
-  var xs = require('../lib')
-  var project = new xs('build')
+  const xs = require('../lib')
+  const project = new xs('build')
 
-  var posts = project.glob('content/**/*.txt')
-  var templates = project.glob('design/**/*.tpl')
-  var plugin = require('../lib/plugins/nunjucks')(project)
+  const posts = project.glob('content/**/*.txt')
+  const templates = project.glob('design/**/*.tpl')
+  const plugin = require('../lib/plugins/nunjucks')(project)
 
   return plugin(templates, posts, options)
 }
 
 Test('meta overrides layout', function(t) {
 
-  var collection = setup(t, { layout: 'design/templates/post.tpl' })
+  const collection = setup(t, { layout: 'design/templates/post.tpl' })
 
   return collection.update([
 
@@ -39,7 +39,7 @@ Test('meta overrides layout', function(t) {
 
     t.ok(collection.length === 1, 'has results')
 
-    var file = collection.get('content/posts/2014/slug1/index.txt')
+    const file = collection.get('content/posts/2014/slug1/index.txt')
 
     return file.load.then(function(f){
       t.equal(f.body, 'PAGE:post1')
@@ -51,7 +51,7 @@ Test('meta overrides layout', function(t) {
 
 Test('applies layout to all posts', function(t) {
 
-  var collection = setup(t, { layout: 'design/templates/post.tpl' })
+  const collection = setup(t, { layout: 'design/templates/post.tpl' })
 
   return collection.update([
 
@@ -78,8 +78,8 @@ Test('applies layout to all posts', function(t) {
 
     t.ok(collection.length === 2, 'has results')
 
-    var file1 = collection.get('content/posts/2014/slug1/index.txt')
-    var file2 = collection.get('content/posts/2015/slug1/index.txt')
+    const file1 = collection.get('content/posts/2014/slug1/index.txt')
+    const file2 = collection.get('content/posts/2015/slug1/index.txt')
 
     t.ok(file1, 'exits')
     t.ok(file2, 'exits')
@@ -98,7 +98,7 @@ Test('applies layout to all posts', function(t) {
 
 Test('applies without layout', function(t) {
 
-  var collection = setup(t)
+  const collection = setup(t)
 
   return collection.update([
 
@@ -113,7 +113,7 @@ Test('applies without layout', function(t) {
 
     t.ok(collection.length === 1, 'has results')
 
-    var file = collection.get('content/index.txt')
+    const file = collection.get('content/index.txt')
 
     t.ok(file, 'exits')
 
@@ -126,7 +126,7 @@ Test('applies without layout', function(t) {
 
 Test('resolves extends', function(t) {
 
-  var collection = setup(t)
+  const collection = setup(t)
 
   return collection.update([
 
@@ -147,7 +147,7 @@ Test('resolves extends', function(t) {
 
     t.ok(collection.length === 1, 'has results')
 
-    var file = collection.get('content/index.txt')
+    const file = collection.get('content/index.txt')
 
     t.ok(file, 'exits')
 
@@ -160,7 +160,7 @@ Test('resolves extends', function(t) {
 
 Test('resolves includes', function(t) {
 
-  var collection = setup(t)
+  const collection = setup(t)
 
   return collection.update([
 
@@ -181,7 +181,7 @@ Test('resolves includes', function(t) {
 
     t.ok(collection.length === 1, 'has results')
 
-    var file = collection.get('content/index.txt')
+    const file = collection.get('content/index.txt')
 
     t.ok(file, 'exits')
 
@@ -194,7 +194,7 @@ Test('resolves includes', function(t) {
 
 Test('report errors', function(t) {
 
-  var collection = setup(t)
+  const collection = setup(t)
 
   return collection.update([
 
@@ -209,7 +209,7 @@ Test('report errors', function(t) {
 
     t.ok(collection.length === 1, 'has results')
 
-    var file = collection.get('content/index.txt')
+    const file = collection.get('content/index.txt')
 
     t.ok(file, 'exits')
 
