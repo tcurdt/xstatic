@@ -1,8 +1,8 @@
-"use strict"
+'use strict'
 
 const Test = require('blue-tape')
 const Fs = require('fs')
-const Libxml = require("libxmljs")
+const Libxml = require('libxmljs')
 
 const Type = require('../lib/enum').changes
 const _ = require('../lib/utils')

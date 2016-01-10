@@ -1,4 +1,4 @@
-"use strict"
+'use strict'
 
 const Test = require('blue-tape')
 

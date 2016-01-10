@@ -1,24 +1,24 @@
-"use strict";
+'use strict'
 
-var Test = require('blue-tape');
+var Test = require('blue-tape')
 
-var Type = require('../lib/enum').changes;
-var _ = require('../lib/utils');
+var Type = require('../lib/enum').changes
+var _ = require('../lib/utils')
 
 function setup(t, options) {
-  var xs = require('../lib');
-  var project = new xs('build');
+  var xs = require('../lib')
+  var project = new xs('build')
 
-  var posts = project.glob('content/**/*.txt');
-  var templates = project.glob('design/**/*.tpl');
-  var plugin = require('../lib/plugins/nunjucks')(project);
+  var posts = project.glob('content/**/*.txt')
+  var templates = project.glob('design/**/*.tpl')
+  var plugin = require('../lib/plugins/nunjucks')(project)
 
-  return plugin(templates, posts, options);
+  return plugin(templates, posts, options)
 }
 
 Test('meta overrides layout', function(t) {
 
-  var collection = setup(t, { layout: 'design/templates/post.tpl' });
+  var collection = setup(t, { layout: 'design/templates/post.tpl' })
 
   return collection.update([
 
@@ -37,21 +37,21 @@ Test('meta overrides layout', function(t) {
 
   ]).then(function(changes1){
 
-    t.ok(collection.length === 1, 'has results');
+    t.ok(collection.length === 1, 'has results')
 
-    var file = collection.get('content/posts/2014/slug1/index.txt');
+    var file = collection.get('content/posts/2014/slug1/index.txt')
 
     return file.load.then(function(f){
-      t.equal(f.body, 'PAGE:post1');
-    }).catch(function(err){ t.fail(err) });
+      t.equal(f.body, 'PAGE:post1')
+    }).catch(function(err){ t.fail(err) })
 
-  });
-});
+  })
+})
 
 
 Test('applies layout to all posts', function(t) {
 
-  var collection = setup(t, { layout: 'design/templates/post.tpl' });
+  var collection = setup(t, { layout: 'design/templates/post.tpl' })
 
   return collection.update([
 
@@ -76,29 +76,29 @@ Test('applies layout to all posts', function(t) {
 
   ]).then(function(changes1){
 
-    t.ok(collection.length === 2, 'has results');
+    t.ok(collection.length === 2, 'has results')
 
-    var file1 = collection.get('content/posts/2014/slug1/index.txt');
-    var file2 = collection.get('content/posts/2015/slug1/index.txt');
+    var file1 = collection.get('content/posts/2014/slug1/index.txt')
+    var file2 = collection.get('content/posts/2015/slug1/index.txt')
 
-    t.ok(file1, 'exits');
-    t.ok(file2, 'exits');
+    t.ok(file1, 'exits')
+    t.ok(file2, 'exits')
 
     return Promise.all([
       file1.load.then(function(f){
-        t.equal(f.body, 'POST:post1');
+        t.equal(f.body, 'POST:post1')
       }).catch(function(err){ t.fail(err) }),
 
       file2.load.then(function(f){
-        t.equal(f.body, 'POST:post2');
+        t.equal(f.body, 'POST:post2')
       }).catch(function(err){ t.fail(err) })
-    ]);
-  });
-});
+    ])
+  })
+})
 
 Test('applies without layout', function(t) {
 
-  var collection = setup(t);
+  var collection = setup(t)
 
   return collection.update([
 
@@ -111,22 +111,22 @@ Test('applies without layout', function(t) {
 
   ]).then(function(changes1){
 
-    t.ok(collection.length === 1, 'has results');
+    t.ok(collection.length === 1, 'has results')
 
-    var file = collection.get('content/index.txt');
+    var file = collection.get('content/index.txt')
 
-    t.ok(file, 'exits');
+    t.ok(file, 'exits')
 
     return file.load.then(function(f){
-      t.equal(f.body, 'PAGE:TITLE');
-    }).catch(function(err){ t.fail(err) });
+      t.equal(f.body, 'PAGE:TITLE')
+    }).catch(function(err){ t.fail(err) })
 
-  });
-});
+  })
+})
 
 Test('resolves extends', function(t) {
 
-  var collection = setup(t);
+  var collection = setup(t)
 
   return collection.update([
 
@@ -145,22 +145,22 @@ Test('resolves extends', function(t) {
 
   ]).then(function(changes1){
 
-    t.ok(collection.length === 1, 'has results');
+    t.ok(collection.length === 1, 'has results')
 
-    var file = collection.get('content/index.txt');
+    var file = collection.get('content/index.txt')
 
-    t.ok(file, 'exits');
+    t.ok(file, 'exits')
 
     return file.load.then(function(f){
-      t.equal(f.body, 'PARENT:CHILD');
-    }).catch(function(err){ t.fail(err) });
+      t.equal(f.body, 'PARENT:CHILD')
+    }).catch(function(err){ t.fail(err) })
 
-  });
-});
+  })
+})
 
 Test('resolves includes', function(t) {
 
-  var collection = setup(t);
+  var collection = setup(t)
 
   return collection.update([
 
@@ -179,22 +179,22 @@ Test('resolves includes', function(t) {
 
   ]).then(function(changes1){
 
-    t.ok(collection.length === 1, 'has results');
+    t.ok(collection.length === 1, 'has results')
 
-    var file = collection.get('content/index.txt');
+    var file = collection.get('content/index.txt')
 
-    t.ok(file, 'exits');
+    t.ok(file, 'exits')
 
     return file.load.then(function(f){
-      t.equal(f.body, 'PARTIAL');
-    }).catch(function(err){ t.fail(err) });
+      t.equal(f.body, 'PARTIAL')
+    }).catch(function(err){ t.fail(err) })
 
-  });
-});
+  })
+})
 
 Test('report errors', function(t) {
 
-  var collection = setup(t);
+  var collection = setup(t)
 
   return collection.update([
 
@@ -207,15 +207,15 @@ Test('report errors', function(t) {
 
   ]).then(function(changes1){
 
-    t.ok(collection.length === 1, 'has results');
+    t.ok(collection.length === 1, 'has results')
 
-    var file = collection.get('content/index.txt');
+    var file = collection.get('content/index.txt')
 
-    t.ok(file, 'exits');
+    t.ok(file, 'exits')
 
     return file.load.then(function(f){
-      t.fail('error should fail');
-    }).catch(function(err){ t.pass('error on invalid') });
+      t.fail('error should fail')
+    }).catch(function(err){ t.pass('error on invalid') })
 
-  });
-});
+  })
+})
