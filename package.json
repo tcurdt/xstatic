@@ -58,6 +58,8 @@
     "coverage-upload-codacy": "test -f ./coverage/lcov.info && cat ./coverage/lcov.info | ./node_modules/.bin/codacy-coverage"
   },
   "unused": {
+    "fs-extra-promise": "^0.3.1",
+    "fs-promise": "^0.3.1",
     "coverage-coveralls": "npm_config_coverage=1 npm npm test && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
     "coverage-codecov": "npm_config_coverage=1 npm test && cat ./coverage/lcov.info | ./node_modules/.bin/codecov",
     "coverage-coveralls-nyc": "npm_config_coverage=1 npm npm test && ./node_modules/.bin/nyc report --reporter=text-lcov | ./node_modules/.bin/coveralls",
