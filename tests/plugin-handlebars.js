@@ -89,3 +89,45 @@ Test('loading of partials', function(t) {
 
   })
 })
+
+Test('use of custom helpers', function(t) {
+
+  const project = setup(t)
+  const glob = project.glob
+  const pages = glob('content/**/*.txt')
+  const plugin = require('../lib/plugins/handlebars')(project)
+
+  const options = {
+    helpers: [
+      function(handlebars) {
+        return {
+          foo: function() {
+            return 'FIGHTERS'
+          }
+        }
+      }
+    ]
+  }
+  const collection = plugin(pages, options)
+
+  return collection.update([
+
+    {
+      type: Type.A,
+      lmod: 1,
+      path: 'content/page1.txt',
+      load: _.lazyLoad({ body: '{{#foo}}{{/foo}}' }),
+    },
+
+  ]).then(function(changes1){
+
+    t.ok(collection.length === 1, 'has results')
+
+    const file = collection.get('content/page1.txt')
+
+    return file.load.then(function(f){
+      t.equal(f.body, 'FIGHTERS')
+    }).catch(function(err){ t.fail(err) })
+
+  })
+})
