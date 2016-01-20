@@ -17,5 +17,5 @@ const html = Template(pages, {
   context: { pages: pages }
 })
 
-project.watch(Merge([ html, css ]))
-// project.build(Merge([ html, css ]))
+project.build(Merge([ html, css ]))
+// project.watch(Merge([ html, css ]))

@@ -22,8 +22,8 @@ function filesFromChanges(array) {
 
 function setup() {
 
-  const xs = require('../lib')
-  const project = new xs('build')
+  const Xstatic = require('../lib')
+  const project = new Xstatic('build')
 
   const Merge       = require('../lib/plugins/merge')(project)
   const Template    = require('../lib/plugins/handlebars')(project)
@@ -34,12 +34,12 @@ function setup() {
   const Glob = project.glob
 
   const posts  = Glob('content/posts/**/index.md')
-  const design = Glob('design/**/*', { basedir: 'design/templates' })
+  const design = Glob('design/templates/*', { basedir: 'design/templates' })
 
   const posts_html = Markdown(Frontmatter(posts))
   const posts_full = Template(posts_html, {
     layouts: design,
-    default: 'post.html',
+    layout: 'post.html',
     context: { posts: posts_html }
   })
 
@@ -58,13 +58,13 @@ function add(t) {
       type: Type.A,
       lmod: 1,
       path: 'content/posts/2014/slug1/index.md',
-      load: _.lazyLoad({ body: 'content' }),
+      load: _.lazyLoad({ body: '---\ntitle: t2014\n---\ncontent' }),
     },
     {
       type: Type.A,
       lmod: 1,
       path: 'content/posts/2015/slug1/index.md',
-      load: _.lazyLoad({ body: 'content' }),
+      load: _.lazyLoad({ body: '---\ntitle: t2015\n---\ncontent' }),
     },
     {
       type: Type.A,
@@ -89,7 +89,21 @@ function add(t) {
       { type: Type.A, lmod: 1, path: 'sitemap.xml' },
     ]))
 
-    return collection
+    return Promise.all([
+      'content/posts/2014/slug1/index.html',
+      'content/posts/2015/slug1/index.html',
+    ].map(function(path) {
+      const file = collection.get(path)
+      t.ok(file, 'exists')
+      return file.load
+    })).then(function(docs) {
+      docs.forEach(function(doc) {
+        t.ok(doc.meta && doc.meta.title, 'post has title')
+      })
+    }).then(function() {
+      return collection
+    })
+
   })
 }
 

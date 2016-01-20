@@ -6,14 +6,17 @@ const Type = require('../lib/enum').changes
 const _ = require('../lib/utils')
 
 function setup(t, options) {
-  const xs = require('../lib')
-  const project = new xs('build')
+  const Xstatic = require('../lib')
+  const project = new Xstatic('build')
+  const glob = project.glob
 
-  const posts = project.glob('content/**/*.txt')
-  const templates = project.glob('design/**/*.tpl')
+  const posts = glob('content/**/*.txt')
+  const layouts = glob('design/templates/*.tpl', { basedir: 'design/templates' })
   const plugin = require('../lib/plugins/nunjucks')(project)
 
-  return plugin(templates, posts, options)
+  return plugin(posts, _.merge({
+    layouts: layouts,
+  }, options))
 }
 
 Test('meta overrides layout', function(t) {
@@ -26,7 +29,7 @@ Test('meta overrides layout', function(t) {
       type: Type.A,
       lmod: 1,
       path: 'content/posts/2014/slug1/index.txt',
-      load: _.lazyLoad({ body: 'post1', meta:{ layout: 'design/templates/page.tpl' }}),
+      load: _.lazyLoad({ body: 'post1', meta:{ layout: 'page.tpl' }}),
     },
     {
       type: Type.A,
@@ -41,6 +44,7 @@ Test('meta overrides layout', function(t) {
 
     const file = collection.get('content/posts/2014/slug1/index.txt')
 
+    t.ok(file, 'exists')
     return file.load.then(function(f){
       t.equal(f.body, 'PAGE:post1')
     }).catch(function(err){ t.fail(err) })
@@ -51,7 +55,7 @@ Test('meta overrides layout', function(t) {
 
 Test('applies layout to all posts', function(t) {
 
-  const collection = setup(t, { layout: 'design/templates/post.tpl' })
+  const collection = setup(t, { layout: 'post.tpl' })
 
   return collection.update([
 
@@ -81,8 +85,8 @@ Test('applies layout to all posts', function(t) {
     const file1 = collection.get('content/posts/2014/slug1/index.txt')
     const file2 = collection.get('content/posts/2015/slug1/index.txt')
 
-    t.ok(file1, 'exits')
-    t.ok(file2, 'exits')
+    t.ok(file1, 'exists')
+    t.ok(file2, 'exists')
 
     return Promise.all([
       file1.load.then(function(f){
@@ -115,7 +119,7 @@ Test('applies without layout', function(t) {
 
     const file = collection.get('content/index.txt')
 
-    t.ok(file, 'exits')
+    t.ok(file, 'exists')
 
     return file.load.then(function(f){
       t.equal(f.body, 'PAGE:TITLE')
@@ -149,7 +153,7 @@ Test('resolves extends', function(t) {
 
     const file = collection.get('content/index.txt')
 
-    t.ok(file, 'exits')
+    t.ok(file, 'exists')
 
     return file.load.then(function(f){
       t.equal(f.body, 'PARENT:CHILD')
@@ -183,7 +187,7 @@ Test('resolves includes', function(t) {
 
     const file = collection.get('content/index.txt')
 
-    t.ok(file, 'exits')
+    t.ok(file, 'exists')
 
     return file.load.then(function(f){
       t.equal(f.body, 'PARTIAL')
@@ -211,7 +215,7 @@ Test('report errors', function(t) {
 
     const file = collection.get('content/index.txt')
 
-    t.ok(file, 'exits')
+    t.ok(file, 'exists')
 
     return file.load.then(function(f){
       t.fail('error should fail')

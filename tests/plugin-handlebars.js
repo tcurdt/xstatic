@@ -33,7 +33,7 @@ Test('variable expansion from project, collection and document context', functio
       type: Type.A,
       lmod: 1,
       path: 'content/page1.txt',
-      load: _.lazyLoad({ body: 'page1:{{title}}:{{foo}}:{{biffy}}', meta: { foo: 'FIGHTERS' }}),
+      load: _.lazyLoad({ body: 'page1:{{site.title}}:{{foo}}:{{biffy}}', meta: { foo: 'FIGHTERS' }}),
     },
 
   ]).then(function(changes1){
