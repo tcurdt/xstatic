@@ -1,7 +1,7 @@
 'use strict'
 
-const xs = require('../../lib')
-const project = new xs('build')
+const Xstatic = require('../../lib')
+const project = new Xstatic('build')
 
 const Glob = project.glob
 const Template = require('../../lib/plugins/handlebars')(project)
