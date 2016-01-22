@@ -21,8 +21,8 @@ function filesFromChanges(array) {
 
 
 function setup(t) {
-  const xs = require('../lib')
-  const project = new xs('build')
+  const Xstatic = require('../lib')
+  const project = new Xstatic('build')
   const collection = project.glob('content/**/*')
   const merge = require('../lib/plugins/merge')(project)
   t.equal(collection.lmod, undefined)
@@ -274,15 +274,3 @@ Test('delete non-existing', function(t) {
 
   })
 })
-
-// Test('test', function(t) {
-//   return add(t).then(function(collection) {
-
-//     return collection.update([]).then(function(changes) {
-
-//       console.log('changes', changes)
-//       console.log(collection.values())
-
-//     })
-//   })
-// })

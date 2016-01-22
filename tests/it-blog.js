@@ -36,17 +36,17 @@ function setup() {
   const posts  = Glob('content/posts/**/index.md')
   const design = Glob('design/templates/*', { basedir: 'design/templates' })
 
-  const posts_html = Markdown(Frontmatter(posts))
-  const posts_full = Template(posts_html, {
+  const postsHtml = Markdown(Frontmatter(posts))
+  const postsFull = Template(postsHtml, {
     layouts: design,
     layout: 'post.html',
-    context: { posts: posts_html }
+    context: { posts: postsHtml }
   })
 
-  const sitemap = Sitemap(posts_html)
-  const feed = Feed(posts_html)
+  const sitemap = Sitemap(postsHtml)
+  const feed = Feed(postsHtml)
 
-  return Merge([ feed, sitemap, posts_full ])
+  return Merge([ feed, sitemap, postsFull ])
 }
 
 function add(t) {

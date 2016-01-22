@@ -64,3 +64,14 @@ Test('wrapping function', function(t) {
 
   t.end()
 })
+
+Test('objectId', function(t) {
+
+  t.equal(_.objectId(null), null)
+  const a = {}
+  t.equal(_.objectId(a), 1)
+  t.equal(_.objectId({}), 2)
+  t.equal(_.objectId(a), 1)
+
+  t.end()
+})
