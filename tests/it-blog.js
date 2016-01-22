@@ -40,7 +40,7 @@ function setup() {
   const postsFull = Template(postsHtml, {
     layouts: design,
     layout: 'post.html',
-    context: { posts: postsHtml }
+    // context: { posts: postsHtml }
   })
 
   const sitemap = Sitemap(postsHtml)
