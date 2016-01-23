@@ -1,5 +1,17 @@
+---
+title: home
+date: 2015-02-01
+---
+
 {{> header}}
+
+TITLE: [{{title}}] - [{{site.title}}]
+PATH: [{{file.path}}]
+MOD: [{{file.lmod}}]
+DATE: [{{date}}]
+
 {{#each pages}}
-  - {{path}} {{lmod}}
+  - {{file.path}} {{file.lmod}}
 {{/each}}
+
 {{> footer}}
