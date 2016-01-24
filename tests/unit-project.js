@@ -7,8 +7,8 @@ const _ = require('../lib/utils')
 
 
 function setup() {
-  const xs = require('../lib')
-  return new xs('build')
+  const Xstatic = require('../lib')
+  return new Xstatic('build')
 }
 
 Test('build should find files once', function(t) {
