@@ -57,18 +57,10 @@
     "coverage-upload-codacy": "test -f ./coverage/lcov.info && cat ./coverage/lcov.info | codacy-coverage"
   },
   "unused": {
-    "fs-extra-promise": "^0.3.1",
-    "fs-promise": "^0.3.1",
-    "coverage-coveralls": "npm_config_coverage=1 npm npm test && cat ./coverage/lcov.info | coveralls",
-    "coverage-codecov": "npm_config_coverage=1 npm test && cat ./coverage/lcov.info | codecov",
-    "coverage-coveralls-nyc": "npm_config_coverage=1 npm npm test && nyc report --reporter=text-lcov | coveralls",
-    "coverage-codecov-nyc": "npm_config_coverage=1 npm test && nyc report --reporter=text-lcov | codecov",
     "stylus": "^0.52.4",
     "swig": "^1.4.2",
-    "bluebird": "^2.9.34",
     "parse5": "^1.5.0",
     "shrthnd": "^0.0.6",
-    "baconjs": "^0.7.71",
     "webpack": "^1.12.2",
     "browserify": "^12.0.1",
     "through2": "^2.0.0"
