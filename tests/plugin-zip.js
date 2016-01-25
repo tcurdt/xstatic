@@ -6,8 +6,8 @@ const Type = require('../lib/enum').changes
 const _ = require('../lib/utils')
 
 function setup(t) {
-  const xs = require('../lib')
-  const project = new xs('build')
+  const Xstatic = require('../lib')
+  const project = new Xstatic('build')
 
   const files = project.glob('content/**/*.txt')
   const zip = require('../lib/plugins/zip')(project)

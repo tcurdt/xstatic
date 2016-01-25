@@ -6,8 +6,8 @@ const Type = require('../lib/enum').changes
 const _ = require('../lib/utils')
 
 function setup() {
-  const xs = require('../lib')
-  const project = new xs('build')
+  const Xstatic = require('../lib')
+  const project = new Xstatic('build')
 
   const Filter = require('../lib/plugins/filter')(project)
 

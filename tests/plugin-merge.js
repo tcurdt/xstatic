@@ -6,8 +6,8 @@ const Type = require('../lib/enum').changes
 const _ = require('../lib/utils')
 
 function setup(cb) {
-  const xs = require('../lib')
-  const project = new xs('build')
+  const Xstatic = require('../lib')
+  const project = new Xstatic('build')
 
   const Merge = require('../lib/plugins/merge')(project)
 
