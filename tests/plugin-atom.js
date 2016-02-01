@@ -32,6 +32,8 @@ Test('creates feed of all posts', function(t) {
       path: 'content/posts/2014/slug1/index.txt',
       load: _.lazyLoad({
         meta: { title: 'title post1' },
+        lmod: 1445556599000,
+        path: 'content/posts/2014/slug1/index.txt',
         body: 'post1'
       }),
     },
@@ -41,6 +43,8 @@ Test('creates feed of all posts', function(t) {
       path: 'content/posts/2015/slug1/index.txt',
       load: _.lazyLoad({
         meta: { title: 'title post2' },
+        lmod: 1445556599000 - 60*1000,
+        path: 'content/posts/2015/slug1/index.txt',
         body: 'post2'
       }),
     },
