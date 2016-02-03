@@ -2,7 +2,7 @@
 
 const Test = require('blue-tape')
 
-const LazyPromise = require('../lib/lazy')
+const LazyPromise = require('../packages/core/lazy')
 
 Test('should be fulfilled only after "then" was called', function(t) {
   const l = new LazyPromise(function(resolve) { resolve(true) })

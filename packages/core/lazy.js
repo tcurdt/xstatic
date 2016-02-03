@@ -1,7 +1,5 @@
 'use strict'
 
-const _ = require('./utils')
-
 function LazyPromise(fn) {
 
   const self = this
@@ -16,6 +14,7 @@ function LazyPromise(fn) {
   }
 
   this.inspect = function() {
+    const _ = require('./utils') // FIXME
     return `{LazyPromise(${_.objectId(this)}):${this.isFulfilled}}`
   }
 }

@@ -7,6 +7,6 @@ const Utils = require('./utils')
 module.exports = function(target, options) {
   const project = new Project(target, options)
   project.collection = Collection
-  project.utils = Utils
+  project.utils = Utils // FIXME
   return project
 }

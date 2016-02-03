@@ -2,7 +2,7 @@
 
 const Test = require('blue-tape')
 
-const _ = require('../lib/utils')
+const _ = require('../packages/core/utils')
 
 Test('max should give the max of numbers', function(t) {
   t.equal(_.max([ 3, 1, 2 ]), 3)
@@ -37,7 +37,8 @@ Test('merge should respect the order when merging', function(t) {
   const m = _.merge(
     { a:1, b: 1},
     { a:2, c: 2},
-    { a:3, d: 3})
+    { a:3, d: 3}
+  )
 
   t.equal(m.a, 3)
   t.equal(m.b, 1)

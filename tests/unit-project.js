@@ -1,24 +1,26 @@
 'use strict'
 
 const Test = require('blue-tape')
+const Xstatic = require('../packages/core')
+const Type = require('../packages/core/enum').changes
+const _ = require('../packages/core/utils')
 
-const Type = require('../lib/enum').changes
-const _ = require('../lib/utils')
+function setup(t, cb) {
+  const project = new Xstatic('build')
+  const collection = project.glob('packages/core/*.js')
 
-
-function setup() {
-  const Xstatic = require('../lib')
-  return new Xstatic('build')
+  return cb(project, collection)
 }
 
 Test('build should find files once', function(t) {
+  return setup(t, function(project, collection) {
 
-  const project = setup()
-  const collection = project.glob('lib/*.js')
-  project.build(collection).then(function(changes) {
+    project.build(collection).then(function(changes) {
 
-    t.equal(collection.length, 10, 'has results')
-    t.end()
+      t.equal(collection.length, 10, 'has results')
+      t.end()
+
+    })
 
   })
 })

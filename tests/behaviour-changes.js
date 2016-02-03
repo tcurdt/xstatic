@@ -1,8 +1,19 @@
 'use strict'
 
 const Test = require('blue-tape')
+const Xstatic = require('../packages/core')
+const Type = require('../packages/core/enum').changes
 
-const Type = require('../lib/enum').changes
+function setup(t, cb) {
+  const project = new Xstatic('build')
+  const files = project.glob('content/**/*')
+  const plugin = require('../packages/plugin-merge')(project)
+  t.equal(files.lmod, undefined)
+  const collection = plugin([ files ])
+
+  return cb(project, collection)
+}
+
 
 function sortedByPath(arr) {
   arr.sort(function(a, b){
@@ -20,71 +31,62 @@ function filesFromChanges(array) {
 }
 
 
-function setup(t) {
-  const Xstatic = require('../lib')
-  const project = new Xstatic('build')
-  const collection = project.glob('content/**/*')
-  const merge = require('../lib/plugins/merge')(project)
-  t.equal(collection.lmod, undefined)
-  return merge([ collection ])
-}
-
 Test('ignore unmatched', function(t) {
-  const collection = setup(t)
+  return setup(t, function(project, collection) {
+    return collection.update([
 
-  return collection.update([
+      {
+        type: Type.A,
+        lmod: 1,
+        path: 'other/index.md',
+      },
 
-    {
-      type: Type.A,
-      lmod: 1,
-      path: 'other/index.md',
-    },
+    ]).then(function(changes){
 
-  ]).then(function(changes){
+      t.equal(collection.lmod, undefined)
 
-    t.equal(collection.lmod, undefined)
+      t.equal(changes.length, 0)
+      t.equal(collection.length, 0)
 
-    t.equal(changes.length, 0)
-    t.equal(collection.length, 0)
-
+    })
   })
 })
 
 function add(t) {
-  const collection = setup(t)
-
-  return collection.update([
-
-    {
-      type: Type.A,
-      lmod: 1,
-      path: 'content/posts/2014/slug1/index.md',
-    },
-
-  ]).then(function(changes){
-
-    t.equal(collection.lmod, 1)
-
-    t.deepEqual(sortedByPath(filesFromCollection(collection)), sortedByPath([
+  return setup(t, function(project, collection) {
+    return collection.update([
 
       {
-        path: 'content/posts/2014/slug1/index.md',
-        lmod: 1,
-      },
-
-    ]))
-
-    t.deepEqual(sortedByPath(filesFromChanges(changes)), sortedByPath([
-
-      {
-        path: 'content/posts/2014/slug1/index.md',
         type: Type.A,
         lmod: 1,
+        path: 'content/posts/2014/slug1/index.md',
       },
 
-    ]))
+    ]).then(function(changes){
 
-    return collection
+      t.equal(collection.lmod, 1)
+
+      t.deepEqual(sortedByPath(filesFromCollection(collection)), sortedByPath([
+
+        {
+          path: 'content/posts/2014/slug1/index.md',
+          lmod: 1,
+        },
+
+      ]))
+
+      t.deepEqual(sortedByPath(filesFromChanges(changes)), sortedByPath([
+
+        {
+          path: 'content/posts/2014/slug1/index.md',
+          type: Type.A,
+          lmod: 1,
+        },
+
+      ]))
+
+      return collection
+    })
   })
 }
 
@@ -187,7 +189,6 @@ Test('modified existing', function(t) {
 
 Test('modified non-existing', function(t) {
   return add(t).then(function(collection){
-
     return collection.update([
       {
         type: Type.M,
@@ -224,7 +225,6 @@ Test('modified non-existing', function(t) {
 
 Test('delete existing', function(t) {
   return add(t).then(function(collection){
-
     return collection.update([
 
       {
@@ -255,22 +255,22 @@ Test('delete existing', function(t) {
 })
 
 Test('delete non-existing', function(t) {
-  const collection = setup(t)
+  return setup(t, function(project, collection) {
+    return collection.update([
 
-  return collection.update([
+      {
+        type: Type.D,
+        lmod: 2,
+        path: 'content/foo.md',
+      },
 
-    {
-      type: Type.D,
-      lmod: 2,
-      path: 'content/foo.md',
-    },
+    ]).then(function(changes){
 
-  ]).then(function(changes){
+      t.equal(collection.lmod, undefined)
 
-    t.equal(collection.lmod, undefined)
+      t.equal(changes.length, 0)
+      t.equal(collection.length, 0)
 
-    t.equal(changes.length, 0)
-    t.equal(collection.length, 0)
-
+    })
   })
 })

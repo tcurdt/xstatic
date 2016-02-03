@@ -5,8 +5,6 @@
 // const Fs = require('fs')
 const LazyPromise = require('./lazy')
 
-console.log('req', typeof LazyPromise)
-
 // module.exports.stats = function(path, cb) {
 //   Fs.stat(path, function(err, stats) {
 //     if (err === null) {

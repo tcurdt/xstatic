@@ -4,17 +4,16 @@ const Builder = require('xmlbuilder')
 const Moment = require('moment')
 const Url = require('url')
 
-const _ = require('../../utils')
+module.exports = function(project) { return function(files, defaults) {
 
-module.exports = function(project) { return function(files, _options) {
-
+  const _ = project.utils
   const options =  _.merge({
     sort: function(a, b) { return a.path < b.path },
     filename: 'sitemap.xml',
     ignore: [ /404\.html$/i ],
     url: 'http://localhost',
     changefreq: 'weekly',
-  }, _options)
+  }, defaults)
 
   const collection = new project.collection('sitemap', [ files ], options)
 

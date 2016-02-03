@@ -3,10 +3,9 @@
 const Less = require('less')
 const Path = require('path')
 
-const _ = require('../../utils')
+module.exports = function(project) { return function(files, defaults) {
 
-module.exports = function(project) { return function(files, _options) {
-
+  const _ = project.utils
   const options =  _.merge({
     path: function(path) { return path.setExt('css') },
     less: {
@@ -14,7 +13,7 @@ module.exports = function(project) { return function(files, _options) {
       //   sourceMapFileInline: true
       // }
     }
-  }, _options)
+  }, defaults)
 
   const collection = new project.collection('less', [ files ], options)
 

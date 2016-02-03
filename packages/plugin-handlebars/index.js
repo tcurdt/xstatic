@@ -4,10 +4,10 @@ const Handlebars = require('handlebars')
 const Path = require('path')
 
 const Context = require('../../context')
-const _ = require('../../utils')
 
-module.exports = function(project) { return function(files, _options) {
+module.exports = function(project) { return function(files, defaults) {
 
+  const _ = project.utils
   const options =  _.merge({
     partials: undefined,
     layouts: undefined,
@@ -27,7 +27,7 @@ module.exports = function(project) { return function(files, _options) {
     },
     context: {},
     helpers: [],
-  }, _options)
+  }, defaults)
 
   function deps(f) {
     return [ f, options.partials, options.layouts ].concat(Context.collections(options.context)).filter(function(d){ return d != null })

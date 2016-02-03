@@ -2,7 +2,7 @@
 
 const Test = require('blue-tape')
 
-const PathChange = require('../lib/path-change')
+const PathChange = require('../packages/core/path-change')
 
 
 Test('set ext', function(t) {

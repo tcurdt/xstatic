@@ -8,24 +8,21 @@ const Libxml = require('libxmljs')
 
 const Type = require('../packages/core/enum').changes
 
-// const Bla = require('../packages/plugin-atom')
-
 function setup(t, cb) {
   const project = new Xstatic('build')
   const files = project.glob('content/**/*.txt')
   const feed = require('../packages/plugin-atom')(project)
-  //const feed = Bla(project)
-
-  return cb(project, feed(files, {
+  const collection = feed(files, {
     url: 'http://localhost',
     title: 'test title',
     author: 'test author'
-  }))
+  })
+
+  return cb(project, collection)
 }
 
 Test('creates feed of all posts', function(t) {
   return setup(t, function(project, collection) {
-
     const _ = project.utils
 
     return collection.update([

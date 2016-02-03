@@ -9,10 +9,10 @@ const Cache = require('./cache')
 const Type = require('./enum').changes
 const _ = require('./utils')
 
-function Glob(pattern, _options) {
+function Glob(pattern, defaults) {
 
   const options =  _.merge({
-  }, _options)
+  }, defaults)
 
   const self = this
 

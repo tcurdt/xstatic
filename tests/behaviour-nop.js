@@ -1,35 +1,35 @@
 'use strict'
 
 const Test = require('blue-tape')
+const Xstatic = require('../packages/core')
+const Type = require('../packages/core/enum').changes
 
-const Type = require('../lib/enum').changes
-const _ = require('../lib/utils')
-
-function setup() {
-  const Xstatic = require('../lib')
+function setup(t, cb) {
   const project = new Xstatic('build')
-  return project
+  return cb(project)
 }
 
 Test('files should just be copied', function(t) {
+  return setup(t, function(project) {
+    const _ = project.utils
+    const collection = project.glob('content/posts/**/index.md')
 
-  const project = setup()
-  const collection = project.glob('content/posts/**/index.md')
+    return collection.update([
 
-  return collection.update([
+      {
+        type: Type.A,
+        lmod: 1,
+        path: 'content/posts/2014/slug1/index.md',
+        load: _.lazyLoad({ body: 'content' }),
+      },
 
-    {
-      type: Type.A,
-      lmod: 1,
-      path: 'content/posts/2014/slug1/index.md',
-      load: _.lazyLoad({ body: 'content' }),
-    },
+    ]).then(function(changes){
 
-  ]).then(function(changes){
+      t.ok(collection.length === 1, 'has results')
+      return collection.forEach(function(item){
+        t.equal(item.load.isFulfilled, false)
+      })
 
-    t.ok(collection.length === 1, 'has results')
-    return collection.forEach(function(item){
-      t.equal(item.load.isFulfilled, false)
     })
 
   })
@@ -37,28 +37,29 @@ Test('files should just be copied', function(t) {
 
 
 Test('files should just be copied - even when going through merge', function(t) {
+  return setup(t, function(project) {
+    const _ = project.utils
 
-  const project = setup()
+    const merge = require('../packages/plugin-merge')(project)
+    const collection = merge([ project.glob('content/posts/**/index.md') ])
 
-  const Merge = require('../lib/plugins/merge')(project)
+    return collection.update([
 
-  const collection = Merge([ project.glob('content/posts/**/index.md') ])
+      {
+        type: Type.A,
+        lmod: 1,
+        path: 'content/posts/2014/slug1/index.md',
+        load: _.lazyLoad({ body: 'content' }),
+      },
 
-  return collection.update([
+    ]).then(function(changes){
 
-    {
-      type: Type.A,
-      lmod: 1,
-      path: 'content/posts/2014/slug1/index.md',
-      load: _.lazyLoad({ body: 'content' }),
-    },
+      t.ok(collection.length === 1, 'has results')
 
-  ]).then(function(changes){
+      return collection.forEach(function(item){
+        t.equal(item.load.isFulfilled, false)
+      })
 
-    t.ok(collection.length === 1, 'has results')
-
-    return collection.forEach(function(item){
-      t.equal(item.load.isFulfilled, false)
     })
 
   })

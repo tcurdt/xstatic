@@ -1,30 +1,12 @@
 'use strict'
 
 const Test = require('blue-tape')
+const Xstatic = require('../packages/core')
+const Type = require('../packages/core/enum').changes
 
-const Type = require('../lib/enum').changes
-const _ = require('../lib/utils')
-
-
-function sortedByPath(arr) {
-  arr.sort(function(a, b){
-    return a.path > b.path
-  })
-  return arr
-}
-
-function filesFromCollection(array) {
-  return array.map(function(file){ return { lmod: file.lmod, path: file.path }})
-}
-
-function filesFromChanges(array) {
-  return array.map(function(change){ return { lmod: change.lmod, path: change.path, type: change.type }})
-}
-
-function setup() {
-
-  const Xstatic = require('@xstatic/core')
+function setup(t, cb) {
   const project = new Xstatic('build')
+  const files = project.glob('content/**/*')
 
   const Merge       = require('@xstatic/merge')(project)
   const Template    = require('@xstatic/handlebars')(project)
@@ -47,64 +29,85 @@ function setup() {
   const sitemap = Sitemap(postsHtml)
   const feed = Feed(postsHtml)
 
-  return Merge([ feed, sitemap, postsFull ])
+  const collection = Merge([ feed, sitemap, postsFull ])
+
+  return cb(project, collection)
+}
+
+
+
+function sortedByPath(arr) {
+  arr.sort(function(a, b){
+    return a.path > b.path
+  })
+  return arr
+}
+
+function filesFromCollection(array) {
+  return array.map(function(file){ return { lmod: file.lmod, path: file.path }})
+}
+
+function filesFromChanges(array) {
+  return array.map(function(change){ return { lmod: change.lmod, path: change.path, type: change.type }})
 }
 
 function add(t) {
-  const collection = setup()
+  return setup(t, function(project, collection) {
+    const _ = project.utils
 
-  return collection.update([
+    return collection.update([
 
-    {
-      type: Type.A,
-      lmod: 1,
-      path: 'content/posts/2014/slug1/index.md',
-      load: _.lazyLoad({ body: '---\ntitle: t2014\n---\ncontent' }),
-    },
-    {
-      type: Type.A,
-      lmod: 1,
-      path: 'content/posts/2015/slug1/index.md',
-      load: _.lazyLoad({ body: '---\ntitle: t2015\n---\ncontent' }),
-    },
-    {
-      type: Type.A,
-      lmod: 1,
-      path: 'design/templates/post.html',
-      load: _.lazyLoad({ body: 'content' }),
-    },
+      {
+        type: Type.A,
+        lmod: 1,
+        path: 'content/posts/2014/slug1/index.md',
+        load: _.lazyLoad({ body: '---\ntitle: t2014\n---\ncontent' }),
+      },
+      {
+        type: Type.A,
+        lmod: 1,
+        path: 'content/posts/2015/slug1/index.md',
+        load: _.lazyLoad({ body: '---\ntitle: t2015\n---\ncontent' }),
+      },
+      {
+        type: Type.A,
+        lmod: 1,
+        path: 'design/templates/post.html',
+        load: _.lazyLoad({ body: 'content' }),
+      },
 
-  ]).then(function(changes){
+    ]).then(function(changes){
 
-    t.deepEqual(sortedByPath(filesFromCollection(collection)), sortedByPath([
-      { lmod: 1, path: 'content/posts/2014/slug1/index.html' },
-      { lmod: 1, path: 'content/posts/2015/slug1/index.html' },
-      { lmod: 1, path: 'feed.xml' },
-      { lmod: 1, path: 'sitemap.xml' },
-    ]))
+      t.deepEqual(sortedByPath(filesFromCollection(collection)), sortedByPath([
+        { lmod: 1, path: 'content/posts/2014/slug1/index.html' },
+        { lmod: 1, path: 'content/posts/2015/slug1/index.html' },
+        { lmod: 1, path: 'feed.xml' },
+        { lmod: 1, path: 'sitemap.xml' },
+      ]))
 
-    t.deepEqual(sortedByPath(filesFromChanges(changes)), sortedByPath([
-      { type: Type.A, lmod: 1, path: 'content/posts/2014/slug1/index.html' },
-      { type: Type.A, lmod: 1, path: 'content/posts/2015/slug1/index.html' },
-      { type: Type.A, lmod: 1, path: 'feed.xml' },
-      { type: Type.A, lmod: 1, path: 'sitemap.xml' },
-    ]))
+      t.deepEqual(sortedByPath(filesFromChanges(changes)), sortedByPath([
+        { type: Type.A, lmod: 1, path: 'content/posts/2014/slug1/index.html' },
+        { type: Type.A, lmod: 1, path: 'content/posts/2015/slug1/index.html' },
+        { type: Type.A, lmod: 1, path: 'feed.xml' },
+        { type: Type.A, lmod: 1, path: 'sitemap.xml' },
+      ]))
 
-    return Promise.all([
-      'content/posts/2014/slug1/index.html',
-      'content/posts/2015/slug1/index.html',
-    ].map(function(path) {
-      const file = collection.get(path)
-      t.ok(file, 'exists')
-      return file.load
-    })).then(function(docs) {
-      docs.forEach(function(doc) {
-        t.ok(doc.meta && doc.meta.title, 'post has title')
+      return Promise.all([
+        'content/posts/2014/slug1/index.html',
+        'content/posts/2015/slug1/index.html',
+      ].map(function(path) {
+        const file = collection.get(path)
+        t.ok(file, 'exists')
+        return file.load
+      })).then(function(docs) {
+        docs.forEach(function(doc) {
+          t.ok(doc.meta && doc.meta.title, 'post has title')
+        })
+      }).then(function() {
+        return collection
       })
-    }).then(function() {
-      return collection
-    })
 
+    })
   })
 }
 

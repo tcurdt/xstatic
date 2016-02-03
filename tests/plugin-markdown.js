@@ -1,41 +1,43 @@
 'use strict'
 
 const Test = require('blue-tape')
+const Xstatic = require('../packages/core')
 
-const Type = require('../lib/enum').changes
-const _ = require('../lib/utils')
+const Type = require('../packages/core/enum').changes
 
-function setup(t) {
-  const Xstatic = require('../lib')
+function setup(t, cb) {
   const project = new Xstatic('build')
-
   const files = project.glob('content/**/*.md')
-  const plugin = require('../lib/plugins/markdown')(project)
+  const plugin = require('../packages/plugin-markdown')(project)
+  const collection = plugin(files)
 
-  return plugin(files)
+  return cb(project, collection)
 }
 
+
 Test('converts markdown to html', function(t) {
-  const collection = setup(t)
+  return setup(t, function(project, collection) {
+    const _ = project.utils
 
-  return collection.update([
-    {
-      type: Type.A,
-      lmod: 1,
-      path: 'content/posts/2014/slug1/index.md',
-      load: _.lazyLoad({ body: '# test' }),
-    },
-  ]).then(function(changes1){
+    return collection.update([
+      {
+        type: Type.A,
+        lmod: 1,
+        path: 'content/posts/2014/slug1/index.md',
+        load: _.lazyLoad({ body: '# test' }),
+      },
+    ]).then(function(changes1){
 
-    t.ok(collection.length === 1, 'has result')
+      t.ok(collection.length === 1, 'has result')
 
-    const file = collection.get('content/posts/2014/slug1/index.html')
+      const file = collection.get('content/posts/2014/slug1/index.html')
 
-    t.ok(file, 'exists')
+      t.ok(file, 'exists')
 
-    return file.load.then(function(f){
-      t.equal(f.body, '<h1 id="test">test</h1>\n')
+      return file.load.then(function(f){
+        t.equal(f.body, '<h1 id="test">test</h1>\n')
+      })
+
     })
-
   })
 })

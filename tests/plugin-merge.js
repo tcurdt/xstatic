@@ -1,26 +1,24 @@
 'use strict'
 
 const Test = require('blue-tape')
+const Xstatic = require('../packages/core')
 
-const Type = require('../lib/enum').changes
-const _ = require('../lib/utils')
+const Type = require('../packages/core/enum').changes
 
-function setup(cb) {
-  const Xstatic = require('../lib')
+function setup(t, cb) {
   const project = new Xstatic('build')
-
-  const Merge = require('../lib/plugins/merge')(project)
-
+  const files = project.glob('content/**/*.md')
+  const plugin = require('../packages/plugin-merge')(project)
   const collectionA = project.glob('content/**/*')
   const collectionB = project.glob('design/**/*')
-  const collection = Merge([ collectionA, collectionB ])
+  const collection = plugin([ collectionA, collectionB ])
 
-  return cb(collection, collectionA, collectionB)
+  return cb(project, collection, collectionA, collectionB)
 }
 
 Test('files should be merged', function(t) {
-
-  return setup(function(collection, collectionA, collectionB){
+  return setup(t, function(project, collection, collectionA, collectionB) {
+    const _ = project.utils
 
     return collection.update([
 

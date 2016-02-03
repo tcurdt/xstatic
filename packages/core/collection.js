@@ -5,7 +5,7 @@ const LazyPromise = require('./lazy')
 const Cache = require('./cache')
 const _ = require('./utils')
 
-function Collection(name, inputs, _options) {
+function Collection(name, inputs, defaults) {
 
   if (!Array.isArray(inputs)) {
     throw Error(`inputs to "${name}" needs to be an array`)
@@ -13,7 +13,7 @@ function Collection(name, inputs, _options) {
 
   const options =  _.merge({
     path: function(path) { return path }
-  }, _options)
+  }, defaults)
 
   const self = this
 

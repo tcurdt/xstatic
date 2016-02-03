@@ -5,17 +5,16 @@ const Crypto = require('crypto')
 const Moment = require('moment')
 const Url = require('url')
 
-module.exports = function(project) { return function(files, _options) {
+module.exports = function(project) { return function(files, defaults) {
 
   const _ = project.utils
-
   const options =  _.merge({
     sort: function(a, b) { return a.path < b.path },
     filename: 'feed.xml',
     url: project.options.url,
     title: project.options.title,
     author: project.options.author,
-  }, _options)
+  }, defaults)
 
   const collection = new project.collection('atom', [ files ], options)
 

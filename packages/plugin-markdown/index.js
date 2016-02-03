@@ -3,11 +3,10 @@
 const Marked = require('marked')
 const Highlight = require('highlight.js')
 
-const _ = require('../../utils')
-
-module.exports = function(project) { return function(files, _options) {
+module.exports = function(project) { return function(files, defaults) {
 
   const renderer = new Marked.Renderer()
+  const _ = project.utils
   const options =  _.merge({
     path: function(path) { return path.setExt('html') },
     marked: {
@@ -16,7 +15,7 @@ module.exports = function(project) { return function(files, _options) {
       },
       renderer: renderer
     }
-  }, _options)
+  }, defaults)
 
   const collection = new project.collection('markdown', [ files ], options)
 

@@ -4,13 +4,12 @@
 // const Readable = require('stream').Readable
 // const Concat = require('concat-stream')
 
-const _ = require('../../utils')
+module.exports = function(project) { return function(files, defaults) {
 
-module.exports = function(project) { return function(files, _options) {
-
+  const _ = project.utils
   const options = _.merge({
     filename: 'output.zip',
-  }, _options)
+  }, defaults)
 
   const collection = new project.collection('zip', [ files ], options)
 
