@@ -55,12 +55,24 @@ function Project(target, _options) {
     })
   }
 
+  function stats(path, cb) {
+    Fs.stat(path, function(err, stats) {
+      if (err === null) {
+        cb(stats)
+      } else if (err.code === 'ENOENT') {
+        cb(undefined)
+      } else {
+        throw err
+      }
+    })
+  }
+
   function modifyChange(change, collection) {
     return new Promise(function(resolve, reject) {
       // const cwd = process.cwd()
       // const src = Path.join(cwd, change.path)
       const dst = Path.join(target, change.path)
-      _.stats(dst, function(stats) {
+      stats(dst, function(stats) {
 
         const unmodified = stats && stats.mtime.getTime() === change.lmod
 

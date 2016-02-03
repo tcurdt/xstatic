@@ -5,6 +5,7 @@ const Test = require('blue-tape')
 const Type = require('../lib/enum').changes
 const _ = require('../lib/utils')
 
+
 function sortedByPath(arr) {
   arr.sort(function(a, b){
     return a.path > b.path
@@ -22,15 +23,15 @@ function filesFromChanges(array) {
 
 function setup() {
 
-  const Xstatic = require('../lib')
+  const Xstatic = require('@xstatic/core')
   const project = new Xstatic('build')
 
-  const Merge       = require('../lib/plugins/merge')(project)
-  const Template    = require('../lib/plugins/handlebars')(project)
-  const Markdown    = require('../lib/plugins/markdown')(project)
-  const Feed        = require('../lib/plugins/atom')(project)
-  const Sitemap     = require('../lib/plugins/sitemap')(project)
-  const Frontmatter = require('../lib/plugins/frontmatter')(project)
+  const Merge       = require('@xstatic/merge')(project)
+  const Template    = require('@xstatic/handlebars')(project)
+  const Markdown    = require('@xstatic/markdown')(project)
+  const Feed        = require('@xstatic/atom')(project)
+  const Sitemap     = require('@xstatic/sitemap')(project)
+  const Frontmatter = require('@xstatic/frontmatter')(project)
   const Glob = project.glob
 
   const posts  = Glob('content/posts/**/index.md')

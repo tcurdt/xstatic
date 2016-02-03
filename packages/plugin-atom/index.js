@@ -5,9 +5,9 @@ const Crypto = require('crypto')
 const Moment = require('moment')
 const Url = require('url')
 
-const _ = require('../../utils')
-
 module.exports = function(project) { return function(files, _options) {
+
+  const _ = project.utils
 
   const options =  _.merge({
     sort: function(a, b) { return a.path < b.path },

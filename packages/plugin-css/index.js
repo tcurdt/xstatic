@@ -2,11 +2,11 @@
 
 module.exports = function(project) {
 
-  const Merge = require('../merge')(project)
-  const Filter = require('../filter')(project)
-  const Less = require('../less')(project)
-  const Sass = require('../sass')(project)
-  // const Styl = require('../stylus')(project)
+  const Merge = require('@xstatic/merge')(project)
+  const Filter = require('@xstatic/filter')(project)
+  const Less = require('@xstatic/less')(project)
+  const Sass = require('@xstatic/sass')(project)
+  // const Styl = require('@xstatic/stylus')(project)
 
   return function(files, options) {
 

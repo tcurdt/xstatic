@@ -1,21 +1,23 @@
 'use strict'
 
-const Crypto = require('crypto')
-const Moment = require('moment')
-const Fs = require('fs')
+// const Crypto = require('crypto')
+// const Moment = require('moment')
+// const Fs = require('fs')
 const LazyPromise = require('./lazy')
 
-module.exports.stats = function(path, cb) {
-  Fs.stat(path, function(err, stats) {
-    if (err === null) {
-      cb(stats)
-    } else if (err.code === 'ENOENT') {
-      cb(undefined)
-    } else {
-      throw err
-    }
-  })
-}
+console.log('req', typeof LazyPromise)
+
+// module.exports.stats = function(path, cb) {
+//   Fs.stat(path, function(err, stats) {
+//     if (err === null) {
+//       cb(stats)
+//     } else if (err.code === 'ENOENT') {
+//       cb(undefined)
+//     } else {
+//       throw err
+//     }
+//   })
+// }
 
 module.exports.throw = function(msg) {
   throw new Error(msg)
@@ -30,10 +32,10 @@ module.exports.stripBasedir = function(basedir, s) {
   }
 }
 
-module.exports.pathJoin = function(a,b) {
-  // FIXME
-  return a + '/' + b
-}
+// module.exports.pathJoin = function(a,b) {
+//   // FIXME
+//   return a + '/' + b
+// }
 
 // // f81d4fae-7dec-11d0-a765-00a0c91e6bf6
 // module.exports.urn = function(s) {

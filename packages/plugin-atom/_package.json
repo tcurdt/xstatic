@@ -1,0 +1,10 @@
+{
+  "description" : "xstatic plugin to generate atom feeds",
+  "dependencies": {
+    "xmlbuilder": "4.2.x",
+    "moment": "2.11.x"
+  },
+  "devDependencies": {
+    "libxmljs": "0.17.x"
+  }
+}
