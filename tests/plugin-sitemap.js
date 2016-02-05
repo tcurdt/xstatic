@@ -1,8 +1,9 @@
 'use strict'
 
 const Test = require('blue-tape')
-const Xstatic = require('../packages/core')
-const Type = require('../packages/core/enum').changes
+const Xstatic = require('../packages/core/lib')
+const Type = require('../packages/core/lib/changes')
+const Lazy = require('../packages/core/lib/lazy')
 
 const Fs = require('fs')
 const Libxml = require('libxmljs')
@@ -19,20 +20,19 @@ function setup(t, cb) {
 
 Test('creates sitemap of all files', function(t) {
   return setup(t, function(project, collection) {
-    const _ = project.utils
 
     const changesIn = [
       {
         type: Type.A,
         lmod: 1445556599000,
         path: 'content/posts/2014/slug1/index.txt',
-        load: _.lazyLoad({ body: 'post1' }),
+        load: Lazy.load({ body: 'post1' }),
       },
       {
         type: Type.A,
         lmod: 1445556599000,
         path: 'content/posts/2015/slug1/index.txt',
-        load: _.lazyLoad({ body: 'post2' }),
+        load: Lazy.load({ body: 'post2' }),
       },
     ]
 

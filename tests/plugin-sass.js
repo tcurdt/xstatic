@@ -1,9 +1,9 @@
 'use strict'
 
 const Test = require('blue-tape')
-const Xstatic = require('../packages/core')
-
-const Type = require('../packages/core/enum').changes
+const Xstatic = require('../packages/core/lib')
+const Type = require('../packages/core/lib/changes')
+const Lazy = require('../packages/core/lib/lazy')
 
 function setup(t, cb) {
   const project = new Xstatic('build')
@@ -23,7 +23,7 @@ Test('converts scss to css', function(t) {
         type: Type.A,
         lmod: 1,
         path: 'design/styles/test.scss',
-        load: _.lazyLoad({
+        load: Lazy.load({
           path: 'design/styles/test.scss',
           body: '$color: black;\nh1 { color: $color }'
         }),
@@ -54,7 +54,7 @@ Test('imports', function(t) {
         type: Type.A,
         lmod: 1,
         path: 'design/styles/other.scss',
-        load: _.lazyLoad({
+        load: Lazy.load({
           path: 'design/styles/other.scss',
           body: 'h1 { color: black }'
         }),
@@ -63,7 +63,7 @@ Test('imports', function(t) {
         type: Type.A,
         lmod: 1,
         path: 'design/styles/test.scss',
-        load: _.lazyLoad({
+        load: Lazy.load({
           path: 'design/styles/test.scss',
           body: '@import "other.scss"'
         }),

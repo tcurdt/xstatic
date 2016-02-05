@@ -1,9 +1,9 @@
 'use strict'
 
 const Test = require('blue-tape')
-const Xstatic = require('../packages/core')
-
-const Type = require('../packages/core/enum').changes
+const Xstatic = require('../packages/core/lib')
+const Lazy = require('../packages/core/lib/lazy')
+const Type = require('../packages/core/lib/changes')
 
 function setup(t, cb) {
   const project = new Xstatic('build', {
@@ -18,11 +18,10 @@ function setup(t, cb) {
 
 Test('variable expansion from project, collection and document context', function(t) {
   return setup(t, function(project) {
-    const _ = project.utils
 
     const glob = project.glob
     const pages = glob('content/**/*.txt')
-    const plugin = require('../lib/plugins/handlebars')(project)
+    const plugin = require('../packages/plugin-handlebars')(project)
 
     const options = {
       context: { biffy: 'CLYRO' },
@@ -35,7 +34,7 @@ Test('variable expansion from project, collection and document context', functio
         type: Type.A,
         lmod: 1,
         path: 'content/page1.txt',
-        load: _.lazyLoad({ body: 'page1:{{site.title}}:{{foo}}:{{biffy}}', meta: { foo: 'FIGHTERS' }}),
+        load: Lazy.load({ body: 'page1:{{site.title}}:{{foo}}:{{biffy}}', meta: { foo: 'FIGHTERS' }}),
       },
 
     ]).then(function(changes1){
@@ -54,11 +53,10 @@ Test('variable expansion from project, collection and document context', functio
 
 Test('loading of partials', function(t) {
   return setup(t, function(project) {
-    const _ = project.utils
 
     const glob = project.glob
     const pages = glob('content/**/*.txt')
-    const plugin = require('../lib/plugins/handlebars')(project)
+    const plugin = require('../packages/plugin-handlebars')(project)
 
     const partials = glob('design/partials/**/*.txt')
     const options = {
@@ -72,13 +70,13 @@ Test('loading of partials', function(t) {
         type: Type.A,
         lmod: 1,
         path: 'design/partials/base.txt',
-        load: _.lazyLoad({ body: 'PARTIAL', path: 'design/partials/base.txt' }),
+        load: Lazy.load({ body: 'PARTIAL', path: 'design/partials/base.txt' }),
       },
       {
         type: Type.A,
         lmod: 1,
         path: 'content/page1.txt',
-        load: _.lazyLoad({ body: 'B:{{>base}}:E' }),
+        load: Lazy.load({ body: 'B:{{>base}}:E' }),
       },
 
     ]).then(function(changes1){
@@ -98,11 +96,10 @@ Test('loading of partials', function(t) {
 
 Test('use of custom helpers', function(t) {
   return setup(t, function(project) {
-    const _ = project.utils
 
     const glob = project.glob
     const pages = glob('content/**/*.txt')
-    const plugin = require('../lib/plugins/handlebars')(project)
+    const plugin = require('../packages/plugin-handlebars')(project)
 
     const options = {
       helpers: [
@@ -123,7 +120,7 @@ Test('use of custom helpers', function(t) {
         type: Type.A,
         lmod: 1,
         path: 'content/page1.txt',
-        load: _.lazyLoad({ body: '{{#foo}}{{/foo}}' }),
+        load: Lazy.load({ body: '{{#foo}}{{/foo}}' }),
       },
 
     ]).then(function(changes1){

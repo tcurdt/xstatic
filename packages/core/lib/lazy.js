@@ -1,5 +1,7 @@
 'use strict'
 
+const _ = require('@tcurdt/tinyutils')
+
 function LazyPromise(fn) {
 
   const self = this
@@ -14,9 +16,14 @@ function LazyPromise(fn) {
   }
 
   this.inspect = function() {
-    const _ = require('./utils') // FIXME
     return `{LazyPromise(${_.objectId(this)}):${this.isFulfilled}}`
   }
 }
 
 module.exports = LazyPromise
+
+module.exports.load = function(obj) {
+  return new LazyPromise(function(resolve, reject) {
+    resolve(obj)
+  })
+}

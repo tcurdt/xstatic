@@ -1,0 +1,13 @@
+{
+  "name": "@xstatic/frontmatter",
+  "description" : "xstatic plugin to convert markdown into html",
+  "dependencies": {
+    "front-matter": "^2.0.5"
+  },
+  "devDependencies": {
+    "@xstatic/core": "1.0.x"
+  },
+  "peerDependencies": {
+    "@xstatic/core": "1.0.x"
+  }
+}

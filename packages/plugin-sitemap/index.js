@@ -1,12 +1,14 @@
 'use strict'
 
+const Xstatic = require('@xstatic/core')
+
+const _ = require('@tcurdt/tinyutils')
 const Builder = require('xmlbuilder')
 const Moment = require('moment')
 const Url = require('url')
 
 module.exports = function(project) { return function(files, defaults) {
 
-  const _ = project.utils
   const options =  _.merge({
     sort: function(a, b) { return a.path < b.path },
     filename: 'sitemap.xml',
@@ -15,7 +17,7 @@ module.exports = function(project) { return function(files, defaults) {
     changefreq: 'weekly',
   }, defaults)
 
-  const collection = new project.collection('sitemap', [ files ], options)
+  const collection = new Xstatic.collection('sitemap', [ files ], options)
 
   function formatTimestamp(lmod) {
     return Moment(lmod).format('YYYY-MM-DDTHH:mm:ssZ')

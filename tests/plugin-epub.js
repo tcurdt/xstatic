@@ -1,16 +1,15 @@
 'use strict'
 
 const Test = require('blue-tape')
-
-const Type = require('../lib/enum').changes
-const _ = require('../lib/utils')
+const Xstatic = require('../packages/core/lib')
+const Type = require('../packages/core/lib/changes')
+const Lazy = require('../packages/core/lib/lazy')
 
 function setup(t) {
-  const Xstatic = require('../lib')
   const project = new Xstatic('build')
 
   const files = project.glob('content/**/*.txt')
-  const zip = require('../lib/plugins/zip')(project)
+  const zip = require('../packages/plugin-epub')(project)
 
   return zip(files,{ filename: 'output.zip' })
 }
@@ -23,13 +22,13 @@ Test('creates zip of all files', function(t) {
       type: Type.A,
       lmod: 1445556599000,
       path: 'content/posts/2014/slug1/index.txt',
-      load: _.lazyLoad({ body: 'post1' }),
+      load: Lazy.load({ body: 'post1' }),
     },
     {
       type: Type.A,
       lmod: 1445556599000,
       path: 'content/posts/2015/slug1/index.txt',
-      load: _.lazyLoad({ body: 'post2' }),
+      load: Lazy.load({ body: 'post2' }),
     },
   ]
 

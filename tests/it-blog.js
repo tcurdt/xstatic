@@ -2,18 +2,19 @@
 
 const Test = require('blue-tape')
 const Xstatic = require('../packages/core')
-const Type = require('../packages/core/enum').changes
+const Type = require('../packages/core/changes')
+const Lazy = require('../packages/core/lazy')
 
 function setup(t, cb) {
   const project = new Xstatic('build')
   const files = project.glob('content/**/*')
 
-  const Merge       = require('@xstatic/merge')(project)
-  const Template    = require('@xstatic/handlebars')(project)
-  const Markdown    = require('@xstatic/markdown')(project)
-  const Feed        = require('@xstatic/atom')(project)
-  const Sitemap     = require('@xstatic/sitemap')(project)
-  const Frontmatter = require('@xstatic/frontmatter')(project)
+  const Merge       = require('../packages/plugin-merge')(project)
+  const Template    = require('../packages/plugin-handlebars')(project)
+  const Markdown    = require('../packages/plugin-markdown')(project)
+  const Feed        = require('../packages/plugin-atom')(project)
+  const Sitemap     = require('../packages/plugin-sitemap')(project)
+  const Frontmatter = require('../packages/plugin-frontmatter')(project)
   const Glob = project.glob
 
   const posts  = Glob('content/posts/**/index.md')
@@ -53,27 +54,25 @@ function filesFromChanges(array) {
 
 function add(t) {
   return setup(t, function(project, collection) {
-    const _ = project.utils
-
     return collection.update([
 
       {
         type: Type.A,
         lmod: 1,
         path: 'content/posts/2014/slug1/index.md',
-        load: _.lazyLoad({ body: '---\ntitle: t2014\n---\ncontent' }),
+        load: Lazy.load({ body: '---\ntitle: t2014\n---\ncontent' }),
       },
       {
         type: Type.A,
         lmod: 1,
         path: 'content/posts/2015/slug1/index.md',
-        load: _.lazyLoad({ body: '---\ntitle: t2015\n---\ncontent' }),
+        load: Lazy.load({ body: '---\ntitle: t2015\n---\ncontent' }),
       },
       {
         type: Type.A,
         lmod: 1,
         path: 'design/templates/post.html',
-        load: _.lazyLoad({ body: 'content' }),
+        load: Lazy.load({ body: 'content' }),
       },
 
     ]).then(function(changes){
@@ -123,7 +122,7 @@ Test('updating a post updates the post page, feed and sitemap', function(t) {
         type: Type.M,
         lmod: 2,
         path: 'content/posts/2014/slug1/index.md',
-        load: _.lazyLoad({ body: 'content' }),
+        load: Lazy.load({ body: 'content' }),
       },
 
     ]).then(function(changes){
@@ -153,7 +152,7 @@ Test('updating the post template updates all post pages (but not the sitemap or 
         type: Type.M,
         lmod: 2,
         path: 'design/templates/post.html',
-        load: _.lazyLoad({ body: 'content' }),
+        load: Lazy.load({ body: 'content' }),
       },
 
     ]).then(function(changes){

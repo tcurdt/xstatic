@@ -1,5 +1,6 @@
 'use strict'
 
+const _ = require('@tcurdt/tinyutils')
 const BrowserSync = require('browser-sync')
 const Chokidar = require('chokidar')
 const Fs = require('fs')
@@ -7,16 +8,15 @@ const Path = require('path')
 const Mkdirp = require('mkdirp')
 
 const Glob = require('./glob')
-const Type = require('./enum').changes
-const _ = require('./utils')
+const Type = require('./changes')
 
 const ONCE = false
 const CONTINOUSLY = true
 
-function Project(target, _options) {
+function Project(target, defaults) {
 
   this.options =  _.merge({
-  }, _options)
+  }, defaults)
 
   function fileLink(change, stats, cb) {
     // const cwd = process.cwd()

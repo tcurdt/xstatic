@@ -1,0 +1,15 @@
+{
+  "name": "@xstatic/css",
+  "description" : "xstatic plugin to pre-process css",
+  "dependencies": {
+    "@xstatic/merge": "1.0.x",
+    "@xstatic/less": "1.0.x",
+    "@xstatic/sass": "1.0.x"
+  },
+  "devDependencies": {
+    "@xstatic/core": "1.0.x"
+  },
+  "peerDependencies": {
+    "@xstatic/core": "1.0.x"
+  }
+}

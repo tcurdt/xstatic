@@ -1,9 +1,9 @@
 'use strict'
 
 const Test = require('blue-tape')
-const Xstatic = require('../packages/core')
-
-const Type = require('../packages/core/enum').changes
+const Xstatic = require('../packages/core/lib')
+const Lazy = require('../packages/core/lib/lazy')
+const Type = require('../packages/core/lib/changes')
 
 function setup(t, cb) {
   const project = new Xstatic('build')
@@ -17,14 +17,12 @@ function setup(t, cb) {
 
 Test('converts less to css', function(t) {
   return setup(t, function(project, collection) {
-    const _ = project.utils
-
     return collection.update([
       {
         type: Type.A,
         lmod: 1,
         path: 'design/styles/test.less',
-        load: _.lazyLoad({ body: 'h1 { color: black }' }),
+        load: Lazy.load({ body: 'h1 { color: black }' }),
       },
     ]).then(function(changes1){
 
@@ -45,20 +43,18 @@ Test('converts less to css', function(t) {
 
 Test('imports', function(t) {
   return setup(t, function(project, collection) {
-    const _ = project.utils
-
     return collection.update([
       {
         type: Type.A,
         lmod: 1,
         path: 'design/styles/other.less',
-        load: _.lazyLoad({ body: 'h1 { color: black }' }),
+        load: Lazy.load({ body: 'h1 { color: black }' }),
       },
       {
         type: Type.A,
         lmod: 1,
         path: 'design/styles/test.less',
-        load: _.lazyLoad({ body: '@import "other.less";' }),
+        load: Lazy.load({ body: '@import "other.less";' }),
       },
     ]).then(function(changes1){
 

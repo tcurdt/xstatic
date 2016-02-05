@@ -1,10 +1,12 @@
 'use strict'
 
+const Xstatic = require('@xstatic/core')
+
+const _ = require('@tcurdt/tinyutils')
 const Babel = require('babel-core')
 
 module.exports = function(project) { return function(files, defaults) {
 
-  const _ = project.utils
   const options =  _.merge({
     path: function(path) { return path.setExt('js') },
     babel: {
@@ -16,7 +18,7 @@ module.exports = function(project) { return function(files, defaults) {
     }
   }, defaults)
 
-  const collection = new project.collection('babel', [ files ], options)
+  const collection = new Xstatic.collection('babel', [ files ], options)
 
   function babel(file) {
     return Babel.transform(file.body, _.merge({

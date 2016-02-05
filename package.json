@@ -1,54 +1,36 @@
 {
   "private": true,
-  "name": "@xstatic/build",
   "version": "1.0.1",
-  "description": "node based static site generator",
-  "author": "Torsten Curdt",
-  "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/tcurdt/xstatic.git"
-  },
-  "engines": {
-    "node": ">= 4.2.0"
-  },
-  "main": "index.js",
+  "name": "@xstatic/tests",
+  "description": "xstatic tests",
   "dependencies": {
-    "chokidar": "^1.4.2",
-    "minimatch": "^3.0.0",
-    "browser-sync": "^2.11.0",
-    "moment": "^2.11.0",
-    "mkdirp": "^0.5.1",
-    "xmlbuilder": "^4.2.0",
-    "front-matter": "^2.0.5",
-    "babel-core": "^6.4.0",
-    "babel-plugin-transform-react-jsx": "^6.4.0",
-    "marked": "^0.3.5",
-    "highlight.js": "^9.1.0",
-    "less": "^2.5.3",
-    "node-sass": "^3.3.3",
-    "nunjucks": "^2.3.0",
-    "handlebars": "^4.0.5",
-    "archiver": "^0.21.0"
+    "@xstatic/core": "file:packages/core",
+    "@xstatic/atom": "file:packages/plugin-atom",
+    "@xstatic/babel": "file:packages/plugin-babel",
+    "@xstatic/css": "file:packages/plugin-css",
+    "@xstatic/epub": "file:packages/plugin-epub",
+    "@xstatic/filter": "file:packages/plugin-filter",
+    "@xstatic/frontmatter": "file:packages/plugin-frontmatter",
+    "@xstatic/handlebars": "file:packages/plugin-handlebars",
+    "@xstatic/json": "file:packages/plugin-json",
+    "@xstatic/less": "file:packages/plugin-less",
+    "@xstatic/markdown": "file:packages/plugin-markdown",
+    "@xstatic/merge": "file:packages/plugin-merge",
+    "@xstatic/nunjucks": "file:packages/plugin-nunjucks",
+    "@xstatic/sass": "file:packages/plugin-sass",
+    "@xstatic/sitemap": "file:packages/plugin-sitemap"
   },
   "devDependencies": {
-    "tape": "^4.2.0",
-    "blue-tape": "^0.1.10",
-    "bluebird": "^3.1.1",
-    "libxmljs": "^0.17.0",
-    "istanbul": "^0.4.0",
-    "nyc": "^5.3.0",
+    "tape": "^4.4.0",
+    "blue-tape": "^0.1.11",
+    "libxmljs": "^0.17.1",
+    "istanbul": "^0.4.2",
+    "nyc": "^5.5.0",
     "faucet": "^0.0.1",
     "coveralls": "^2.11.6",
     "codecov.io": "^0.1.6",
     "codacy-coverage": "^1.1.3"
   },
-  "files": [
-    "LICENSE.txt",
-    "HISTORY.md",
-    "README.md",
-    "lib/"
-  ],
   "scripts": {
     "test": "istanbul test tape -- tests/*.js | faucet",
     "coverage": "npm_config_coverage=1 npm test && nyc report --reporter=text-lcov | cat",
@@ -56,14 +38,5 @@
     "coverage-upload-coveralls": "test -f ./coverage/lcov.info && cat ./coverage/lcov.info | coveralls",
     "coverage-upload-codecov": "test -f ./coverage/lcov.info && cat ./coverage/lcov.info | codecov",
     "coverage-upload-codacy": "test -f ./coverage/lcov.info && cat ./coverage/lcov.info | codacy-coverage"
-  },
-  "unused": {
-    "stylus": "^0.52.4",
-    "swig": "^1.4.2",
-    "parse5": "^1.5.0",
-    "shrthnd": "^0.0.6",
-    "webpack": "^1.12.2",
-    "browserify": "^12.0.1",
-    "through2": "^2.0.0"
   }
 }

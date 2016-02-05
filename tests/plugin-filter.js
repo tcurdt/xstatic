@@ -1,9 +1,9 @@
 'use strict'
 
 const Test = require('blue-tape')
-const Xstatic = require('../packages/core')
-
-const Type = require('../packages/core/enum').changes
+const Xstatic = require('../packages/core/lib')
+const Lazy = require('../packages/core/lib/lazy')
+const Type = require('../packages/core/lib/changes')
 
 function setup(t, cb) {
   const project = new Xstatic('build')
@@ -17,21 +17,19 @@ function setup(t, cb) {
 
 Test('should only pass on matching files', function(t) {
   return setup(t, function(project, collection) {
-    const _ = project.utils
-
     return collection.update([
 
       {
         type: Type.A,
         lmod: 1,
         path: 'content/posts/2014/slug1/index.md',
-        load: _.lazyLoad({ body: 'content' }),
+        load: Lazy.load({ body: 'content' }),
       },
       {
         type: Type.A,
         lmod: 1,
         path: 'design/styles/site.css',
-        load: _.lazyLoad({ body: 'content' }),
+        load: Lazy.load({ body: 'content' }),
       },
 
     ]).then(function(changes){

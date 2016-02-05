@@ -1,5 +1,8 @@
 'use strict'
 
+const Xstatic = require('@xstatic/core')
+
+const _ = require('@tcurdt/tinyutils')
 const Builder = require('xmlbuilder')
 const Crypto = require('crypto')
 const Moment = require('moment')
@@ -7,7 +10,6 @@ const Url = require('url')
 
 module.exports = function(project) { return function(files, defaults) {
 
-  const _ = project.utils
   const options =  _.merge({
     sort: function(a, b) { return a.path < b.path },
     filename: 'feed.xml',
@@ -16,7 +18,7 @@ module.exports = function(project) { return function(files, defaults) {
     author: project.options.author,
   }, defaults)
 
-  const collection = new project.collection('atom', [ files ], options)
+  const collection = new Xstatic.collection('atom', [ files ], options)
 
   // urn:uuid:f81d4fae-7dec-11d0-a765-00a0c91e6bf6
   function urn(s) {

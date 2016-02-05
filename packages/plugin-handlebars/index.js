@@ -1,13 +1,13 @@
 'use strict'
 
-const Handlebars = require('handlebars')
-const Path = require('path')
+const Xstatic = require('@xstatic/core')
 
-const Context = require('../../context')
+const _ = require('@tcurdt/tinyutils')
+const Path = require('path')
+const Handlebars = require('handlebars')
 
 module.exports = function(project) { return function(files, defaults) {
 
-  const _ = project.utils
   const options =  _.merge({
     partials: undefined,
     layouts: undefined,
@@ -30,10 +30,12 @@ module.exports = function(project) { return function(files, defaults) {
   }, defaults)
 
   function deps(f) {
-    return [ f, options.partials, options.layouts ].concat(Context.collections(options.context)).filter(function(d){ return d != null })
+    return [ f, options.partials, options.layouts ]
+    .concat(Xstatic.context.collections(options.context))
+    .filter(function(d) { return d != null })
   }
 
-  const collection = new project.collection('template', deps(files), options)
+  const collection = new Xstatic.collection('template', deps(files), options)
 
   function setup() {
     const handlebars = Handlebars.create()
@@ -82,8 +84,8 @@ module.exports = function(project) { return function(files, defaults) {
   collection.onChange = function(create) {
 
     const engine = setup()
-    const contextPromise = Context.load(options.context, function(docs) {
-      return docs.map(function(doc) { return _.renderContext(project, null, doc, null, null) })
+    const contextPromise = Xstatic.context.load(options.context, function(docs) {
+      return docs.map(function(doc) { return Xstatic.context.renderContext(project, null, doc, null, null) })
     })
 
     const cache = {}
@@ -93,7 +95,7 @@ module.exports = function(project) { return function(files, defaults) {
 
         // render page
         const pagePromise = doc.body ? engine.then(precompile(doc))
-          .then(render(_.renderContext(project, context, doc)))
+          .then(render(Xstatic.context.renderContext(project, context, doc)))
           : Promise.resolve(doc.json)
 
         const layout = (doc.meta && doc.meta.layout) || options.layout
@@ -108,7 +110,7 @@ module.exports = function(project) { return function(files, defaults) {
 
           // pass page to template
           return pagePromise.then(function(page) {
-            return templatePromise.then(render(_.renderContext(project, context, doc, {
+            return templatePromise.then(render(Xstatic.context.renderContext(project, context, doc, {
               content: page
             })))
           })

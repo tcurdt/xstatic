@@ -1,13 +1,13 @@
 'use strict'
 
+const _ = require('@tcurdt/tinyutils')
 const Minimatch = require('minimatch')
 const Path = require('path')
 const Fs = require('fs')
 
 const LazyPromise = require('./lazy')
+const Change = require('./changes')
 const Cache = require('./cache')
-const Type = require('./enum').changes
-const _ = require('./utils')
 
 function Glob(pattern, defaults) {
 
@@ -44,7 +44,7 @@ function Glob(pattern, defaults) {
         const pathRel = _.stripBasedir(options.basedir, change.path)
         const pathAbs = Path.join(cwd, change.path)
 
-        if (change.type === Type.D) {
+        if (change.type === Change.D) {
 
           out(self.del(pathRel, change.lmod))
 

@@ -1,15 +1,14 @@
 'use strict'
 
-const PathChange = require('./path-change')
+const _ = require('@tcurdt/tinyutils')
+const FilePath = require('@tcurdt/filepath')
+
 const LazyPromise = require('./lazy')
 const Cache = require('./cache')
-const _ = require('./utils')
 
 function Collection(name, inputs, defaults) {
 
-  if (!Array.isArray(inputs)) {
-    throw Error(`inputs to "${name}" needs to be an array`)
-  }
+  Array.isArray(inputs) || _.throw(`inputs to "${name}" needs to be an array`)
 
   const options =  _.merge({
     path: function(path) { return path }
@@ -39,7 +38,6 @@ function Collection(name, inputs, defaults) {
 
     const changesOut = []
 
-    // push if there is something to push
     function out(what) {
       if (what) {
         changesOut.push(what)
@@ -50,8 +48,8 @@ function Collection(name, inputs, defaults) {
 
     return Promise.resolve(self.onChange(function(path, load, dependencies) {
 
-      const filePath = options.path(new PathChange(path)).toString()
-      const fileLmod = _.max(dependencies.map(function(input){ return input.lmod }))
+      const filePath = options.path(new FilePath(path)).toString()
+      const fileLmod = _.max(dependencies.map(function(input) { return input.lmod }))
 
       const file = {
         path: filePath,
@@ -62,7 +60,6 @@ function Collection(name, inputs, defaults) {
               path: filePath,
               lmod: fileLmod,
             })
-            // console.log(file.path, Object.keys(d))
             resolve(d)
           }).catch(function(err) {
             reject(err)
@@ -76,13 +73,13 @@ function Collection(name, inputs, defaults) {
 
     })).then(function() {
 
-      const depsLmod = _.max(inputs.map(function(input){ return input.lmod }))
+      const depsLmod = _.max(inputs.map(function(input) { return input.lmod }))
       removed.forEach(function(path) {
         out(self.del(path, depsLmod))
       })
 
       self.load = new LazyPromise(function(resolve, reject) {
-        Promise.all(self.map(function(file){ return file.load })).then(function(docs){
+        Promise.all(self.map(function(file){ return file.load })).then(function(docs) {
           resolve(docs)
         })
       })

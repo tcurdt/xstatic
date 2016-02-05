@@ -1,29 +1,29 @@
 'use strict'
 
 const Test = require('blue-tape')
-const Xstatic = require('../packages/core')
-const Type = require('../packages/core/enum').changes
+const Xstatic = require('../packages/core/lib')
+const Change = require('../packages/core/lib/changes')
 
 function setup(t, cb) {
   const project = new Xstatic('build')
   const files = project.glob('content/**/*')
-  const plugin = require('../packages/plugin-merge')(project)
+  const merge = require('../packages/plugin-merge')(project)
   t.equal(files.lmod, undefined)
-  const collection = plugin([ files ])
+  const collection = merge([ files ])
 
   return cb(project, collection)
 }
 
 
 function sortedByPath(arr) {
-  arr.sort(function(a, b){
+  arr.sort(function(a, b) {
     return a.path > b.path
   })
   return arr
 }
 
 function filesFromCollection(array) {
-  return array.map(function(file){ return { lmod: file.lmod, path: file.path }})
+  return array.map(function(file) { return { lmod: file.lmod, path: file.path }})
 }
 
 function filesFromChanges(array) {
@@ -36,7 +36,7 @@ Test('ignore unmatched', function(t) {
     return collection.update([
 
       {
-        type: Type.A,
+        type: Change.A,
         lmod: 1,
         path: 'other/index.md',
       },
@@ -57,7 +57,7 @@ function add(t) {
     return collection.update([
 
       {
-        type: Type.A,
+        type: Change.A,
         lmod: 1,
         path: 'content/posts/2014/slug1/index.md',
       },
@@ -79,7 +79,7 @@ function add(t) {
 
         {
           path: 'content/posts/2014/slug1/index.md',
-          type: Type.A,
+          type: Change.A,
           lmod: 1,
         },
 
@@ -99,12 +99,12 @@ Test('add existing without modification', function(t) {
     return collection.update([
 
       {
-        type: Type.A,
+        type: Change.A,
         lmod: 1,
         path: 'content/posts/2014/slug1/index.md',
       },
 
-    ]).then(function(changes){
+    ]).then(function(changes) {
 
       t.equal(collection.lmod, 1)
 
@@ -128,7 +128,7 @@ Test('add existing with modification', function(t) {
     return collection.update([
 
       {
-        type: Type.A,
+        type: Change.A,
         lmod: 2,
         path: 'content/posts/2014/slug1/index.md',
       },
@@ -147,7 +147,7 @@ Test('add existing with modification', function(t) {
       t.deepEqual(sortedByPath(filesFromChanges(changes)), sortedByPath([
         {
           path: 'content/posts/2014/slug1/index.md',
-          type: Type.M,
+          type: Change.M,
           lmod: 2,
         },
       ]))
@@ -157,14 +157,14 @@ Test('add existing with modification', function(t) {
 })
 
 Test('modified existing', function(t) {
-  return add(t).then(function(collection){
+  return add(t).then(function(collection) {
     return collection.update([
       {
-        type: Type.M,
+        type: Change.M,
         lmod: 2,
         path: 'content/posts/2014/slug1/index.md',
       },
-    ]).then(function(changes){
+    ]).then(function(changes) {
 
       t.equal(collection.lmod, 2)
 
@@ -178,7 +178,7 @@ Test('modified existing', function(t) {
       t.deepEqual(sortedByPath(filesFromChanges(changes)), sortedByPath([
         {
           path: 'content/posts/2014/slug1/index.md',
-          type: Type.M,
+          type: Change.M,
           lmod: 2,
         },
       ]))
@@ -188,15 +188,15 @@ Test('modified existing', function(t) {
 })
 
 Test('modified non-existing', function(t) {
-  return add(t).then(function(collection){
+  return add(t).then(function(collection) {
     return collection.update([
       {
-        type: Type.M,
+        type: Change.M,
         lmod: 1,
         path: 'content/test',
       },
 
-    ]).then(function(changes){
+    ]).then(function(changes) {
 
       t.equal(collection.lmod, 1)
 
@@ -214,7 +214,7 @@ Test('modified non-existing', function(t) {
       t.deepEqual(sortedByPath(filesFromChanges(changes)), sortedByPath([
         {
           path: 'content/test',
-          type: Type.A,
+          type: Change.A,
           lmod: 1,
         },
       ]))
@@ -224,16 +224,16 @@ Test('modified non-existing', function(t) {
 })
 
 Test('delete existing', function(t) {
-  return add(t).then(function(collection){
+  return add(t).then(function(collection) {
     return collection.update([
 
       {
-        type: Type.D,
+        type: Change.D,
         lmod: 2,
         path: 'content/posts/2014/slug1/index.md',
       },
 
-    ]).then(function(changes){
+    ]).then(function(changes) {
 
       t.equal(collection.lmod, 2)
 
@@ -244,7 +244,7 @@ Test('delete existing', function(t) {
 
         {
           path: 'content/posts/2014/slug1/index.md',
-          type: Type.D,
+          type: Change.D,
           lmod: 2,
         },
 
@@ -259,12 +259,12 @@ Test('delete non-existing', function(t) {
     return collection.update([
 
       {
-        type: Type.D,
+        type: Change.D,
         lmod: 2,
         path: 'content/foo.md',
       },
 
-    ]).then(function(changes){
+    ]).then(function(changes) {
 
       t.equal(collection.lmod, undefined)
 

@@ -1,17 +1,17 @@
 'use strict'
 
 const Test = require('blue-tape')
-const Xstatic = require('../packages/core')
+const Xstatic = require('../packages/core/lib')
+const Change = require('../packages/core/lib/changes')
+const Lazy = require('../packages/core/lib/lazy')
 
 const Fs = require('fs')
 const Libxml = require('libxmljs')
 
-const Type = require('../packages/core/enum').changes
-
 function setup(t, cb) {
   const project = new Xstatic('build')
   const files = project.glob('content/**/*.txt')
-  const feed = require('../packages/plugin-atom')(project)
+  const feed = require('@xstatic/atom')(project)
   const collection = feed(files, {
     url: 'http://localhost',
     title: 'test title',
@@ -23,15 +23,13 @@ function setup(t, cb) {
 
 Test('creates feed of all posts', function(t) {
   return setup(t, function(project, collection) {
-    const _ = project.utils
-
     return collection.update([
 
       {
-        type: Type.A,
+        type: Change.A,
         lmod: 1445556599000,
         path: 'content/posts/2014/slug1/index.txt',
-        load: _.lazyLoad({
+        load: Lazy.load({
           meta: { title: 'title post1' },
           lmod: 1445556599000,
           path: 'content/posts/2014/slug1/index.txt',
@@ -39,10 +37,10 @@ Test('creates feed of all posts', function(t) {
         }),
       },
       {
-        type: Type.A,
+        type: Change.A,
         lmod: 1445556599000 - 60*1000,
         path: 'content/posts/2015/slug1/index.txt',
-        load: _.lazyLoad({
+        load: Lazy.load({
           meta: { title: 'title post2' },
           lmod: 1445556599000 - 60*1000,
           path: 'content/posts/2015/slug1/index.txt',
@@ -59,8 +57,6 @@ Test('creates feed of all posts', function(t) {
       t.ok(file, 'exists')
 
       return file.load.then(function(f){
-
-        // console.log(f.body)
 
         t.doesNotThrow(function(){
 

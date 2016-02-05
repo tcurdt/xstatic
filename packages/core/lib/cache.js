@@ -1,7 +1,8 @@
 'use strict'
 
-const Type = require('./enum').changes
-const _ = require('./utils')
+const _ = require('@tcurdt/tinyutils')
+
+const Change = require('./changes')
 
 function Cache(target) {
 
@@ -20,7 +21,7 @@ function Cache(target) {
     if (file) {
       update(lmod)
       return  _.merge(file, {
-        type: Type.D,
+        type: Change.D,
         lmod: lmod,
       })
     } else {
@@ -29,14 +30,13 @@ function Cache(target) {
   }
 
   target.set = function(fileNew) {
-    // console.log('SET', fileNew.path, _.objectId(fileNew))
     const fileOld = cache.get(fileNew.path)
     if (fileOld) {
       if (fileNew.lmod !== fileOld.lmod) {
         cache.set(fileNew.path, fileNew)
         update(fileNew.lmod)
         return  _.merge(fileNew, {
-          type: Type.M,
+          type: Change.M,
         })
       } else {
         return undefined
@@ -45,7 +45,7 @@ function Cache(target) {
       cache.set(fileNew.path, fileNew)
       update(fileNew.lmod)
       return  _.merge(fileNew, {
-        type: Type.A,
+        type: Change.A,
       })
     }
   }

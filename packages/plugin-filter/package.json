@@ -1,0 +1,21 @@
+{
+  "version": "1.0.2",
+  "description": "xstatic plugin to filter files based on patterns",
+  "author": "Torsten Curdt",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tcurdt/xstatic.git"
+  },
+  "engines": {
+    "node": ">= 4.2.0"
+  },
+  "name": "@xstatic/filter",
+  "dependencies": {},
+  "devDependencies": {
+    "@xstatic/core": "1.0.x"
+  },
+  "peerDependencies": {
+    "@xstatic/core": "1.0.x"
+  }
+}

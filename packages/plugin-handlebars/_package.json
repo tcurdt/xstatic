@@ -1,0 +1,13 @@
+{
+  "name": "@xstatic/handlebars",
+  "description" : "xstatic plugin to apply handlebars templates",
+  "dependencies": {
+    "handlebars": "^4.0.5"
+  },
+  "devDependencies": {
+    "@xstatic/core": "1.0.x"
+  },
+  "peerDependencies": {
+    "@xstatic/core": "1.0.x"
+  }
+}

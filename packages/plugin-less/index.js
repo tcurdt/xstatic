@@ -1,11 +1,13 @@
 'use strict'
 
-const Less = require('less')
+const Xstatic = require('@xstatic/core')
+
+const _ = require('@tcurdt/tinyutils')
 const Path = require('path')
+const Less = require('less')
 
 module.exports = function(project) { return function(files, defaults) {
 
-  const _ = project.utils
   const options =  _.merge({
     path: function(path) { return path.setExt('css') },
     less: {
@@ -15,7 +17,7 @@ module.exports = function(project) { return function(files, defaults) {
     }
   }, defaults)
 
-  const collection = new project.collection('less', [ files ], options)
+  const collection = new Xstatic.collection('less', [ files ], options)
 
   function less(file, doc, resolver) {
     return Less.render(doc.body.toString(), _.merge(options.less, {

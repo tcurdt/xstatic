@@ -1,10 +1,12 @@
 'use strict'
 
+const Xstatic = require('@xstatic/core')
+
 const Minimatch = require('minimatch')
 
 module.exports = function(project) { return function(pattern, collections, options) {
 
-  const collection = new project.collection('filter-' + pattern, collections, options)
+  const collection = new Xstatic.collection('filter-' + pattern, collections, options)
 
   collection.onChange = function(create) {
     const inputs = Array.prototype.concat.apply([], collections)

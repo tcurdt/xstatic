@@ -1,8 +1,10 @@
 'use strict'
 
+const Xstatic = require('@xstatic/core')
+
 module.exports = function(project) { return function(collections, options) {
 
-  const collection = new project.collection('merge', collections, options)
+  const collection = new Xstatic.collection('merge', collections, options)
 
   collection.onChange = function(create) {
 

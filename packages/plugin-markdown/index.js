@@ -1,12 +1,14 @@
 'use strict'
 
+const Xstatic = require('@xstatic/core')
+
+const _ = require('@tcurdt/tinyutils')
 const Marked = require('marked')
 const Highlight = require('highlight.js')
 
 module.exports = function(project) { return function(files, defaults) {
 
   const renderer = new Marked.Renderer()
-  const _ = project.utils
   const options =  _.merge({
     path: function(path) { return path.setExt('html') },
     marked: {
@@ -17,7 +19,7 @@ module.exports = function(project) { return function(files, defaults) {
     }
   }, defaults)
 
-  const collection = new project.collection('markdown', [ files ], options)
+  const collection = new Xstatic.collection('markdown', [ files ], options)
 
   function markdown(doc) {
     return new Promise(function(resolve, reject) {

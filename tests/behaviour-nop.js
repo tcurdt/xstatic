@@ -1,8 +1,9 @@
 'use strict'
 
 const Test = require('blue-tape')
-const Xstatic = require('../packages/core')
-const Type = require('../packages/core/enum').changes
+const Xstatic = require('../packages/core/lib')
+const Change = require('../packages/core/lib/changes')
+const Lazy = require('../packages/core/lib/lazy')
 
 function setup(t, cb) {
   const project = new Xstatic('build')
@@ -11,16 +12,15 @@ function setup(t, cb) {
 
 Test('files should just be copied', function(t) {
   return setup(t, function(project) {
-    const _ = project.utils
     const collection = project.glob('content/posts/**/index.md')
 
     return collection.update([
 
       {
-        type: Type.A,
+        type: Change.A,
         lmod: 1,
         path: 'content/posts/2014/slug1/index.md',
-        load: _.lazyLoad({ body: 'content' }),
+        load: Lazy.load({ body: 'content' }),
       },
 
     ]).then(function(changes){
@@ -31,25 +31,21 @@ Test('files should just be copied', function(t) {
       })
 
     })
-
   })
 })
 
-
 Test('files should just be copied - even when going through merge', function(t) {
   return setup(t, function(project) {
-    const _ = project.utils
-
     const merge = require('../packages/plugin-merge')(project)
     const collection = merge([ project.glob('content/posts/**/index.md') ])
 
     return collection.update([
 
       {
-        type: Type.A,
+        type: Change.A,
         lmod: 1,
         path: 'content/posts/2014/slug1/index.md',
-        load: _.lazyLoad({ body: 'content' }),
+        load: Lazy.load({ body: 'content' }),
       },
 
     ]).then(function(changes){
@@ -61,6 +57,5 @@ Test('files should just be copied - even when going through merge', function(t) 
       })
 
     })
-
   })
 })

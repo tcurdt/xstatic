@@ -1,18 +1,18 @@
 'use strict'
 
 const Test = require('blue-tape')
-
-const Type = require('../lib/enum').changes
-const _ = require('../lib/utils')
+const Xstatic = require('../packages/core/lib')
+const Lazy = require('../packages/core/lib/lazy')
+const Type = require('../packages/core/lib/changes')
+const _ = require('@tcurdt/tinyutils')
 
 function setup(t, options) {
-  const Xstatic = require('../lib')
   const project = new Xstatic('build')
   const glob = project.glob
 
   const posts = glob('content/**/*.txt')
   const layouts = glob('design/templates/*.tpl', { basedir: 'design/templates' })
-  const plugin = require('../lib/plugins/nunjucks')(project)
+  const plugin = require('../packages/plugin-nunjucks')(project)
 
   return plugin(posts, _.merge({
     layouts: layouts,
@@ -29,13 +29,13 @@ Test('meta overrides layout', function(t) {
       type: Type.A,
       lmod: 1,
       path: 'content/posts/2014/slug1/index.txt',
-      load: _.lazyLoad({ body: 'post1', meta:{ layout: 'page.tpl' }}),
+      load: Lazy.load({ body: 'post1', meta:{ layout: 'page.tpl' }}),
     },
     {
       type: Type.A,
       lmod: 1,
       path: 'design/templates/page.tpl',
-      load: _.lazyLoad({ body: 'PAGE:{{ content|safe }}' }),
+      load: Lazy.load({ body: 'PAGE:{{ content|safe }}' }),
     },
 
   ]).then(function(changes1){
@@ -63,19 +63,19 @@ Test('applies layout to all posts', function(t) {
       type: Type.A,
       lmod: 1,
       path: 'content/posts/2014/slug1/index.txt',
-      load: _.lazyLoad({ body: 'post1' }),
+      load: Lazy.load({ body: 'post1' }),
     },
     {
       type: Type.A,
       lmod: 1,
       path: 'content/posts/2015/slug1/index.txt',
-      load: _.lazyLoad({ body: 'post2' }),
+      load: Lazy.load({ body: 'post2' }),
     },
     {
       type: Type.A,
       lmod: 1,
       path: 'design/templates/post.tpl',
-      load: _.lazyLoad({ body: 'POST:{{ content|safe }}' }),
+      load: Lazy.load({ body: 'POST:{{ content|safe }}' }),
     },
 
   ]).then(function(changes1){
@@ -110,7 +110,7 @@ Test('applies without layout', function(t) {
       type: Type.A,
       lmod: 1,
       path: 'content/index.txt',
-      load: _.lazyLoad({ body: 'PAGE:{{title}}', meta: { title: 'TITLE' }}),
+      load: Lazy.load({ body: 'PAGE:{{title}}', meta: { title: 'TITLE' }}),
     },
 
   ]).then(function(changes1){
@@ -138,13 +138,13 @@ Test('resolves extends', function(t) {
       type: Type.A,
       lmod: 1,
       path: 'content/index.txt',
-      load: _.lazyLoad({ body: '{% extends \'base.tpl\' %}{% block content %}CHILD{% endblock %}' }),
+      load: Lazy.load({ body: '{% extends \'base.tpl\' %}{% block content %}CHILD{% endblock %}' }),
     },
     {
       type: Type.A,
       lmod: 1,
       path: 'design/templates/base.tpl',
-      load: _.lazyLoad({ body: 'PARENT:{% block content %}{% endblock %}' }),
+      load: Lazy.load({ body: 'PARENT:{% block content %}{% endblock %}' }),
     },
 
   ]).then(function(changes1){
@@ -172,13 +172,13 @@ Test('resolves includes', function(t) {
       type: Type.A,
       lmod: 1,
       path: 'content/index.txt',
-      load: _.lazyLoad({ body: '{% include "partial.tpl" %}' }),
+      load: Lazy.load({ body: '{% include "partial.tpl" %}' }),
     },
     {
       type: Type.A,
       lmod: 1,
       path: 'design/templates/partial.tpl',
-      load: _.lazyLoad({ body: 'PARTIAL' }),
+      load: Lazy.load({ body: 'PARTIAL' }),
     },
 
   ]).then(function(changes1){
@@ -206,7 +206,7 @@ Test('report errors', function(t) {
       type: Type.A,
       lmod: 1,
       path: 'content/index.txt',
-      load: _.lazyLoad({ body: '{{ a | b }}' }),
+      load: Lazy.load({ body: '{{ a | b }}' }),
     },
 
   ]).then(function(changes1){

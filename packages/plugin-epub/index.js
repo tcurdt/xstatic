@@ -1,17 +1,19 @@
 'use strict'
 
+const Xstatic = require('@xstatic/core')
+const _ = require('@tcurdt/tinyutils')
+
 // const Archiver = require('archiver')
 // const Readable = require('stream').Readable
 // const Concat = require('concat-stream')
 
 module.exports = function(project) { return function(files, defaults) {
 
-  const _ = project.utils
   const options = _.merge({
     filename: 'output.zip',
   }, defaults)
 
-  const collection = new project.collection('zip', [ files ], options)
+  const collection = new Xstatic.collection('zip', [ files ], options)
 
   collection.onChange = function(create) {
 

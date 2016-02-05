@@ -1,18 +1,20 @@
 'use strict'
 
-const Sass = require('node-sass')
+const Xstatic = require('@xstatic/core')
+
+const _ = require('@tcurdt/tinyutils')
 const Path = require('path')
+const Sass = require('node-sass')
 
 module.exports = function(project) { return function(files, defaults) {
 
-  const _ = project.utils
   const options =  _.merge({
     path: function(path) { return path.setExt('css') },
     sass: {
     }
   }, defaults)
 
-  const collection = new project.collection('sass', [ files ], options)
+  const collection = new Xstatic.collection('sass', [ files ], options)
 
   function sass(doc) {
     const pathParent = Path.resolve(doc.path)

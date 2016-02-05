@@ -1,0 +1,12 @@
+{
+  "name": "@xstatic/json",
+  "description" : "xstatic plugin to parse json files",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@xstatic/core": "1.0.x"
+  },
+  "peerDependencies": {
+    "@xstatic/core": "1.0.x"
+  }
+}

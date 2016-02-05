@@ -1,8 +1,10 @@
 'use strict'
 
+const Xstatic = require('@xstatic/core')
+
 module.exports = function(project) { return function(files, options) {
 
-  const collection = new project.collection('json', [ files ], options)
+  const collection = new Xstatic.collection('json', [ files ], options)
 
   function parse(file) {
     const json = JSON.parse(file.body)
