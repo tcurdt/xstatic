@@ -1,0 +1,17 @@
+{
+  "peerDependencies": {
+    "@xstatic/core": "1.0.x"
+  },
+  "devDependencies": {
+    "@xstatic/core": "file:../../core",
+    "tape": "4.4.0",
+    "blue-tape": "0.2.0",
+    "istanbul": "0.4.2",
+    "nyc": "5.5.0",
+    "faucet": "0.0.1"
+  },
+  "scripts": {
+    "test": "istanbul test tape -- tests/*.js | faucet",
+    "coverage": "nyc --reporter=text npm test | cat"
+  }
+}

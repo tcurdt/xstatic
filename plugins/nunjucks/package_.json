@@ -1,0 +1,14 @@
+{
+  "name": "@xstatic/nunjucks",
+  "version": "1.0.0",
+  "description" : "xstatic plugin to apply nunjucks templates",
+  "dependencies": {
+    "nunjucks": "2.3.0"
+  },
+  "devDependencies": {
+    "@xstatic/core": "1.0.0"
+  },
+  "peerDependencies": {
+    "@xstatic/core": "1.0.x"
+  }
+}

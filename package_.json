@@ -1,0 +1,11 @@
+{
+  "author": "Torsten Curdt",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tcurdt/xstatic.git"
+  },
+  "engines": {
+    "node": ">= 4.2.0"
+  }
+}

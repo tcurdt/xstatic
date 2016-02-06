@@ -1,0 +1,14 @@
+{
+  "name": "@xstatic/epub",
+  "version": "1.0.0",
+  "description" : "xstatic plugin to generate epub files",
+  "dependencies": {
+    "archiver": "0.21.0"
+  },
+  "devDependencies": {
+    "@xstatic/core": "1.0.0"
+  },
+  "peerDependencies": {
+    "@xstatic/core": "1.0.x"
+  }
+}
