@@ -60,7 +60,7 @@ Test('creates feed of all posts', function(t) {
 
         t.doesNotThrow(function(){
 
-          const xsd = Fs.readFileSync('./tests/atom.xsd').toString()
+          const xsd = Fs.readFileSync(__dirname + '/atom.xsd').toString()
           const xsdDoc = Libxml.parseXml(xsd)
           const xmlDoc = Libxml.parseXml(f.body)
           const valid = xmlDoc.validate(xsdDoc)

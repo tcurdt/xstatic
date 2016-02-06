@@ -52,7 +52,7 @@ Test('creates sitemap of all files', function(t) {
 
         t.doesNotThrow(function(){
 
-          const xsd = Fs.readFileSync('./tests/sitemap.xsd').toString()
+          const xsd = Fs.readFileSync(__dirname + '/sitemap.xsd').toString()
           const xsdDoc = Libxml.parseXml(xsd)
           const xmlDoc = Libxml.parseXml(f.body)
           const valid = xmlDoc.validate(xsdDoc)

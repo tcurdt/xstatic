@@ -28,8 +28,7 @@
     "faucet": "0.0.1",
     "coveralls": "2.11.6",
     "codecov.io": "0.1.6",
-    "codacy-coverage": "1.1.3",
-    "libxmljs": "0.17.1"
+    "codacy-coverage": "1.1.3"
   },
   "scripts": {
     "test": "istanbul test tape -- tests/*.js | faucet",
