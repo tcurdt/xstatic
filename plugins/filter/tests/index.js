@@ -1,14 +1,14 @@
 'use strict'
 
 const Test = require('blue-tape')
-const Xstatic = require('../packages/core/lib')
-const Lazy = require('../packages/core/lib/lazy')
-const Type = require('../packages/core/lib/changes')
+const Xstatic = require('@xstatic/core')
+const Lazy = Xstatic.lazy
+const Change = Xstatic.changes
 
 function setup(t, cb) {
   const project = new Xstatic('build')
   const files = project.glob('content/**/*.js')
-  const filter = require('../packages/plugin-filter')(project)
+  const filter = require('../lib')(project)
   const collection = filter('**/*.md', [ project.glob('content/**/*') ])
 
   return cb(project, collection)
@@ -20,13 +20,13 @@ Test('should only pass on matching files', function(t) {
     return collection.update([
 
       {
-        type: Type.A,
+        type: Change.A,
         lmod: 1,
         path: 'content/posts/2014/slug1/index.md',
         load: Lazy.load({ body: 'content' }),
       },
       {
-        type: Type.A,
+        type: Change.A,
         lmod: 1,
         path: 'design/styles/site.css',
         load: Lazy.load({ body: 'content' }),

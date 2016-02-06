@@ -1,13 +1,14 @@
 'use strict'
 
 const Test = require('blue-tape')
-const Xstatic = require('../packages/core/lib')
-const Change = require('../packages/core/lib/changes')
+const Xstatic = require('@Xstatic/core')
+const Lazy = Xstatic.lazy
+const Change = Xstatic.changes
 
 function setup(t, cb) {
   const project = new Xstatic('build')
   const files = project.glob('content/**/*')
-  const merge = require('../packages/plugin-merge')(project)
+  const merge = require('@xstatic/merge')(project)
   t.equal(files.lmod, undefined)
   const collection = merge([ files ])
 

@@ -27,6 +27,7 @@
   "version": "1.0.0",
   "description": "xstatic plugin to pre-process css",
   "dependencies": {
+    "@xstatic/filter": "1.0.0",
     "@xstatic/merge": "1.0.0",
     "@xstatic/less": "1.0.0",
     "@xstatic/sass": "1.0.0"

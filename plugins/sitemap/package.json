@@ -17,7 +17,8 @@
     "blue-tape": "0.2.0",
     "istanbul": "0.4.2",
     "nyc": "5.5.0",
-    "faucet": "0.0.1"
+    "faucet": "0.0.1",
+    "libxmljs": "^0.17.1"
   },
   "scripts": {
     "test": "istanbul test tape -- tests/*.js | faucet",

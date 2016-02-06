@@ -1,9 +1,9 @@
 'use strict'
 
 const Test = require('blue-tape')
-const Xstatic = require('../packages/core/lib')
-const Change = require('../packages/core/lib/changes')
-const Lazy = require('../packages/core/lib/lazy')
+const Xstatic = require('@xstatic/core')
+const Change = Xstatic.changes
+const Lazy = Xstatic.lazy
 
 const Fs = require('fs')
 const Libxml = require('libxmljs')
@@ -11,7 +11,7 @@ const Libxml = require('libxmljs')
 function setup(t, cb) {
   const project = new Xstatic('build')
   const files = project.glob('content/**/*.txt')
-  const feed = require('@xstatic/atom')(project)
+  const feed = require('../lib')(project)
   const collection = feed(files, {
     url: 'http://localhost',
     title: 'test title',
@@ -60,7 +60,7 @@ Test('creates feed of all posts', function(t) {
 
         t.doesNotThrow(function(){
 
-          const xsd = Fs.readFileSync('./tests/plugin-atom.xsd').toString()
+          const xsd = Fs.readFileSync('./tests/atom.xsd').toString()
           const xsdDoc = Libxml.parseXml(xsd)
           const xmlDoc = Libxml.parseXml(f.body)
           const valid = xmlDoc.validate(xsdDoc)

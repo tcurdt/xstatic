@@ -1,14 +1,14 @@
 'use strict'
 
 const Test = require('blue-tape')
-const Xstatic = require('../packages/core/lib')
-const Type = require('../packages/core/lib/changes')
-const Lazy = require('../packages/core/lib/lazy')
+const Xstatic = require('@xstatic/core')
+const Change = Xstatic.changes
+const Lazy = Xstatic.lazy
 
 function setup(t, cb) {
   const project = new Xstatic('build')
   const files = project.glob('content/**/*.js')
-  const plugin = require('../packages/plugin-babel')(project)
+  const plugin = require('../lib')(project)
   const collection = plugin(files)
 
   return cb(project, collection)
@@ -19,7 +19,7 @@ Test('compiles jsx to js', function(t) {
 
     return collection.update([
       {
-        type: Type.A,
+        type: Change.A,
         lmod: 1,
         path: 'content/test.js',
         load: Lazy.load({ body: 'const doc = <div>JSX</div>' }),

@@ -1,14 +1,14 @@
 'use strict'
 
 const Test = require('blue-tape')
-const Xstatic = require('../packages/core/lib')
-const Lazy = require('../packages/core/lib/lazy')
-const Type = require('../packages/core/lib/changes')
+const Xstatic = require('@xstatic/core')
+const Change = Xstatic.changes
+const Lazy = Xstatic.lazy
 
 function setup(t, cb) {
   const project = new Xstatic('build')
   const files = project.glob('design/**/*.less')
-  const plugin = require('../packages/plugin-less')(project)
+  const plugin = require('../lib')(project)
   const collection = plugin(files)
 
   return cb(project, collection)
@@ -19,7 +19,7 @@ Test('converts less to css', function(t) {
   return setup(t, function(project, collection) {
     return collection.update([
       {
-        type: Type.A,
+        type: Change.A,
         lmod: 1,
         path: 'design/styles/test.less',
         load: Lazy.load({ body: 'h1 { color: black }' }),
@@ -45,13 +45,13 @@ Test('imports', function(t) {
   return setup(t, function(project, collection) {
     return collection.update([
       {
-        type: Type.A,
+        type: Change.A,
         lmod: 1,
         path: 'design/styles/other.less',
         load: Lazy.load({ body: 'h1 { color: black }' }),
       },
       {
-        type: Type.A,
+        type: Change.A,
         lmod: 1,
         path: 'design/styles/test.less',
         load: Lazy.load({ body: '@import "other.less";' }),
