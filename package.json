@@ -40,7 +40,7 @@
     "@xstatic/sitemap": "file:plugins/sitemap"
   },
   "scripts": {
-    "test": "istanbul test tape -v -x '**/tests/**' -- tests/*.js core/tests/*.js plugins/*/tests/*.js | faucet",
+    "test": "istanbul test tape -- tests/*.js core/tests/*.js plugins/*/tests/*.js | faucet",
     "coverage": "nyc --reporter=lcov --reporter=text npm test | cat",
     "coverage-upload": "npm run coverage-upload-coveralls && npm run coverage-upload-codecov && npm run coverage-upload-codacy",
     "coverage-upload-coveralls": "test -f ./coverage/lcov.info && cat ./coverage/lcov.info | coveralls",
