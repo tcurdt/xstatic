@@ -10,6 +10,9 @@
     "nyc": "5.5.0",
     "faucet": "0.0.1"
   },
+  "files": [
+    "lib/"
+  ],
   "scripts": {
     "test": "istanbul test tape -- tests/*.js | faucet",
     "coverage": "nyc --reporter=text npm test | cat"

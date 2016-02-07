@@ -20,6 +20,9 @@
     "faucet": "0.0.1",
     "libxmljs": "0.17.0"
   },
+  "files": [
+    "lib/"
+  ],
   "scripts": {
     "test": "istanbul test tape -- tests/*.js | faucet",
     "coverage": "nyc --reporter=text npm test | cat"
