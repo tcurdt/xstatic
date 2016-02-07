@@ -1,4 +1,5 @@
 {
+  "version": "1.0.0",
   "author": "Torsten Curdt",
   "license": "Apache-2.0",
   "repository": {
@@ -27,7 +28,6 @@
     "coverage": "nyc --reporter=text npm test | cat"
   },
   "name": "@xstatic/handlebars",
-  "version": "1.0.0",
   "description": "xstatic plugin to apply handlebars templates",
   "dependencies": {
     "handlebars": "4.0.5"

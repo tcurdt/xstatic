@@ -1,15 +1,8 @@
 {
   "name": "@xstatic/babel",
-  "version": "1.0.0",
   "description" : "xstatic plugin to process js files with babel",
   "dependencies": {
     "babel-core": "6.4.0",
     "babel-plugin-transform-react-jsx": "6.4.0"
-  },
-  "devDependencies": {
-    "@xstatic/core": "1.0.0"
-  },
-  "peerDependencies": {
-    "@xstatic/core": "1.0.x"
   }
 }

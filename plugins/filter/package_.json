@@ -1,13 +1,4 @@
 {
   "name": "@xstatic/filter",
-  "version": "1.0.0",
-  "description" : "xstatic plugin to filter files based on patterns",
-  "dependencies": {
-  },
-  "devDependencies": {
-    "@xstatic/core": "1.0.0"
-  },
-  "peerDependencies": {
-    "@xstatic/core": "1.0.x"
-  }
+  "description" : "xstatic plugin to filter files based on patterns"
 }

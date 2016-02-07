@@ -1,6 +1,5 @@
 {
   "name": "@xstatic/core",
-  "version": "1.0.0",
   "dependencies": {
     "chokidar": "1.4.2",
     "minimatch": "3.0.0",
@@ -9,13 +8,6 @@
     "browser-sync": "2.11.1",
     "@tcurdt/filepath": "1.0.0",
     "@tcurdt/tinyutils": "1.0.0"
-  },
-  "devDependencies": {
-    "tape": "4.4.0",
-    "blue-tape": "0.2.0",
-    "istanbul": "0.4.2",
-    "nyc": "5.5.0",
-    "faucet": "0.0.1"
   },
   "main": "lib/index.js",
   "files": [

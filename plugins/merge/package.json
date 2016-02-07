@@ -1,4 +1,5 @@
 {
+  "version": "1.0.0",
   "author": "Torsten Curdt",
   "license": "Apache-2.0",
   "repository": {
@@ -12,7 +13,7 @@
     "@xstatic/core": "1.0.x"
   },
   "devDependencies": {
-    "@xstatic/core": "1.0.0",
+    "@xstatic/core": "file:../../core",
     "tape": "4.4.0",
     "blue-tape": "0.2.0",
     "istanbul": "0.4.2",
@@ -27,7 +28,5 @@
     "coverage": "nyc --reporter=text npm test | cat"
   },
   "name": "@xstatic/merge",
-  "version": "1.0.0",
-  "description": "xstatic plugin to merge collections",
-  "dependencies": {}
+  "description": "xstatic plugin to merge collections"
 }
