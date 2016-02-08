@@ -13,7 +13,10 @@ addons:
     - g++-4.8
 before_install:
   - $CXX --version
-  - case ${TRAVIS_NODE_VERSION} in 0.8*|0.10*) npm install -g npm@2 ;; esac
+  - npm install -g npm@'>=2.7'
 after_success:
   - ls -la
   - npm run coverage-upload
+
+
+before_install:
