@@ -1,6 +1,6 @@
 'use strict'
 
-const Xstatic = require('@xstatic/core')
+const Xstatic = require('xstatic-core')
 const _ = require('@tcurdt/tinyutils')
 
 // const Archiver = require('archiver')

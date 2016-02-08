@@ -10,10 +10,10 @@
     "node": ">= 4.2.0"
   },
   "peerDependencies": {
-    "@xstatic/core": "1.0.x"
+    "xstatic-core": "1.0.x"
   },
   "devDependencies": {
-    "@xstatic/core": "1.0.0",
+    "xstatic-core": "1.0.0",
     "tape": "4.4.0",
     "blue-tape": "0.2.0",
     "istanbul": "0.4.2",
@@ -27,7 +27,7 @@
     "test": "istanbul test tape -- tests/*.js | faucet",
     "coverage": "nyc --reporter=text npm test | cat"
   },
-  "name": "@xstatic/babel",
+  "name": "xstatic-babel",
   "description": "xstatic plugin to process js files with babel",
   "dependencies": {
     "babel-core": "6.4.0",

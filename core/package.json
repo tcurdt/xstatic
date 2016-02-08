@@ -16,7 +16,7 @@
     "nyc": "5.5.0",
     "faucet": "0.0.1"
   },
-  "name": "@xstatic/core",
+  "name": "xstatic-core",
   "dependencies": {
     "chokidar": "1.4.2",
     "minimatch": "3.0.0",

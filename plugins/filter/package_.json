@@ -1,4 +1,4 @@
 {
-  "name": "@xstatic/filter",
+  "name": "xstatic-filter",
   "description" : "xstatic plugin to filter files based on patterns"
 }

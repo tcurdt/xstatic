@@ -1,5 +1,5 @@
 {
-  "name": "@xstatic/nunjucks",
+  "name": "xstatic-nunjucks",
   "description" : "xstatic plugin to apply nunjucks templates",
   "dependencies": {
     "nunjucks": "2.3.0"

@@ -1,4 +1,4 @@
 {
-  "name": "@xstatic/json",
+  "name": "xstatic-json",
   "description" : "xstatic plugin to parse json files"
 }

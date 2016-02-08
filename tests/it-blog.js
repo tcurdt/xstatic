@@ -1,7 +1,7 @@
 'use strict'
 
 const Test = require('blue-tape')
-const Xstatic = require('@xstatic/core')
+const Xstatic = require('xstatic-core')
 const Lazy = Xstatic.lazy
 const Change = Xstatic.changes
 
@@ -9,12 +9,12 @@ function setup(t, cb) {
   const project = new Xstatic('build')
   const files = project.glob('content/**/*')
 
-  const Merge       = require('@xstatic/merge')(project)
-  const Template    = require('@xstatic/handlebars')(project)
-  const Markdown    = require('@xstatic/markdown')(project)
-  const Feed        = require('@xstatic/atom')(project)
-  const Sitemap     = require('@xstatic/sitemap')(project)
-  const Frontmatter = require('@xstatic/frontmatter')(project)
+  const Merge       = require('xstatic-merge')(project)
+  const Template    = require('xstatic-handlebars')(project)
+  const Markdown    = require('xstatic-markdown')(project)
+  const Feed        = require('xstatic-atom')(project)
+  const Sitemap     = require('xstatic-sitemap')(project)
+  const Frontmatter = require('xstatic-frontmatter')(project)
   const Glob = project.glob
 
   const posts  = Glob('content/posts/**/index.md')

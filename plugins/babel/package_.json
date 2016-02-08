@@ -1,5 +1,5 @@
 {
-  "name": "@xstatic/babel",
+  "name": "xstatic-babel",
   "description" : "xstatic plugin to process js files with babel",
   "dependencies": {
     "babel-core": "6.4.0",

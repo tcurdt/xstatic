@@ -1,5 +1,5 @@
 {
-  "name": "@xstatic/epub",
+  "name": "xstatic-epub",
   "description" : "xstatic plugin to generate epub files",
   "dependencies": {
     "archiver": "0.21.0"

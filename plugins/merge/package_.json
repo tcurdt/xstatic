@@ -1,5 +1,5 @@
 {
-  "name": "@xstatic/merge",
+  "name": "xstatic-merge",
   "version": "1.0.0",
   "description" : "xstatic plugin to merge collections"
 }

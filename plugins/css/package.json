@@ -10,10 +10,10 @@
     "node": ">= 4.2.0"
   },
   "peerDependencies": {
-    "@xstatic/core": "1.0.x"
+    "xstatic-core": "1.0.x"
   },
   "devDependencies": {
-    "@xstatic/core": "1.0.0",
+    "xstatic-core": "1.0.0",
     "tape": "4.4.0",
     "blue-tape": "0.2.0",
     "istanbul": "0.4.2",
@@ -27,12 +27,12 @@
     "test": "istanbul test tape -- tests/*.js | faucet",
     "coverage": "nyc --reporter=text npm test | cat"
   },
-  "name": "@xstatic/css",
+  "name": "xstatic-css",
   "description": "xstatic plugin to pre-process css",
   "dependencies": {
-    "@xstatic/filter": "1.0.0",
-    "@xstatic/merge": "1.0.0",
-    "@xstatic/less": "1.0.0",
-    "@xstatic/sass": "1.0.0"
+    "xstatic-filter": "1.0.0",
+    "xstatic-merge": "1.0.0",
+    "xstatic-less": "1.0.0",
+    "xstatic-sass": "1.0.0"
   }
 }

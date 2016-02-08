@@ -1,6 +1,6 @@
 'use strict'
 
-const Xstatic = require('@xstatic/core')
+const Xstatic = require('xstatic-core')
 
 module.exports = function(project) { return function(files, options) {
 

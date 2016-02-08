@@ -1,5 +1,5 @@
 {
-  "name": "@xstatic/sitemap",
+  "name": "xstatic-sitemap",
   "version": "1.0.0",
   "description" : "xstatic plugin to generate sitemap",
   "dependencies": {

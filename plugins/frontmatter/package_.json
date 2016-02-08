@@ -1,5 +1,5 @@
 {
-  "name": "@xstatic/frontmatter",
+  "name": "xstatic-frontmatter",
   "description" : "xstatic plugin to extract frontmatter",
   "dependencies": {
     "front-matter": "2.0.5"

@@ -1,7 +1,7 @@
 'use strict'
 
 const Test = require('blue-tape')
-const Xstatic = require('@xstatic/core')
+const Xstatic = require('xstatic-core')
 const Change = Xstatic.changes
 const Lazy = Xstatic.lazy
 

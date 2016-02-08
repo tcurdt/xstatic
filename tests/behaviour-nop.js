@@ -1,7 +1,7 @@
 'use strict'
 
 const Test = require('blue-tape')
-const Xstatic = require('@xstatic/core')
+const Xstatic = require('xstatic-core')
 const Lazy = Xstatic.lazy
 const Change = Xstatic.changes
 
@@ -36,7 +36,7 @@ Test('files should just be copied', function(t) {
 
 Test('files should just be copied - even when going through merge', function(t) {
   return setup(t, function(project) {
-    const merge = require('@xstatic/merge')(project)
+    const merge = require('xstatic-merge')(project)
     const collection = merge([ project.glob('content/posts/**/index.md') ])
 
     return collection.update([
