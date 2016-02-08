@@ -57,19 +57,19 @@ function add(t) {
     return collection.update([
 
       {
-        type: Type.A,
+        type: Change.A,
         lmod: 1,
         path: 'content/posts/2014/slug1/index.md',
         load: Lazy.load({ body: '---\ntitle: t2014\n---\ncontent' }),
       },
       {
-        type: Type.A,
+        type: Change.A,
         lmod: 1,
         path: 'content/posts/2015/slug1/index.md',
         load: Lazy.load({ body: '---\ntitle: t2015\n---\ncontent' }),
       },
       {
-        type: Type.A,
+        type: Change.A,
         lmod: 1,
         path: 'design/templates/post.html',
         load: Lazy.load({ body: 'content' }),
@@ -85,10 +85,10 @@ function add(t) {
       ]))
 
       t.deepEqual(sortedByPath(filesFromChanges(changes)), sortedByPath([
-        { type: Type.A, lmod: 1, path: 'content/posts/2014/slug1/index.html' },
-        { type: Type.A, lmod: 1, path: 'content/posts/2015/slug1/index.html' },
-        { type: Type.A, lmod: 1, path: 'feed.xml' },
-        { type: Type.A, lmod: 1, path: 'sitemap.xml' },
+        { type: Change.A, lmod: 1, path: 'content/posts/2014/slug1/index.html' },
+        { type: Change.A, lmod: 1, path: 'content/posts/2015/slug1/index.html' },
+        { type: Change.A, lmod: 1, path: 'feed.xml' },
+        { type: Change.A, lmod: 1, path: 'sitemap.xml' },
       ]))
 
       return Promise.all([
@@ -119,7 +119,7 @@ Test('updating a post updates the post page, feed and sitemap', function(t) {
     return collection.update([
 
       {
-        type: Type.M,
+        type: Change.M,
         lmod: 2,
         path: 'content/posts/2014/slug1/index.md',
         load: Lazy.load({ body: 'content' }),
@@ -135,9 +135,9 @@ Test('updating a post updates the post page, feed and sitemap', function(t) {
       ]), 'content')
 
       t.deepEqual(sortedByPath(filesFromChanges(changes)), sortedByPath([
-        { type: Type.M, lmod: 2, path: 'content/posts/2014/slug1/index.html' },
-        { type: Type.M, lmod: 2, path: 'feed.xml' },
-        { type: Type.M, lmod: 2, path: 'sitemap.xml' },
+        { type: Change.M, lmod: 2, path: 'content/posts/2014/slug1/index.html' },
+        { type: Change.M, lmod: 2, path: 'feed.xml' },
+        { type: Change.M, lmod: 2, path: 'sitemap.xml' },
       ]), 'changes')
 
     })
@@ -149,7 +149,7 @@ Test('updating the post template updates all post pages (but not the sitemap or 
     return collection.update([
 
       {
-        type: Type.M,
+        type: Change.M,
         lmod: 2,
         path: 'design/templates/post.html',
         load: Lazy.load({ body: 'content' }),
@@ -165,8 +165,8 @@ Test('updating the post template updates all post pages (but not the sitemap or 
       ]), 'content')
 
       t.deepEqual(sortedByPath(filesFromChanges(changes)), sortedByPath([
-        { type: Type.M, lmod: 2, path: 'content/posts/2014/slug1/index.html' },
-        { type: Type.M, lmod: 2, path: 'content/posts/2015/slug1/index.html' },
+        { type: Change.M, lmod: 2, path: 'content/posts/2014/slug1/index.html' },
+        { type: Change.M, lmod: 2, path: 'content/posts/2015/slug1/index.html' },
       ]), 'changes')
 
     })
@@ -176,10 +176,10 @@ Test('updating the post template updates all post pages (but not the sitemap or 
 Test('deleting a post deletes the post page and updates feed and sitemap', function(t) {
   return add(t).then(function(collection){
     return collection.update([
-      { type: Type.D, lmod: 2, path: 'content/posts/2014/slug1/index.md' },
+      { type: Change.D, lmod: 2, path: 'content/posts/2014/slug1/index.md' },
 
       {
-        type: Type.D,
+        type: Change.D,
         lmod: 2,
         path: 'content/posts/2014/slug1/index.md',
       },
@@ -193,9 +193,9 @@ Test('deleting a post deletes the post page and updates feed and sitemap', funct
       ]), 'content')
 
       t.deepEqual(sortedByPath(filesFromChanges(changes)), sortedByPath([
-        { type: Type.D, lmod: 2, path: 'content/posts/2014/slug1/index.html' },
-        { type: Type.M, lmod: 2, path: 'feed.xml' },
-        { type: Type.M, lmod: 2, path: 'sitemap.xml' },
+        { type: Change.D, lmod: 2, path: 'content/posts/2014/slug1/index.html' },
+        { type: Change.M, lmod: 2, path: 'feed.xml' },
+        { type: Change.M, lmod: 2, path: 'sitemap.xml' },
       ]), 'changes')
 
     })
