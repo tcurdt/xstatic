@@ -1,7 +1,7 @@
 'use strict'
 
 const Test = require('blue-tape')
-const Xstatic = require('@Xstatic/core')
+const Xstatic = require('xstatic-core')
 const Lazy = Xstatic.lazy
 const Change = Xstatic.changes
 const _ = require('@tcurdt/tinyutils')
