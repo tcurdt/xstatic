@@ -22,6 +22,8 @@ function Glob(pattern, defaults) {
     return `{glob:${pattern}, files:${self.length}, lmod:${self.lmod}}`
   }
 
+  this.load = Promise.resolve([])
+
   function createPromise(changesUmatched) {
 
     const changes = (changesUmatched || []).filter(function(change, i) {

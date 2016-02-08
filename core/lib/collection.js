@@ -22,6 +22,8 @@ function Collection(name, inputs, defaults) {
     return `{collection:${name}, files:${self.length}, lmod:${self.lmod}}`
   }
 
+  this.load = Promise.resolve([])
+
   function updateDependencies(changes) {
     return Promise.all(inputs.map(function(input) {
       return input.update(changes || [])

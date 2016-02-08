@@ -44,7 +44,7 @@ module.exports = function(project) { return function(files, defaults) {
     // load custom helpers
     // e.g. https://github.com/shannonmoeller/handlebars-layouts
     options.helpers.forEach(function(helper) {
-      handlebars.registerHelper(helper(handlebars))
+      helper(handlebars)
     })
 
     if (options.partials) {
