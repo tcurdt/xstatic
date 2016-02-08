@@ -1,11 +1,11 @@
 'use strict'
 
-const xs = require('../../lib')
-const project = new xs('build')
+const Xstatic = require('xstatic-core')
+const project = new Xstatic('build')
 
-const Babel = require('../../lib/plugins/babel')(project)
-const Merge = require('../../lib/plugins/merge')(project)
-const Filter = require('../../lib/plugins/filter')(project)
+const Babel = require('xstatic-babel')(project)
+const Merge = require('xstatic-merge')(project)
+const Filter = require('xstatic-filter')(project)
 const Glob = project.glob
 
 const html = Glob('html/**/*.html', { basedir: 'html' })

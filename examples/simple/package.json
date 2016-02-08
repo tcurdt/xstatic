@@ -1,0 +1,10 @@
+{
+  "main": "build.js",
+  "dependencies": {
+    "xstatic-core": "1.0.3",
+    "xstatic-frontmatter": "1.0.3",
+    "xstatic-handlebars": "1.0.3",
+    "xstatic-merge": "1.0.3",
+    "xstatic-css": "1.0.3"
+  }
+}

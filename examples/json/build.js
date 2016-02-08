@@ -1,13 +1,13 @@
 'use strict'
 
-const Xstatic = require('../../lib')
+const Xstatic = require('xstatic-core')
 const project = new Xstatic('build')
 
-const Merge = require('../../lib/plugins/merge')(project)
-const Filter = require('../../lib/plugins/filter')(project)
-const Sitemap = require('../../lib/plugins/sitemap')(project)
-const Template = require('../../lib/plugins/handlebars')(project)
-const Parser = require('../../lib/plugins/json')(project)
+const Merge = require('xstatic-merge')(project)
+const Filter = require('xstatic-filter')(project)
+const Sitemap = require('xstatic-sitemap')(project)
+const Template = require('xstatic-handlebars')(project)
+const Parser = require('xstatic-json')(project)
 const Glob = project.glob
 
 const layouts = Glob('design/layouts/*.html', { basedir: 'design/layouts' })
