@@ -17,6 +17,3 @@ before_install:
 after_success:
   - ls -la
   - npm run coverage-upload
-
-
-before_install:
