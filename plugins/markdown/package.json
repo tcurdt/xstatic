@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Torsten Curdt",
   "license": "Apache-2.0",
   "repository": {
@@ -20,6 +20,7 @@
     "nyc": "5.5.0",
     "faucet": "0.0.1"
   },
+  "main": "lib/index.js",
   "files": [
     "lib/"
   ],

@@ -1,15 +1,15 @@
 'use strict'
 
-const Xstatic = require('../../lib')
+const Xstatic = require('xstatic-core')
 const project = new Xstatic('build', {
   title: 'TITLE'
 })
 
 const Glob = project.glob
-const Frontmatter = require('../../lib/plugins/frontmatter')(project)
-const Template = require('../../lib/plugins/handlebars')(project)
-const Merge = require('../../lib/plugins/merge')(project)
-const Css = require('../../lib/plugins/css')(project)
+const Frontmatter = require('xstatic-frontmatter')(project)
+const Template = require('xstatic-handlebars')(project)
+const Merge = require('xstatic-merge')(project)
+const Css = require('xstatic-css')(project)
 
 const css = Css(Glob('design/assets/**/*', { basedir: 'design/assets' }))
 const pages = Frontmatter(Glob('pages/*.html', { basedir: 'pages' }))
