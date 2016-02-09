@@ -79,6 +79,7 @@ module.exports.renderContext = function(project, options, doc, other) {
     { site: project.options },
     options || {},
     doc.meta,
+    (doc.body && { body: doc.body }) || {},
     (doc.json && { json: doc.json }) || {},
     { file: { path: doc.path, lmod: doc.lmod }},
     other || {}
