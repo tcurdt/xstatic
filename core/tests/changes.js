@@ -8,9 +8,8 @@ const Change = Xstatic.changes
 function setup(t, cb) {
   const project = new Xstatic('build')
   const files = project.glob('content/**/*')
-  const merge = require('xstatic-merge')(project)
   t.equal(files.lmod, undefined)
-  const collection = merge([ files ])
+  const collection = files
 
   return cb(project, collection)
 }
