@@ -1,9 +1,9 @@
 'use strict'
 
 const Test = require('blue-tape')
-const Xstatic = require('xstatic-core')
-const Lazy = Xstatic.lazy
-const Change = Xstatic.changes
+const Xstatic = require('../lib')
+const Lazy = require('../lib/lazy')
+const Change = require('../lib/changes')
 
 function setup(t, cb) {
   const project = new Xstatic('build')

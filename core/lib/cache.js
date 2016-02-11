@@ -90,6 +90,8 @@ function Cache(target) {
   target.values = function() {
     return Array.from(cache.values())
   }
+
+  return target
 }
 
 module.exports = Cache
