@@ -104,11 +104,9 @@ Test('use of custom helpers', function(t) {
     const options = {
       helpers: [
         function(handlebars) {
-          return {
-            foo: function() {
-              return 'FIGHTERS'
-            }
-          }
+          handlebars.registerHelper('foo', function() {
+            return 'FIGHTERS'
+          })
         }
       ]
     }
