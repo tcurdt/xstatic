@@ -1,276 +1,270 @@
 'use strict'
 
 const Test = require('blue-tape')
-const Xstatic = require('../lib')
-const Lazy = require('../lib/lazy')
 const Change = require('../lib/changes')
 
-function setup(t, cb) {
-  const project = new Xstatic('build')
-  const files = project.glob('content/**/*')
-  t.equal(files.lmod, undefined)
-  const collection = files
+const FILES = 'files should match'
+const CHANGES = 'changes should match'
 
-  return cb(project, collection)
-}
+module.exports = function(setup) {
 
+  function fileFilter(array) {
+    return array.map(function(file) { return {
+      path: file.path,
+      lmod: file.lmod,
+    }})
+  }
 
-function sortedByPath(arr) {
-  arr.sort(function(a, b) {
-    return a.path > b.path
-  })
-  return arr
-}
+  function changeFilter(array) {
+    return array.map(function(change) { return {
+      type: change.type,
+      path: change.path,
+      lmod: change.lmod,
+    }})
+  }
 
-function filesFromCollection(array) {
-  return array.map(function(file) { return { lmod: file.lmod, path: file.path }})
-}
-
-function filesFromChanges(array) {
-  return array.map(function(change){ return { lmod: change.lmod, path: change.path, type: change.type }})
-}
-
-
-Test('ignore unmatched', function(t) {
-  return setup(t, function(project, collection) {
-    return collection.update([
-
-      {
-        type: Change.A,
-        lmod: 1,
-        path: 'other/index.md',
-      },
-
-    ]).then(function(changes){
-
-      t.equal(collection.lmod, undefined)
-
-      t.equal(changes.length, 0)
-      t.equal(collection.length, 0)
-
-    })
-  })
-})
-
-function add(t) {
-  return setup(t, function(project, collection) {
-    return collection.update([
-
-      {
-        type: Change.A,
-        lmod: 1,
-        path: 'content/posts/2014/slug1/index.md',
-      },
-
-    ]).then(function(changes){
-
-      t.equal(collection.lmod, 1)
-
-      t.deepEqual(sortedByPath(filesFromCollection(collection)), sortedByPath([
+  Test('ignore unmatched', function(t) {
+    return setup(t, function(collection) {
+      return collection.update([
 
         {
-          path: 'content/posts/2014/slug1/index.md',
-          lmod: 1,
-        },
-
-      ]))
-
-      t.deepEqual(sortedByPath(filesFromChanges(changes)), sortedByPath([
-
-        {
-          path: 'content/posts/2014/slug1/index.md',
           type: Change.A,
           lmod: 1,
+          path: 'other/index.md',
         },
 
-      ]))
+      ]).then(function(changes){
 
-      return collection
+        t.equal(changes.length, 0, 'no changes')
+        t.equal(collection.length, 0, 'no files')
+        t.equal(collection.lmod, undefined, 'no lmod')
+
+      })
     })
   })
-}
 
-Test('add non-existing', function(t) {
-  return add(t)
-})
-
-Test('add existing without modification', function(t) {
-  return add(t).then(function(collection){
-    return collection.update([
-
-      {
-        type: Change.A,
-        lmod: 1,
-        path: 'content/posts/2014/slug1/index.md',
-      },
-
-    ]).then(function(changes) {
-
-      t.equal(collection.lmod, 1)
-
-      t.deepEqual(sortedByPath(filesFromCollection(collection)), sortedByPath([
+  function add(t) {
+    return setup(t, function(collection) {
+      return collection.update([
 
         {
-          path: 'content/posts/2014/slug1/index.md',
-          lmod: 1,
-        },
-
-      ]))
-
-      t.equal(changes.length, 0)
-
-    })
-  })
-})
-
-Test('add existing with modification', function(t) {
-  return add(t).then(function(collection){
-    return collection.update([
-
-      {
-        type: Change.A,
-        lmod: 2,
-        path: 'content/posts/2014/slug1/index.md',
-      },
-
-    ]).then(function(changes){
-
-      t.equal(collection.lmod, 2)
-
-      t.deepEqual(sortedByPath(filesFromCollection(collection)), sortedByPath([
-        {
-          path: 'content/posts/2014/slug1/index.md',
-          lmod: 2,
-        },
-      ]))
-
-      t.deepEqual(sortedByPath(filesFromChanges(changes)), sortedByPath([
-        {
-          path: 'content/posts/2014/slug1/index.md',
-          type: Change.M,
-          lmod: 2,
-        },
-      ]))
-
-    })
-  })
-})
-
-Test('modified existing', function(t) {
-  return add(t).then(function(collection) {
-    return collection.update([
-      {
-        type: Change.M,
-        lmod: 2,
-        path: 'content/posts/2014/slug1/index.md',
-      },
-    ]).then(function(changes) {
-
-      t.equal(collection.lmod, 2)
-
-      t.deepEqual(sortedByPath(filesFromCollection(collection)), sortedByPath([
-        {
-          path: 'content/posts/2014/slug1/index.md',
-          lmod: 2,
-        },
-      ]))
-
-      t.deepEqual(sortedByPath(filesFromChanges(changes)), sortedByPath([
-        {
-          path: 'content/posts/2014/slug1/index.md',
-          type: Change.M,
-          lmod: 2,
-        },
-      ]))
-
-    })
-  })
-})
-
-Test('modified non-existing', function(t) {
-  return add(t).then(function(collection) {
-    return collection.update([
-      {
-        type: Change.M,
-        lmod: 1,
-        path: 'content/test',
-      },
-
-    ]).then(function(changes) {
-
-      t.equal(collection.lmod, 1)
-
-      t.deepEqual(sortedByPath(filesFromCollection(collection)), sortedByPath([
-        {
-          path: 'content/posts/2014/slug1/index.md',
-          lmod: 1,
-        },
-        {
-          path: 'content/test',
-          lmod: 1,
-        },
-      ]))
-
-      t.deepEqual(sortedByPath(filesFromChanges(changes)), sortedByPath([
-        {
-          path: 'content/test',
           type: Change.A,
           lmod: 1,
+          path: 'content/posts/2014/slug1/index.md',
         },
-      ]))
 
+      ]).then(function(changes){
+
+        t.equal(collection.lmod, 1)
+
+        t.deepEqual(fileFilter(collection), fileFilter([
+
+          {
+            path: 'content/posts/2014/slug1/index.md',
+            lmod: 1,
+          },
+
+        ]))
+
+        t.deepEqual(changeFilter(changes), changeFilter([
+
+          {
+            path: 'content/posts/2014/slug1/index.md',
+            type: Change.A,
+            lmod: 1,
+          },
+
+        ]))
+
+        return collection
+      })
     })
+  }
+
+  Test('initial add', function(t) {
+    return add(t)
   })
-})
 
-Test('delete existing', function(t) {
-  return add(t).then(function(collection) {
-    return collection.update([
-
-      {
-        type: Change.D,
-        lmod: 2,
-        path: 'content/posts/2014/slug1/index.md',
-      },
-
-    ]).then(function(changes) {
-
-      t.equal(collection.lmod, 2)
-
-      t.deepEqual(sortedByPath(filesFromCollection(collection)), sortedByPath([
-      ]))
-
-      t.deepEqual(sortedByPath(filesFromChanges(changes)), sortedByPath([
+  Test('add existing (without modification)', function(t) {
+    return add(t).then(function(collection){
+      return collection.update([
 
         {
+          type: Change.A,
+          lmod: 1,
           path: 'content/posts/2014/slug1/index.md',
+        },
+
+      ]).then(function(changes) {
+
+        t.equal(collection.lmod, 1)
+
+        t.deepEqual(fileFilter(collection), fileFilter([
+
+          {
+            path: 'content/posts/2014/slug1/index.md',
+            lmod: 1,
+          },
+
+        ]))
+
+        t.equal(changes.length, 0)
+
+      })
+    })
+  })
+
+  Test('add existing (with modification)', function(t) {
+    return add(t).then(function(collection){
+      return collection.update([
+
+        {
+          type: Change.A,
+          lmod: 2,
+          path: 'content/posts/2014/slug1/index.md',
+        },
+
+      ]).then(function(changes){
+
+        t.equal(collection.lmod, 2)
+
+        t.deepEqual(fileFilter(collection), fileFilter([
+          {
+            path: 'content/posts/2014/slug1/index.md',
+            lmod: 2,
+          },
+        ]))
+
+        t.deepEqual(changeFilter(changes), changeFilter([
+          {
+            path: 'content/posts/2014/slug1/index.md',
+            type: Change.M,
+            lmod: 2,
+          },
+        ]))
+
+      })
+    })
+  })
+
+  Test('modified (existing)', function(t) {
+    return add(t).then(function(collection) {
+      return collection.update([
+        {
+          type: Change.M,
+          lmod: 2,
+          path: 'content/posts/2014/slug1/index.md',
+        },
+      ]).then(function(changes) {
+
+        t.equal(collection.lmod, 2)
+
+        t.deepEqual(fileFilter(collection), fileFilter([
+          {
+            path: 'content/posts/2014/slug1/index.md',
+            lmod: 2,
+          },
+        ]))
+
+        t.deepEqual(changeFilter(changes), changeFilter([
+          {
+            path: 'content/posts/2014/slug1/index.md',
+            type: Change.M,
+            lmod: 2,
+          },
+        ]))
+
+      })
+    })
+  })
+
+  Test('modified (non-existing)', function(t) {
+    return add(t).then(function(collection) {
+      return collection.update([
+        {
+          type: Change.M,
+          lmod: 1,
+          path: 'content/test',
+        },
+
+      ]).then(function(changes) {
+
+        t.equal(collection.lmod, 1)
+
+        t.deepEqual(fileFilter(collection), fileFilter([
+          {
+            path: 'content/posts/2014/slug1/index.md',
+            lmod: 1,
+          },
+          {
+            path: 'content/test',
+            lmod: 1,
+          },
+        ]), FILES)
+
+        t.deepEqual(changeFilter(changes), changeFilter([
+          {
+            path: 'content/test',
+            type: Change.A,
+            lmod: 1,
+          },
+        ]), CHANGES)
+
+      })
+    })
+  })
+
+  Test('delete (existing)', function(t) {
+    return add(t).then(function(collection) {
+      return collection.update([
+
+        {
           type: Change.D,
           lmod: 2,
+          path: 'content/posts/2014/slug1/index.md',
         },
 
-      ]))
+      ]).then(function(changes) {
 
+        t.equal(collection.lmod, 2)
+
+        t.deepEqual(fileFilter(collection), fileFilter([
+        ]), FILES)
+
+        t.deepEqual(changeFilter(changes), changeFilter([
+
+          {
+            path: 'content/posts/2014/slug1/index.md',
+            type: Change.D,
+            lmod: 2,
+          },
+
+        ]), CHANGES)
+
+      })
     })
   })
-})
 
-Test('delete non-existing', function(t) {
-  return setup(t, function(project, collection) {
-    return collection.update([
+  Test('delete (non-existing)', function(t) {
+    return setup(t, function(collection) {
+      return collection.update([
 
-      {
-        type: Change.D,
-        lmod: 2,
-        path: 'content/foo.md',
-      },
+        {
+          type: Change.D,
+          lmod: 2,
+          path: 'content/foo.md',
+        },
 
-    ]).then(function(changes) {
+      ]).then(function(changes) {
 
-      t.equal(collection.lmod, undefined)
+        t.equal(collection.lmod, undefined, "lmod")
+        t.equal(changes.length, 0, "changes")
+        t.equal(collection.length, 0, "collection")
 
-      t.equal(changes.length, 0)
-      t.equal(collection.length, 0)
-
+      })
     })
   })
-})
+
+
+}
+

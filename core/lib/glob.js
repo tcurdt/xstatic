@@ -30,58 +30,35 @@ function Glob(pattern, defaults) {
       return Minimatch(change.path, pattern)
     })
 
-    return new Promise(function(resolve) {
+    const cwd = process.cwd()
+    const lmod = self.maxLmod(changes)
 
-      const changesOut = []
+    const changed = self.applyChanges(changes, lmod, function(change) {
 
-      function out(what) {
-        if (what) {
-          changesOut.push(what)
-        }
-      }
-
-      const cwd = process.cwd()
-
-      changes.forEach(function(change) {
-        const pathRel = _.stripBasedir(options.basedir, change.path)
-        const pathAbs = Path.join(cwd, change.path)
-
-        if (change.type === Change.D) {
-
-          out(self.del(pathRel, change.lmod))
-
-        } else {
-
-          const file = {
-            path: pathRel,
-            lmod: change.lmod,
-            load: change.load || new LazyPromise(function(loadResolve, loadReject) {
-              Fs.readFile(pathAbs, function(err, data) {
-                if (err) {
-                  loadReject(err)
-                } else {
-                  loadResolve({
-                    path: pathRel,
-                    lmod: change.lmod,
-                    body: data
-                  })
-                }
+      const pathRel = _.stripBasedir(options.basedir, change.path)
+      const pathAbs = Path.join(cwd, change.path)
+      const file = {
+        path: pathRel,
+        lmod: change.lmod,
+        load: change.load || new LazyPromise(function(loadResolve, loadReject) {
+          Fs.readFile(pathAbs, function(err, data) {
+            if (err) {
+              loadReject(err)
+            } else {
+              loadResolve({
+                path: pathRel,
+                lmod: change.lmod,
+                body: data
               })
-            })
-          }
-
-          out(self.set(file))
-        }
-      })
-
-      self.load = new LazyPromise(function(resolveLoad, reject) {
-        Promise.all(self.map(function(file){ return file.load })).then(function(docs){
-          resolveLoad(docs)
+            }
+          })
         })
-      })
+      }
+      return file
 
-      resolve(changesOut)
     })
+
+    return Promise.resolve(changed)
   }
 
   function cachedPromise(changes) {

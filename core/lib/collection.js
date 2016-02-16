@@ -38,20 +38,11 @@ function Collection(name, inputs, defaults) {
       return Promise.resolve([])
     }
 
-    const changesOut = []
-
-    function out(what) {
-      if (what) {
-        changesOut.push(what)
-      }
-    }
-
-    const removed = new Set(self.keys())
-
-    return Promise.resolve(self.onChange(function(path, load, dependencies) {
+    const files = []
+    self.onChange(function(path, load, dependencies) {
 
       const filePath = options.path(new FilePath(path)).toString()
-      const fileLmod = _.max(dependencies.map(function(input) { return input.lmod }))
+      const fileLmod = self.maxLmod(dependencies)
 
       const file = {
         path: filePath,
@@ -69,25 +60,13 @@ function Collection(name, inputs, defaults) {
         })
       }
 
-      out(self.set(file))
-
-      removed.delete(filePath)
-
-    })).then(function() {
-
-      const depsLmod = _.max(inputs.map(function(input) { return input.lmod }))
-      removed.forEach(function(path) {
-        out(self.del(path, depsLmod))
-      })
-
-      self.load = new LazyPromise(function(resolve, reject) {
-        Promise.all(self.map(function(file){ return file.load })).then(function(docs) {
-          resolve(docs)
-        })
-      })
-
-      return Promise.resolve(changesOut)
+      files.push(file)
     })
+
+    const lmod = self.maxLmod(inputs)
+    const changed = self.applyFiles(files, lmod)
+
+    return Promise.resolve(changed)
   }
 
   function createPromise(changes) {
