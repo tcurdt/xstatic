@@ -117,7 +117,7 @@ module.exports = function(project) { return function(files, defaults) {
     }
   }
 
-  collection.onChange = function(create) {
+  collection.build = function(create) {
 
     const load = files.load.then(atom)
     create(options.filename, load, [ files ])

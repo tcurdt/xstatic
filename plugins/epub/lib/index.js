@@ -15,7 +15,7 @@ module.exports = function(project) { return function(files, defaults) {
 
   const collection = new Xstatic.collection('zip', [ files ], options)
 
-  collection.onChange = function(create) {
+  collection.build = function(create) {
 
     create(options.filename, files.load.then(function(docs){
 

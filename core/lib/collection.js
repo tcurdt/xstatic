@@ -39,7 +39,7 @@ function Collection(name, inputs, defaults) {
     }
 
     const files = []
-    self.onChange(function(path, load, dependencies) {
+    self.build(function(path, load, dependencies) {
 
       const filePath = options.path(new FilePath(path)).toString()
       const fileLmod = self.maxLmod(dependencies)

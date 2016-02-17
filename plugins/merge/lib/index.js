@@ -6,7 +6,7 @@ module.exports = function(project) { return function(collections, options) {
 
   const collection = new Xstatic.collection('merge', collections, options)
 
-  collection.onChange = function(create) {
+  collection.build = function(create) {
 
     const inputs = Array.prototype.concat.apply([], collections)
 

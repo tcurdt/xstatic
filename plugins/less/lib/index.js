@@ -31,7 +31,7 @@ module.exports = function(project) { return function(files, defaults) {
     })
   }
 
-  collection.onChange = function(create) {
+  collection.build = function(create) {
 
     const resolver = {
       install: function(_less, pluginManager) {

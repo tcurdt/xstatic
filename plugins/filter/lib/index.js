@@ -8,7 +8,7 @@ module.exports = function(project) { return function(pattern, collections, optio
 
   const collection = new Xstatic.collection('filter-' + pattern, collections, options)
 
-  collection.onChange = function(create) {
+  collection.build = function(create) {
     const inputs = Array.prototype.concat.apply([], collections)
 
     inputs.forEach(function(input) {

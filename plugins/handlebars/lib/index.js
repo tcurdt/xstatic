@@ -81,7 +81,7 @@ module.exports = function(project) { return function(files, defaults) {
     }
   }
 
-  collection.onChange = function(create) {
+  collection.build = function(create) {
 
     const engine = setup()
     const contextPromise = Xstatic.context.load(options.context, function(docs) {

@@ -12,7 +12,7 @@ Test('should replace collection with array', function(t) {
   const glob = new Glob('*.txt')
   const collection = new Collection('file', [ glob ])
 
-  collection.onChange = function(create) {
+  collection.build = function(create) {
     glob.forEach(function(file) {
       create(file.path, file.load, [ file ])
     })

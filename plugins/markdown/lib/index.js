@@ -35,7 +35,7 @@ module.exports = function(project) { return function(files, defaults) {
     })
   }
 
-  collection.onChange = function(create) {
+  collection.build = function(create) {
 
     files.forEach(function(file) {
 

@@ -59,7 +59,7 @@ module.exports = function(project) { return function(files, defaults) {
   }
 
 
-  collection.onChange = function(create) {
+  collection.build = function(create) {
 
     const load = Promise.resolve(sitemap(files))
     create(options.filename, load, [ files ])
