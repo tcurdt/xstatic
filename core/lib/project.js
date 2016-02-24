@@ -230,9 +230,9 @@ function Project(target, defaults) {
   // FIMXE maybe add full cmd parsing https://github.com/bcoe/yargs
   this.process = function(collection, options) {
     if(process.argv.indexOf("-w") != -1){
-      this.watch(collection, options)
+      return this.watch(collection, options)
     } else {
-      this.build(collection)
+      return this.build(collection)
     }
   }
 

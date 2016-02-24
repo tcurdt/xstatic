@@ -24,3 +24,16 @@ Test('build should find files once', function(t) {
 
   })
 })
+
+Test('process should find files once', function(t) {
+  return setup(t, function(project, collection) {
+
+    project.process(collection).then(function(changes) {
+
+      t.ok(collection.length > 0, 'has results')
+      t.end()
+
+    })
+
+  })
+})
