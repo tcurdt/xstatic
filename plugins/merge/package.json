@@ -1,5 +1,5 @@
 {
-  "version": "1.0.7",
+  "version": "1.0.8",
   "author": "Torsten Curdt",
   "license": "Apache-2.0",
   "repository": {
@@ -13,7 +13,7 @@
     "xstatic-core": "1.0.x"
   },
   "devDependencies": {
-    "xstatic-core": "1.0.5",
+    "xstatic-core": "1.0.8",
     "tape": "4.4.0",
     "blue-tape": "0.2.0",
     "istanbul": "0.4.2",

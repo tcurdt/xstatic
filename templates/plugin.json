@@ -3,7 +3,7 @@
     "xstatic-core": "1.0.x"
   },
   "devDependencies": {
-    "xstatic-core": "1.0.5"
+    "xstatic-core": "1.0.8"
   },
   "main": "lib/index.js",
   "files": [
