@@ -179,9 +179,16 @@ function Project(target, defaults) {
       }
     }
 
+    const ignoresPath = '.xstaticignore'
+    const ignoresLines = Fs.existsSync(ignoresPath)
+      ? Fs.readFileSync(ignoresPath).toString().split("\n")
+      : [ '^\.\w+', 'node_modules', target ]
+    const ignoresRegex = ignoresLines.map(function(line) { return new RegExp(line) })
+    console.log(ignoresRegex)
+
     Chokidar.watch('.', {
       cwd: '.',
-      ignored: [ /[\/\\]\./, /node_modules/, /build/ ],
+      ignored: ignoresRegex,
       ignoreInitial: false,
       depth: undefined,
       alwaysStat: true,
@@ -220,9 +227,14 @@ function Project(target, defaults) {
     return new Glob(pattern, options)
   }
 
-  // this.plugin = function(name) {
-  //   return require(name)(this)
-  // }
+  // FIMXE maybe add full cmd parsing https://github.com/bcoe/yargs
+  this.process = function(collection, options) {
+    if(process.argv.indexOf("-w") != -1){
+      this.watch(collection, options)
+    } else {
+      this.build(collection)
+    }
+  }
 
   this.build = function(collection) {
     return new Promise(function(resolve, reject){
