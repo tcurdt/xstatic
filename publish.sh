@@ -4,4 +4,5 @@
 
 for PLUGIN in plugins/*/; do
   (cd $PLUGIN && npm publish)
+  sleep 2
 done
