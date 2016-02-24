@@ -181,10 +181,9 @@ function Project(target, defaults) {
 
     const ignoresPath = '.xstaticignore'
     const ignoresLines = Fs.existsSync(ignoresPath)
-      ? Fs.readFileSync(ignoresPath).toString().split("\n")
+      ? [ '^\.\w+', 'node_modules', target ].concat(Fs.readFileSync(ignoresPath).toString().split("\n"))
       : [ '^\.\w+', 'node_modules', target ]
     const ignoresRegex = ignoresLines.map(function(line) { return new RegExp(line) })
-    console.log(ignoresRegex)
 
     Chokidar.watch('.', {
       cwd: '.',
@@ -276,6 +275,8 @@ function Project(target, defaults) {
         console.error('ERROR5', err, err.stack)
       })
     })
+
+    return Promise.resolve()
   }
 }
 
