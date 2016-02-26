@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "libxmljs": "0.17.0",
-    "coveralls": "2.11.6",
+    "coveralls": "2.11.8",
     "codecov.io": "0.1.6",
     "codacy-coverage": "1.1.3"
   },
