@@ -16,7 +16,7 @@
     "nyc": "5.5.0",
     "faucet": "0.0.1",
     "libxmljs": "0.17.0",
-    "coveralls": "2.11.6",
+    "coveralls": "2.11.8",
     "codecov.io": "0.1.6",
     "codacy-coverage": "1.1.3"
   },
