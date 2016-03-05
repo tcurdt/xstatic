@@ -13,7 +13,7 @@
     "tape": "4.5.0",
     "blue-tape": "0.2.0",
     "istanbul": "0.4.2",
-    "nyc": "5.5.0",
+    "nyc": "6.0.0",
     "faucet": "0.0.1",
     "libxmljs": "0.17.0",
     "coveralls": "2.11.8",
