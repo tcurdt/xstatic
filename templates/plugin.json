@@ -1,9 +1,9 @@
 {
   "peerDependencies": {
-    "xstatic-core": "1.0.x"
+    "xstatic-core": "1.1.x"
   },
   "devDependencies": {
-    "xstatic-core": "1.0.8"
+    "xstatic-core": "1.1.0"
   },
   "main": "lib/index.js",
   "files": [
