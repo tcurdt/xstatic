@@ -17,7 +17,7 @@ module.exports = function(project) { return function(files, defaults) {
 
   collection.build = function(create) {
 
-    create(options.filename, files.load.then(function(docs){
+    create(options.filename, {}, files.load.then(function(docs){
 
       // // const buf = new Readable
       // const buf =

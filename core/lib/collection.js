@@ -39,14 +39,16 @@ function Collection(name, inputs, defaults) {
     }
 
     const files = []
-    self.build(function(path, load, dependencies) {
+    self.build(function(path, meta, load, dependencies) {
 
       const filePath = options.path(new FilePath(path)).toString()
       const fileLmod = self.maxLmod(dependencies)
+      const fileMeta = meta || {}
 
       const file = {
         path: filePath,
         lmod: fileLmod,
+	meta: fileMeta,
         load: new LazyPromise(function(resolve, reject) {
           load.then(function(doc) {
             const d = _.merge(doc, {

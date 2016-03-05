@@ -120,7 +120,7 @@ module.exports = function(project) { return function(files, defaults) {
   collection.build = function(create) {
 
     const load = files.load.then(atom)
-    create(options.filename, load, [ files ])
+    create(options.filename, {}, load, [ files ])
   }
 
   return collection
