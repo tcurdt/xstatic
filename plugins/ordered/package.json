@@ -1,0 +1,36 @@
+{
+  "version": "1.1.0",
+  "author": "Torsten Curdt",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tcurdt/xstatic.git"
+  },
+  "engines": {
+    "node": ">= 4.2.0"
+  },
+  "peerDependencies": {
+    "xstatic-core": "1.1.x"
+  },
+  "devDependencies": {
+    "xstatic-core": "1.1.0",
+    "tape": "4.5.0",
+    "blue-tape": "0.2.0",
+    "istanbul": "0.4.2",
+    "nyc": "6.0.0",
+    "faucet": "0.0.1"
+  },
+  "main": "lib/index.js",
+  "files": [
+    "lib/"
+  ],
+  "scripts": {
+    "test": "istanbul test tape -- tests/*.js | faucet",
+    "coverage": "nyc --reporter=text npm test | cat"
+  },
+  "name": "xstatic-sitemap",
+  "description": "xstatic plugin to generate sitemap",
+  "dependencies": {
+    "xmlbuilder": "4.2.0"
+  }
+}

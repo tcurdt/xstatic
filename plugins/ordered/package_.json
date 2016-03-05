@@ -1,0 +1,7 @@
+{
+  "name": "xstatic-sitemap",
+  "description" : "xstatic plugin to generate sitemap",
+  "dependencies": {
+    "xmlbuilder": "4.2.0"
+  }
+}
