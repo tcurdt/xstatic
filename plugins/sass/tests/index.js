@@ -25,7 +25,7 @@ Test('converts scss to css', function(t) {
         path: 'design/styles/test.scss',
         load: Lazy.load({
           path: 'design/styles/test.scss',
-          body: '$color: black;\nh1 { color: $color }'
+          body: '$color: black;\nh1 { color: $color; text: env("HOME"); }\n'
         }),
       },
     ]).then(function(changes1){

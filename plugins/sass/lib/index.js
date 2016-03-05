@@ -22,12 +22,12 @@ module.exports = function(project) { return function(files, defaults) {
 
       Sass.render( _.merge(options.sass, {
         data: doc.body.toString(),
-	functions: {
-	  'env($name)': function(name) {
-	    const value = new Sass.types.String("VALUE_" + name)
-	    return value
-	  }
-	},
+        functions: {
+          'env($name)': function(name) {
+            const value = process.env[name.getValue()]
+            return new Sass.types.String(value)
+          }
+        },
         importer: function(argument, _parent, done) {
 
           const parent = (_parent === 'stdin') ? pathParent : _parent
