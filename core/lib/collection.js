@@ -48,7 +48,7 @@ function Collection(name, inputs, defaults) {
       const file = {
         path: filePath,
         lmod: fileLmod,
-	meta: fileMeta,
+        meta: fileMeta,
         load: new LazyPromise(function(resolve, reject) {
           load.then(function(doc) {
             const d = _.merge(doc, {

@@ -14,7 +14,7 @@ Test('should replace collection with array', function(t) {
 
   collection.build = function(create) {
     glob.forEach(function(file) {
-      create(file.path, file.load, [ file ])
+      create(file.path, {}, file.load, [ file ])
     })
   }
 
@@ -34,8 +34,7 @@ Test('should replace collection with array', function(t) {
     }, function(v) {
       return v
     }).then(function(context) {
-      console.log('CTX', context)
-      // t.end()
+      t.deepEqual({ files: [ { body: 'a', path: 'page.txt', lmod: 1 } ] }, context)
     })
 
   })
@@ -59,8 +58,7 @@ Test('should replace glob with array', function(t) {
     }, function(v) {
       return v
     }).then(function(context) {
-      console.log('CTX', context)
-      // t.end()
+      t.deepEqual({ files: [ { body: 'a' } ] }, context)
     })
 
   })
