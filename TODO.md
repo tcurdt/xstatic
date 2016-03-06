@@ -4,3 +4,5 @@
 * finish and release complex blog example
 * improve error reporting
 * investigate js hot reloading
+* invalidate cache on script change (process.argv[1])
+* respawn xstatic on script change

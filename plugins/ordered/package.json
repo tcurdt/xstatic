@@ -28,9 +28,7 @@
     "test": "istanbul test tape -- tests/*.js | faucet",
     "coverage": "nyc --reporter=text npm test | cat"
   },
-  "name": "xstatic-sitemap",
-  "description": "xstatic plugin to generate sitemap",
-  "dependencies": {
-    "xmlbuilder": "4.2.0"
-  }
+  "name": "xstatic-sort",
+  "description": "xstatic plugin to sort collections",
+  "dependencies": {}
 }

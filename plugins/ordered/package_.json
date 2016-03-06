@@ -1,7 +1,6 @@
 {
-  "name": "xstatic-sitemap",
-  "description" : "xstatic plugin to generate sitemap",
+  "name": "xstatic-sort",
+  "description" : "xstatic plugin to sort collections",
   "dependencies": {
-    "xmlbuilder": "4.2.0"
   }
 }
