@@ -16,9 +16,10 @@ module.exports = function(project) { return function(files, options) {
   collection.build = function(create) {
 
     files.forEach(function(file){
-
-      const load = file.load.then(parse)
-      create(file.path, load, [ file ])
+      create({
+	path: file.path,
+	load: file.load.then(parse),
+      }, [ file ])
     })
   }
 

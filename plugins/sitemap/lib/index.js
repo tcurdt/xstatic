@@ -49,20 +49,22 @@ module.exports = function(project) { return function(files, defaults) {
       // e.ele('priority', priority).up()
     })
 
-    return {
+    return Promise.resolve({
       body: xml.end({
         pretty: true,
         indent: '  ',
         newline: '\n'
       })
-    }
+    })
   }
 
 
   collection.build = function(create) {
 
-    const load = Promise.resolve(sitemap(files))
-    create(options.filename, load, [ files ])
+    create({
+      path: options.filename,
+      load: sitemap(files),
+    }, [ files ])
   }
 
   return collection

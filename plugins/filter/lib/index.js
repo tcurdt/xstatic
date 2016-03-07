@@ -14,11 +14,11 @@ module.exports = function(project) { return function(pattern, collections, optio
     inputs.forEach(function(input) {
       // console.log('filter', pattern, input.keys())
       input.forEach(function(file) {
-        if (Minimatch(file.path, pattern)) {
-	  create(file.path, file.load, [ file ])
-          // console.log('filter', 'OK', file.path)
-        } else {
-          // console.log('filter', 'KO', file.path)
+	if (Minimatch(file.path, pattern)) {
+	  create(file, [ file ])
+	  // console.log('filter', 'OK', file.path)
+	} else {
+	  // console.log('filter', 'KO', file.path)
         }
       })
     })

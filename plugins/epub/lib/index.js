@@ -17,7 +17,12 @@ module.exports = function(project) { return function(files, defaults) {
 
   collection.build = function(create) {
 
-    create(options.filename, files.load.then(function(docs){
+    create({
+      path: options.filename,
+      load: Promise.resolve({}),
+    }, [ files ])
+
+      // load: files.load.then(function(docs){
 
       // // const buf = new Readable
       // const buf =
@@ -66,7 +71,6 @@ module.exports = function(project) { return function(files, defaults) {
       // zip.file(path, { name: filename })
       // zip.append(fs.createReadStream(file1), { name: filename })
 
-    }), [ files ])
 
   }
 

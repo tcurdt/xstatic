@@ -14,7 +14,7 @@ Test('should replace collection with array', function(t) {
 
   collection.build = function(create) {
     glob.forEach(function(file) {
-      create(file.path, file.load, [ file ])
+      create(file, [ file ])
     })
   }
 

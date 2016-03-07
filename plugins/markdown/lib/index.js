@@ -38,9 +38,10 @@ module.exports = function(project) { return function(files, defaults) {
   collection.build = function(create) {
 
     files.forEach(function(file) {
-
-      const load = file.load.then(markdown)
-      create(file.path, load, [ file ])
+      create({
+	path: file.path,
+	load: file.load.then(markdown),
+      }, [ file ])
     })
   }
 

@@ -10,10 +10,10 @@
     "node": ">= 4.2.0"
   },
   "peerDependencies": {
-    "xstatic-core": "1.1.x"
+    "xstatic-core": "1.2.x"
   },
   "devDependencies": {
-    "xstatic-core": "1.1.1",
+    "xstatic-core": "1.2.0",
     "tape": "4.5.0",
     "blue-tape": "0.2.0",
     "istanbul": "0.4.2",

@@ -13,32 +13,26 @@ module.exports = function(project) { return function(files, defaults) {
 
   collection.build = function(create) {
 
-    // const sorted = files.sorted(options.sort).map(function(file) {
-    //   return create(file.path, file.load, [ file ])
-    // })
+    const sorted = files.sorted(options.sort).map(function(file) {
+      return create(file, [ file ])
+    })
 
-    for(var i=0; i<files.length; i++) {
-      const file = files[i]
-      create(file.path, file.load, [ file ])
+    const len = sorted.length
+    let curr = null
+    for(var i=0; i<len; i++) {
+      const prev = curr
+      curr = sorted[i]
+      const next = (i + 1) < len ? sorted[i+1] : null
+
+      const meta = _.merge(curr.meta, {
+	prev: prev,
+	next: next,
+	position: i,
+	length: len
+      })
+
+      curr.meta = meta
     }
-
-    // const len = sorted.length
-    // let curr = null
-    // for(var i=0; i<len; i++) {
-    //   const prev = curr
-    //   curr = sorted[i]
-    //   const next = (i + 1) < len ? sorted[i+1] : null
-
-    //   const meta = _.merge(curr.meta, {
-    //     prev: prev,
-    //     next: next,
-    //     position: i,
-    //     length: len
-    //   })
-
-    //   create(curr.path, curr.load, [ curr ])
-    // }
-
   }
 
   return collection

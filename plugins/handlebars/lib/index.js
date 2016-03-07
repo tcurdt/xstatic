@@ -128,7 +128,10 @@ module.exports = function(project) { return function(files, defaults) {
         })
       }))
 
-      create(file.path, docPromise, deps(file))
+      create({
+	path: file.path,
+	load: docPromise,
+      }, deps(file))
 
     })
   }

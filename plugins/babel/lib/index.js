@@ -41,10 +41,16 @@ module.exports = function(project) { return function(files, defaults) {
 
   collection.build = function(create) {
 
-    files.forEach(function(file){
+    files.forEach(function(file) {
       const compile = file.load.then(babel)
-      create(file.path, compile.then(returnCode), [ file ])
-      // create(file.path + '.map', compile.then(returnMap), [ file ])
+      create({
+	path: file.path,
+	load: compile.then(returnCode),
+      }, [ file ])
+      // create({
+      //   path: file.path + '.map',
+      //   load: compile.then(returnMap),
+      // }, [ file ])
     })
   }
 
