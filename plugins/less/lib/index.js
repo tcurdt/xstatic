@@ -69,7 +69,7 @@ module.exports = function(project) { return function(files, defaults) {
       const load = file.load.then(function(doc) {
         return less(file, doc, resolver)
       })
-      create(file.path, file.meta, load, [ file ])
+      create(file.path, load, [ file ])
     })
   }
 

@@ -1,5 +1,5 @@
 {
-  "version": "1.1.1",
+  "version": "1.2.0",
   "author": "Torsten Curdt",
   "license": "Apache-2.0",
   "repository": {
@@ -37,7 +37,8 @@
     "xstatic-merge": "file:plugins/merge",
     "xstatic-nunjucks": "file:plugins/nunjucks",
     "xstatic-sass": "file:plugins/sass",
-    "xstatic-sitemap": "file:plugins/sitemap"
+    "xstatic-sitemap": "file:plugins/sitemap",
+    "xstatic-sort": "file:plugins/sort"
   },
   "scripts": {
     "test": "istanbul test tape -- tests/*.js core/tests/*.js plugins/*/tests/*.js | faucet",

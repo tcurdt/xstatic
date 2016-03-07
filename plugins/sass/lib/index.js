@@ -92,7 +92,7 @@ module.exports = function(project) { return function(files, defaults) {
       // sass files starting with '_' are includes that
       // should not produce an output file
       if (base[0] !== '_') {
-	create(file.path, file.meta, file.load.then(sass), [ file ])
+	create(file.path, file.load.then(sass), [ file ])
       }
     })
   }

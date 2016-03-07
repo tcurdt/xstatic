@@ -15,7 +15,7 @@ module.exports = function(project) { return function(pattern, collections, optio
       // console.log('filter', pattern, input.keys())
       input.forEach(function(file) {
         if (Minimatch(file.path, pattern)) {
-	  create(file.path, file.meta, file.load, [ file ])
+	  create(file.path, file.load, [ file ])
           // console.log('filter', 'OK', file.path)
         } else {
           // console.log('filter', 'KO', file.path)

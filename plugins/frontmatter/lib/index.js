@@ -27,7 +27,7 @@ module.exports = function(project) { return function(files, defaults) {
 
     files.forEach(function(file) {
       const load = file.load.then(frontmatter)
-      create(file.path, file.meta, load, [ file ])
+      create(file.path, load, [ file ])
     })
   }
 

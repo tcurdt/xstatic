@@ -15,9 +15,10 @@ function setup(t, cb) {
   const Feed        = require('xstatic-atom')(project)
   const Sitemap     = require('xstatic-sitemap')(project)
   const Frontmatter = require('xstatic-frontmatter')(project)
+  const Sort        = require('xstatic-sort')(project)
   const Glob = project.glob
 
-  const posts  = Glob('content/posts/**/index.md')
+  const posts  = Sort(Glob('content/posts/**/index.md'))
   const design = Glob('design/templates/*', { basedir: 'design/templates' })
 
   const postsHtml = Markdown(Frontmatter(posts))

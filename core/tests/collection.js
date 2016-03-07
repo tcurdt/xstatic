@@ -10,7 +10,7 @@ Changes(function(t, cb) {
   const collection = new Collection('test', [ glob ])
   collection.build = function(create) {
     glob.forEach(function(file) {
-      create(file.path, {}, file.load, [ glob ])
+      create(file.path, file.load, [ glob ])
     })
   }
   return cb(collection)

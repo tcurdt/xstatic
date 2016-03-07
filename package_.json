@@ -16,7 +16,8 @@
     "xstatic-merge": "file:plugins/merge",
     "xstatic-nunjucks": "file:plugins/nunjucks",
     "xstatic-sass": "file:plugins/sass",
-    "xstatic-sitemap": "file:plugins/sitemap"
+    "xstatic-sitemap": "file:plugins/sitemap",
+    "xstatic-sort": "file:plugins/sort"
   },
   "devDependencies": {
     "libxmljs": "0.17.0",
