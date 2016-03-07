@@ -25,10 +25,10 @@ module.exports = function(project) { return function(files, defaults) {
       const next = (i + 1) < len ? sorted[i+1] : null
 
       const meta = _.merge(curr.meta, {
-	prev: prev,
-	next: next,
-	position: i,
-	length: len
+        prev: prev,
+        next: next,
+        position: i,
+        length: len
       })
 
       curr.meta = meta

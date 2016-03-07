@@ -45,13 +45,13 @@ function Collection(name, inputs, defaults) {
       const fileLmod = self.maxLmod(dependencies)
 
       const fileNew = _.merge(file, {
-	lmod: fileLmod,
-	path: filePath,
-	load: new LazyPromise(function(resolve, reject) {
-	  file.load.then(function(doc) {
-	    const d = _.merge(doc, {
-	      lmod: fileLmod,
-	      path: filePath,
+        lmod: fileLmod,
+        path: filePath,
+        load: new LazyPromise(function(resolve, reject) {
+          file.load.then(function(doc) {
+            const d = _.merge(doc, {
+              lmod: fileLmod,
+              path: filePath,
             })
             resolve(d)
           }).catch(function(err) {
