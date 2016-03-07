@@ -26,10 +26,10 @@ module.exports = function(project) { return function(files, defaults) {
   collection.build = function(create) {
 
     files.forEach(function(file) {
-      create({
+      create(_.merge(file, {
 	path: file.path,
 	load: file.load.then(frontmatter),
-      }, [ file ])
+      }), [ file ])
     })
   }
 
