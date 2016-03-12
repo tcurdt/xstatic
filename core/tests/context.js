@@ -34,7 +34,7 @@ Test('should replace collection with array', function(t) {
     }, function(v) {
       return v
     }).then(function(context) {
-      t.deepEqual({ files: [ { body: 'a', path: 'page.txt', lmod: 1 } ] }, context)
+      t.deepEqual(context, { files: [ { body: 'a', path: 'page.txt', lmod: 1, meta: {}} ] })
     })
 
   })
@@ -58,7 +58,7 @@ Test('should replace glob with array', function(t) {
     }, function(v) {
       return v
     }).then(function(context) {
-      t.deepEqual({ files: [ { body: 'a' } ] }, context)
+      t.deepEqual(context, { files: [ { body: 'a' } ] })
     })
 
   })
