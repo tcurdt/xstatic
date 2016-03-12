@@ -50,7 +50,11 @@
 # npm link xstatic-sort
 
 npm i \
+  @tcurdt/filepath \
   @tcurdt/tinyutils \
+  browser-sync \
+  chokidar \
+  mkdirp \
   babel-core \
   babel-plugin-transform-react-jsx \
   blue-tape \
