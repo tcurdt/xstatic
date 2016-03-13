@@ -2,9 +2,9 @@
   "name": "xstatic-css",
   "description" : "xstatic plugin to pre-process css",
   "dependencies": {
-    "xstatic-filter": "1.2.0",
-    "xstatic-merge": "1.2.0",
-    "xstatic-less": "1.2.0",
-    "xstatic-sass": "1.2.0"
+    "xstatic-filter": "1.2.1",
+    "xstatic-merge": "1.2.1",
+    "xstatic-less": "1.2.1",
+    "xstatic-sass": "1.2.1"
   }
 }

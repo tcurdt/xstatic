@@ -43,7 +43,7 @@
     "coverage-upload-codecov": "test -f ./coverage/lcov.info && cat ./coverage/lcov.info | codecov",
     "coverage-upload-codacy": "test -f ./coverage/lcov.info && cat ./coverage/lcov.info | codacy-coverage"
   },
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": "Torsten Curdt",
   "license": "Apache-2.0",
   "repository": {
