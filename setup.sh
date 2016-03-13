@@ -1,12 +1,11 @@
 #!/bin/sh
 
-package-compose \
+package-merge \
   templates/info.json \
-  templates/testing.json \
   package_.json \
   > package.json
 
-package-compose \
+package-merge \
   templates/info.json \
   templates/testing.json \
   core/package_.json \
@@ -14,7 +13,7 @@ package-compose \
 
 for PLUGIN in plugins/*/; do
   PLUGIN=`basename $PLUGIN`
-  package-compose \
+  package-merge \
     templates/info.json \
     templates/plugin.json \
     templates/testing.json \

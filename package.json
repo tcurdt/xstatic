@@ -9,39 +9,14 @@
   "engines": {
     "node": ">= 4.2.0"
   },
-  "devDependencies": {
-    "tape": "4.5.1",
-    "blue-tape": "0.2.0",
-    "istanbul": "0.4.2",
-    "nyc": "6.0.0",
-    "faucet": "0.0.1",
-    "libxmljs": "0.17.0",
-    "coveralls": "2.11.8",
-    "codecov.io": "0.1.6",
-    "codacy-coverage": "1.1.3"
-  },
   "private": true,
   "name": "xstatic-tests",
-  "dependencies": {
-    "xstatic-core": "file:core",
-    "xstatic-atom": "file:plugins/atom",
-    "xstatic-babel": "file:plugins/babel",
-    "xstatic-css": "file:plugins/css",
-    "xstatic-epub": "file:plugins/epub",
-    "xstatic-filter": "file:plugins/filter",
-    "xstatic-frontmatter": "file:plugins/frontmatter",
-    "xstatic-handlebars": "file:plugins/handlebars",
-    "xstatic-json": "file:plugins/json",
-    "xstatic-less": "file:plugins/less",
-    "xstatic-markdown": "file:plugins/markdown",
-    "xstatic-merge": "file:plugins/merge",
-    "xstatic-nunjucks": "file:plugins/nunjucks",
-    "xstatic-sass": "file:plugins/sass",
-    "xstatic-sitemap": "file:plugins/sitemap",
-    "xstatic-sort": "file:plugins/sort"
+  "dependencies": {},
+  "devDependencies": {
+    "@tcurdt/package-utils": "1.0.2"
   },
   "scripts": {
-    "preinstall" : "./dependencies.sh",
+    "postinstall": "./dependencies.sh",
     "test": "istanbul test tape -- tests/*.js core/tests/*.js plugins/*/tests/*.js | faucet",
     "coverage": "nyc --reporter=lcov --reporter=text npm test | cat",
     "coverage-upload": "npm run coverage-upload-coveralls && npm run coverage-upload-codecov && npm run coverage-upload-codacy",
