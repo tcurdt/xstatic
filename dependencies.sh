@@ -1,58 +1,53 @@
 #!/bin/sh
 
-exit 0
-
 PLUGINS=`ls plugins`
 
 # clean
-rm -rf node_modules
-cd core && rm -rf node_modules && cd ..
-for PLUGIN in $PLUGINS; do
-  cd plugins/$PLUGIN
-  rm -rf node_modules
-  cd ../..
-done
 mkdir -p node_modules
+rm -f node_modules/xstatic-*
+rm -f core/node_modules
+rm -f plugins/*/node_modules
 
 # create links to plugins
-cd node_modules && ln -s ../core xstatic-core && cd ..
+cd node_modules
+ln -s ../core xstatic-core
 for PLUGIN in $PLUGINS; do
-  cd node_modules
   ln -s ../plugins/$PLUGIN xstatic-$PLUGIN
-  cd ..
 done
+cd ..
 
 # install transitive deps
-npm i \
-  @tcurdt/filepath \
-  @tcurdt/tinyutils \
-  browser-sync \
-  chokidar \
-  mkdirp \
-  babel-core \
-  babel-plugin-transform-react-jsx \
-  blue-tape \
-  front-matter \
-  handlebars \
-  highlight.js \
-  less \
-  libxmljs \
-  marked \
-  minimatch \
-  moment \
-  node-sass \
-  nunjucks \
-  tape \
-  xmlbuilder \
+package-deps -d core/package.json plugins/*/package.json | grep -v xstatic- | xargs npm i
 
-# install dev deps
-npm i  \
-  tape \
-  blue-tape \
-  istanbul \
-  nyc \
-  faucet \
-  libxmljs \
-  coveralls \
-  codecov.io \
-  codacy-coverage \
+# npm i \
+#   @tcurdt/filepath \
+#   @tcurdt/tinyutils \
+#   browser-sync \
+#   chokidar \
+#   mkdirp \
+#   babel-core \
+#   babel-plugin-transform-react-jsx \
+#   blue-tape \
+#   front-matter \
+#   handlebars \
+#   highlight.js \
+#   less \
+#   libxmljs \
+#   marked \
+#   minimatch \
+#   moment \
+#   node-sass \
+#   nunjucks \
+#   tape \
+#   xmlbuilder \
+
+# npm i  \
+#   tape \
+#   blue-tape \
+#   istanbul \
+#   nyc \
+#   faucet \
+#   libxmljs \
+#   coveralls \
+#   codecov.io \
+#   codacy-coverage \
