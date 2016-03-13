@@ -1,14 +1,4 @@
 {
-  "version": "1.2.0",
-  "author": "Torsten Curdt",
-  "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/tcurdt/xstatic.git"
-  },
-  "engines": {
-    "node": ">= 4.2.0"
-  },
   "devDependencies": {
     "tape": "4.5.1",
     "blue-tape": "0.2.0",
@@ -33,5 +23,15 @@
   "scripts": {
     "test": "istanbul test tape -- tests/*.js | faucet",
     "coverage": "nyc --reporter=text npm test | cat"
+  },
+  "version": "1.2.0",
+  "author": "Torsten Curdt",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tcurdt/xstatic.git"
+  },
+  "engines": {
+    "node": ">= 4.2.0"
   }
 }

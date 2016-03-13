@@ -1,6 +1,8 @@
 {
   "private": true,
-  "name": "xstatic-tests",
+  "name": "xstatic_integration_tests",
+  "description": "xstatic integration tests",
+  "main": "",
   "dependencies": {
   },
   "devDependencies": {

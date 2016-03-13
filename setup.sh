@@ -1,14 +1,17 @@
 #!/bin/sh
 
 package-merge \
-  templates/info.json \
-  package_.json \
-  > package.json
-
-package-merge \
-  templates/info.json \
+  plugins/*/package_.json \
   templates/testing.json \
   core/package_.json \
+  templates/info.json \
+  package_.json \
+  | grep -v xstatic- > package.json
+
+package-merge \
+  templates/testing.json \
+  core/package_.json \
+  templates/info.json \
   > core/package.json
 
 for PLUGIN in plugins/*/; do

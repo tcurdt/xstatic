@@ -17,7 +17,7 @@ done
 cd ..
 
 # install transitive deps
-package-deps -d core/package.json plugins/*/package.json | grep -v xstatic- | xargs npm i
+# package-deps -d core/package.json plugins/*/package.json | grep -v xstatic- | xargs npm i
 
 # npm i \
 #   @tcurdt/filepath \

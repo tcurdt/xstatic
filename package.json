@@ -1,4 +1,48 @@
 {
+  "name": "xstatic_integration_tests",
+  "description": "xstatic integration tests",
+  "dependencies": {
+    "xmlbuilder": "4.2.0",
+    "moment": "2.11.2",
+    "@tcurdt/tinyutils": "1.0.0",
+    "babel-core": "6.4.0",
+    "babel-plugin-transform-react-jsx": "6.4.0",
+    "archiver": "0.21.0",
+    "front-matter": "2.0.5",
+    "handlebars": "4.0.5",
+    "less": "2.5.3",
+    "marked": "0.3.5",
+    "highlight.js": "9.1.0",
+    "nunjucks": "2.3.0",
+    "node-sass": "3.3.3",
+    "chokidar": "1.4.2",
+    "minimatch": "3.0.0",
+    "mkdirp": "0.5.1",
+    "browser-sync": "2.11.1",
+    "@tcurdt/filepath": "1.0.0"
+  },
+  "devDependencies": {
+    "libxmljs": "0.17.0",
+    "tape": "4.5.1",
+    "blue-tape": "0.2.0",
+    "istanbul": "0.4.2",
+    "nyc": "6.0.0",
+    "faucet": "0.0.1",
+    "@tcurdt/package-utils": "1.0.2"
+  },
+  "main": "",
+  "files": [
+    "lib/"
+  ],
+  "scripts": {
+    "test": "istanbul test tape -- tests/*.js core/tests/*.js plugins/*/tests/*.js | faucet",
+    "coverage": "nyc --reporter=lcov --reporter=text npm test | cat",
+    "postinstall": "./dependencies.sh",
+    "coverage-upload": "npm run coverage-upload-coveralls && npm run coverage-upload-codecov && npm run coverage-upload-codacy",
+    "coverage-upload-coveralls": "test -f ./coverage/lcov.info && cat ./coverage/lcov.info | coveralls",
+    "coverage-upload-codecov": "test -f ./coverage/lcov.info && cat ./coverage/lcov.info | codecov",
+    "coverage-upload-codacy": "test -f ./coverage/lcov.info && cat ./coverage/lcov.info | codacy-coverage"
+  },
   "version": "1.2.0",
   "author": "Torsten Curdt",
   "license": "Apache-2.0",
@@ -9,19 +53,5 @@
   "engines": {
     "node": ">= 4.2.0"
   },
-  "private": true,
-  "name": "xstatic-tests",
-  "dependencies": {},
-  "devDependencies": {
-    "@tcurdt/package-utils": "1.0.2"
-  },
-  "scripts": {
-    "postinstall": "./dependencies.sh",
-    "test": "istanbul test tape -- tests/*.js core/tests/*.js plugins/*/tests/*.js | faucet",
-    "coverage": "nyc --reporter=lcov --reporter=text npm test | cat",
-    "coverage-upload": "npm run coverage-upload-coveralls && npm run coverage-upload-codecov && npm run coverage-upload-codacy",
-    "coverage-upload-coveralls": "test -f ./coverage/lcov.info && cat ./coverage/lcov.info | coveralls",
-    "coverage-upload-codecov": "test -f ./coverage/lcov.info && cat ./coverage/lcov.info | codecov",
-    "coverage-upload-codacy": "test -f ./coverage/lcov.info && cat ./coverage/lcov.info | codacy-coverage"
-  }
+  "private": true
 }
