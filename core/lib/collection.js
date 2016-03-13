@@ -51,11 +51,10 @@ function Collection(name, inputs, defaults) {
         meta: fileMeta,
         load: new LazyPromise(function(resolve, reject) {
           file.load.then(function(doc) {
-            const d = _.merge({
-              meta: fileMeta,
-            }, doc, {
+            const d = _.merge(doc, {
               lmod: fileLmod,
               path: filePath,
+              meta: _.merge(fileMeta, doc.meta),
             })
             resolve(d)
           }).catch(function(err) {

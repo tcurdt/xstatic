@@ -73,7 +73,7 @@ function add(t) {
         type: Change.A,
         lmod: 1,
         path: 'design/templates/post.html',
-        load: Lazy.load({ body: 'content' }),
+        load: Lazy.load({ body: 'TEMPLATE {{position}}/{{length}} {{{content}}}' }),
       },
 
     ]).then(function(changes){
@@ -102,6 +102,7 @@ function add(t) {
       })).then(function(docs) {
         docs.forEach(function(doc) {
           t.ok(doc.meta && doc.meta.title, 'post has title')
+          console.log("CONTENT:", doc.body)
         })
       }).then(function() {
         return collection
