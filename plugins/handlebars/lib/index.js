@@ -123,14 +123,15 @@ module.exports = function(project) { return function(files, defaults) {
 
       // build doc
       const docPromise = Promise.all([file.load, contentPromise]).then(_.spread(function(doc, content) {
+
         return _.merge(doc, {
           body: content
         })
       }))
 
       create({
-	path: file.path,
-	load: docPromise,
+        path: file.path,
+        load: docPromise,
       }, deps(file))
 
     })
