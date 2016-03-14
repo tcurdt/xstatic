@@ -2,5 +2,7 @@
   "name": "xstatic-sort",
   "description" : "xstatic plugin to sort collections",
   "dependencies": {
+    "moment": "2.11.2",
+    "@tcurdt/tinyutils": "1.0.0"
   }
 }

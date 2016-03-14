@@ -26,13 +26,13 @@ Test('creates sitemap of all files', function(t) {
         type: Change.A,
         lmod: 1445556599000,
         path: 'content/posts/2014/slug1/index.txt',
-        load: Lazy.load({ body: 'post1' }),
+        load: Lazy.load({ body: { data: 'post1' }}),
       },
       {
         type: Change.A,
         lmod: 1445556599000,
         path: 'content/posts/2015/slug1/index.txt',
-        load: Lazy.load({ body: 'post2' }),
+        load: Lazy.load({ body: { data: 'post2' }}),
       },
     ]
 
@@ -52,9 +52,10 @@ Test('creates sitemap of all files', function(t) {
 
         t.doesNotThrow(function(){
 
-          const xsd = Fs.readFileSync(__dirname + '/sitemap.xsd').toString()
+          const path = __dirname + '/sitemap.xsd'
+          const xsd = Fs.readFileSync(path).toString()
           const xsdDoc = Libxml.parseXml(xsd)
-          const xmlDoc = Libxml.parseXml(f.body)
+          const xmlDoc = Libxml.parseXml(f.body.data)
           const valid = xmlDoc.validate(xsdDoc)
           t.true(valid, 'valid xml')
 

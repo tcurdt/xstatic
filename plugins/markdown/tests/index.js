@@ -22,7 +22,7 @@ Test('converts markdown to html', function(t) {
         type: Change.A,
         lmod: 1,
         path: 'content/posts/2014/slug1/index.md',
-        load: Lazy.load({ body: '# test' }),
+        load: Lazy.load({ body: { data: '# test' }}),
       },
     ]).then(function(changes1){
 
@@ -33,7 +33,7 @@ Test('converts markdown to html', function(t) {
       t.ok(file, 'exists')
 
       return file.load.then(function(f){
-        t.equal(f.body, '<h1 id="test">test</h1>\n')
+        t.equal(f.body.data, '<h1 id="test">test</h1>\n')
       })
 
     })

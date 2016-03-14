@@ -24,11 +24,16 @@ module.exports = function(project) { return function(files, defaults) {
   function markdown(doc) {
     return new Promise(function(resolve, reject) {
 
-      Marked(doc.body.toString(), options.marked, function(err, data) {
+      Marked(doc.body.data.toString(), options.marked, function(err, data) {
         if (err) {
           reject(err)
         } else {
-          resolve(_.merge(doc, { body: new Buffer(data).toString() }))
+          resolve(_.merge(doc, {
+            body: {
+              mime: "text/html",
+              data: new Buffer(data).toString()
+            }
+          }))
         }
       })
 
@@ -39,8 +44,8 @@ module.exports = function(project) { return function(files, defaults) {
 
     files.forEach(function(file) {
       create(_.merge(file, {
-	path: file.path,
-	load: file.load.then(markdown),
+        path: file.path,
+        load: file.load.then(markdown),
       }), [ file ])
     })
   }

@@ -3,8 +3,9 @@
 const Xstatic = require('xstatic-core')
 
 const _ = require('@tcurdt/tinyutils')
-const Path = require('path')
 const Less = require('less')
+
+const Path = require('path')
 
 module.exports = function(project) { return function(files, defaults) {
 
@@ -20,13 +21,16 @@ module.exports = function(project) { return function(files, defaults) {
   const collection = new Xstatic.collection('less', [ files ], options)
 
   function less(file, doc, resolver) {
-    return Less.render(doc.body.toString(), _.merge(options.less, {
+    return Less.render(doc.body.data.toString(), _.merge(options.less, {
       plugins: [ resolver ],
       filename: Path.resolve(file.path),
       relativeUrls: false,
     })).then(function(result) {
       return {
-        body: result.css
+        body: {
+          mime: "text/css",
+          data: result.css
+        }
       }
     })
   }
@@ -47,7 +51,7 @@ module.exports = function(project) { return function(files, defaults) {
               file.load.then(function(doc){
                 try {
                   resolve({
-                    contents: doc.body,
+                    contents: doc.body.data,
                     filename: pathAbs
                   })
                 } catch(err) {
@@ -70,8 +74,8 @@ module.exports = function(project) { return function(files, defaults) {
         return less(file, doc, resolver)
       })
       create({
-	path: file.path,
-	load: load,
+        path: file.path,
+        load: load,
       }, [ file ])
     })
   }

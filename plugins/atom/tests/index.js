@@ -33,7 +33,7 @@ Test('creates feed of all posts', function(t) {
           meta: { title: 'title post1' },
           lmod: 1445556599000,
           path: 'content/posts/2014/slug1/index.txt',
-          body: 'post1'
+          body: { data: 'post1' }
         }),
       },
       {
@@ -44,7 +44,7 @@ Test('creates feed of all posts', function(t) {
           meta: { title: 'title post2' },
           lmod: 1445556599000 - 60*1000,
           path: 'content/posts/2015/slug1/index.txt',
-          body: 'post2'
+          body: { data: 'post2' }
         }),
       },
 
@@ -60,9 +60,16 @@ Test('creates feed of all posts', function(t) {
 
         t.doesNotThrow(function(){
 
-          const xsd = Fs.readFileSync(__dirname + '/atom.xsd').toString()
+          const path = __dirname + '/atom.xsd'
+
+          // console.log(path)
+
+          const xsd = Fs.readFileSync(path).toString()
           const xsdDoc = Libxml.parseXml(xsd)
-          const xmlDoc = Libxml.parseXml(f.body)
+          const xmlDoc = Libxml.parseXml(f.body.data)
+
+          // console.log(f.body.data)
+
           const valid = xmlDoc.validate(xsdDoc)
           t.true(valid, 'valid xml')
 

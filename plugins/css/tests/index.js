@@ -22,13 +22,13 @@ Test('converts sass|less|styl to css', function(t) {
         type: Change.A,
         lmod: 1,
         path: 'design/styles/test1.sass',
-        load: Lazy.load({ body: 'h1 { color: black }' }),
+        load: Lazy.load({ body: { data: 'h1 { color: black }' }}),
       },
       {
         type: Change.A,
         lmod: 1,
         path: 'design/styles/test2.less',
-        load: Lazy.load({ body: 'h1 { color: black }' }),
+        load: Lazy.load({ body: { data: 'h1 { color: black }' }}),
       },
       // {
       //   type: Change.A,

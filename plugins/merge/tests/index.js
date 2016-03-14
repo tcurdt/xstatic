@@ -24,13 +24,13 @@ Test('files should be merged', function(t) {
         type: Change.A,
         lmod: 1,
         path: 'content/posts/2014/slug1/index.md',
-        load: Lazy.load({ body: 'content' }),
+        load: Lazy.load({ body: { data: 'content' }}),
       },
       {
         type: Change.A,
         lmod: 1,
         path: 'design/styles/site.css',
-        load: Lazy.load({ body: 'content' }),
+        load: Lazy.load({ body: { data: 'content' }}),
       },
 
     ]).then(function(changes){

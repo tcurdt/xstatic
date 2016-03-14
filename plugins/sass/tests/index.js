@@ -25,7 +25,7 @@ Test('converts scss to css', function(t) {
         path: 'design/styles/test.scss',
         load: Lazy.load({
           path: 'design/styles/test.scss',
-          body: '$color: black;\nh1 { color: $color; text: env("HOME"); }\n'
+          body: { data: '$color: black;\nh1 { color: $color; text: env("HOME"); }\n' }
         }),
       },
     ]).then(function(changes1){
@@ -38,7 +38,7 @@ Test('converts scss to css', function(t) {
 
       return file.load.then(function(f){
         console.log(f)
-        t.ok(f.body.match(/^h1/), 'has css')
+        t.ok(f.body.data.match(/^h1/), 'has css')
       })
 
     })
@@ -56,7 +56,7 @@ Test('imports', function(t) {
         path: 'design/styles/other.scss',
         load: Lazy.load({
           path: 'design/styles/other.scss',
-          body: 'h1 { color: black }'
+          body: { data: 'h1 { color: black }' }
         }),
       },
       {
@@ -65,7 +65,7 @@ Test('imports', function(t) {
         path: 'design/styles/test.scss',
         load: Lazy.load({
           path: 'design/styles/test.scss',
-          body: '@import "other.scss"'
+          body: { data: '@import "other.scss"' }
         }),
       },
     ]).then(function(changes1){
@@ -77,7 +77,7 @@ Test('imports', function(t) {
       t.ok(file, 'exits')
 
       return file.load.then(function(f){
-        t.ok(f.body.match(/^h1/), 'has css')
+        t.ok(f.body.data.match(/^h1/), 'has css')
       })
 
     })

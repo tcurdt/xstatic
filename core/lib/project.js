@@ -36,7 +36,7 @@ function Project(target, defaults) {
     // const cwd = process.cwd()
     // const src = Path.join(cwd, change.path)
     const dst = Path.join(target, change.path)
-    Fs.writeFile(dst, doc.body, function(err) {
+    Fs.writeFile(dst, doc.body.data, function(err) {
       if(err) {
         cb(err)
       } else {

@@ -5,6 +5,7 @@ const Xstatic = require('xstatic-core')
 const _ = require('@tcurdt/tinyutils')
 const Builder = require('xmlbuilder')
 const Moment = require('moment')
+
 const Url = require('url')
 
 module.exports = function(project) { return function(files, defaults) {
@@ -49,12 +50,17 @@ module.exports = function(project) { return function(files, defaults) {
       // e.ele('priority', priority).up()
     })
 
+    const data = xml.end({
+      pretty: true,
+      indent: '  ',
+      newline: '\n'
+    })
+
     return Promise.resolve({
-      body: xml.end({
-        pretty: true,
-        indent: '  ',
-        newline: '\n'
-      })
+      body: {
+        mime: "text/xml",
+        data: data
+      }
     })
   }
 

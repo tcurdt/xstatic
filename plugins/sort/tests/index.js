@@ -26,19 +26,19 @@ Test('files created in random order become sorted by path', function(t) {
         type: Change.A,
         lmod: 1,
         path: 'content/1.txt',
-        load: Lazy.load({ body: '1' }),
+        load: Lazy.load({ body: { data: '1' }}),
       },
       {
         type: Change.A,
         lmod: 1,
         path: 'content/3.txt',
-        load: Lazy.load({ body: '3' }),
+        load: Lazy.load({ body: { data: '3' }}),
       },
       {
         type: Change.A,
         lmod: 1,
         path: 'content/2.txt',
-        load: Lazy.load({ body: '2' }),
+        load: Lazy.load({ body: { data: '2' }}),
       },
     ]).then(function(changes1){
 

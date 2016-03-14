@@ -22,13 +22,13 @@ Test('creates zip of all files', function(t) {
       type: Change.A,
       lmod: 1445556599000,
       path: 'content/posts/2014/slug1/index.txt',
-      load: Lazy.load({ body: 'post1' }),
+      load: Lazy.load({ body: { data: 'post1' }}),
     },
     {
       type: Change.A,
       lmod: 1445556599000,
       path: 'content/posts/2015/slug1/index.txt',
-      load: Lazy.load({ body: 'post2' }),
+      load: Lazy.load({ body: { data: 'post2' }}),
     },
   ]
 

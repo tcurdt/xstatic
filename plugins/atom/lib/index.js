@@ -4,8 +4,9 @@ const Xstatic = require('xstatic-core')
 
 const _ = require('@tcurdt/tinyutils')
 const Builder = require('xmlbuilder')
-const Crypto = require('crypto')
 const Moment = require('moment')
+
+const Crypto = require('crypto')
 const Url = require('url')
 
 module.exports = function(project) { return function(files, defaults) {
@@ -89,7 +90,7 @@ module.exports = function(project) { return function(files, defaults) {
       const entryHref = join(options.url, doc.path) || _.throw('invalid href for doc ' + JSON.stringify(doc))
       const entryUpdated = formatTimestamp(doc.lmod)
       const entrySummary = meta.summary
-      const entryContent = doc.body || _.throw('feed item has no content')
+      const entryContent = doc.body.data || _.throw('feed item has no content')
 
       const e = xml.ele('entry')
 
@@ -108,12 +109,17 @@ module.exports = function(project) { return function(files, defaults) {
         .up()
     })
 
+    const data = xml.end({
+      pretty: true,
+      indent: '  ',
+      newline: '\n'
+    })
+
     return {
-      body: xml.end({
-        pretty: true,
-        indent: '  ',
-        newline: '\n'
-      })
+      body: {
+        mime: "text/xml",
+        data: data
+      }
     }
   }
 

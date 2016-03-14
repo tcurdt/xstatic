@@ -61,19 +61,19 @@ function add(t) {
         type: Change.A,
         lmod: 1,
         path: 'content/posts/2014/slug1/index.md',
-        load: Lazy.load({ body: '---\ntitle: t2014\n---\ncontent' }),
+        load: Lazy.load({ body: { data: '---\ntitle: t2014\n---\ncontent' }}),
       },
       {
         type: Change.A,
         lmod: 1,
         path: 'content/posts/2015/slug1/index.md',
-        load: Lazy.load({ body: '---\ntitle: t2015\n---\ncontent' }),
+        load: Lazy.load({ body: { data: '---\ntitle: t2015\n---\ncontent' }}),
       },
       {
         type: Change.A,
         lmod: 1,
         path: 'design/templates/post.html',
-        load: Lazy.load({ body: 'TEMPLATE {{position}}/{{length}} {{{content}}}' }),
+        load: Lazy.load({ body: { data: 'TEMPLATE {{position}}/{{length}} {{{content}}}' }}),
       },
 
     ]).then(function(changes){
@@ -102,7 +102,6 @@ function add(t) {
       })).then(function(docs) {
         docs.forEach(function(doc) {
           t.ok(doc.meta && doc.meta.title, 'post has title')
-          console.log("CONTENT:", doc.body)
         })
       }).then(function() {
         return collection
@@ -124,7 +123,7 @@ Test('updating a post updates the post page, feed and sitemap', function(t) {
         type: Change.M,
         lmod: 2,
         path: 'content/posts/2014/slug1/index.md',
-        load: Lazy.load({ body: 'content' }),
+        load: Lazy.load({ body: { data: 'content' }}),
       },
 
     ]).then(function(changes){
@@ -154,7 +153,7 @@ Test('updating the post template updates all post pages (but not the sitemap or 
         type: Change.M,
         lmod: 2,
         path: 'design/templates/post.html',
-        load: Lazy.load({ body: 'content' }),
+        load: Lazy.load({ body: { data: 'content' }}),
       },
 
     ]).then(function(changes){

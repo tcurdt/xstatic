@@ -12,7 +12,7 @@ module.exports = function(project) { return function(collections, options) {
 
     inputs.forEach(function(input) {
       input.forEach(function(file) {
-	create(file, [ file ])
+        create(file, [ file ])
       })
     })
   }

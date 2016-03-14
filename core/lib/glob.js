@@ -48,7 +48,9 @@ function Glob(pattern, defaults) {
               loadResolve({
                 path: pathRel,
                 lmod: change.lmod,
-                body: data
+                body: {
+                  data: data
+                }
               })
             }
           })

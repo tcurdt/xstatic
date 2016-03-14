@@ -20,22 +20,28 @@ module.exports = function(project) { return function(files, defaults) {
 
   const collection = new Xstatic.collection('babel', [ files ], options)
 
-  function babel(file) {
-    return Babel.transform(file.body, _.merge({
-      // filename: file.path,
+  function babel(doc) {
+    return Babel.transform(doc.body.data, _.merge({
+      // filename: doc.path,
       ast: false,
     }, options.babel))
   }
 
   function returnCode(result) {
     return {
-      body: result.code
+      body: {
+        mime: "text/javascript",
+        data: result.code
+      }
     }
   }
 
   function returnMap(result) {
     return {
-      body: JSON.stringify(result.map)
+      body: {
+        mime: "text/json",
+        data: JSON.stringify(result.map)
+      }
     }
   }
 
@@ -44,8 +50,8 @@ module.exports = function(project) { return function(files, defaults) {
     files.forEach(function(file) {
       const compile = file.load.then(babel)
       create({
-	path: file.path,
-	load: compile.then(returnCode),
+        path: file.path,
+        load: compile.then(returnCode),
       }, [ file ])
       // create({
       //   path: file.path + '.map',

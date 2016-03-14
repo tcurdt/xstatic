@@ -1,4 +1,7 @@
 {
   "name": "xstatic-filter",
-  "description" : "xstatic plugin to filter files based on patterns"
+  "description" : "xstatic plugin to filter files based on patterns",
+  "dependencies": {
+    "minimatch": "3.0.0"
+  }
 }

@@ -22,7 +22,7 @@ Test('parse json', function(t) {
         type: Change.A,
         lmod: 1,
         path: 'content/test.json',
-        load: Lazy.load({ body: '{ "a": 2 }' }),
+        load: Lazy.load({ body: { data: '{ "a": 2 }' }}),
       },
     ]).then(function(changes1){
 
@@ -32,8 +32,8 @@ Test('parse json', function(t) {
 
       t.ok(file, 'exists')
 
-      return file.load.then(function(content){
-        t.equal(content.json.a, 2)
+      return file.load.then(function(doc){
+        t.equal(doc.body.data.a, 2)
       })
 
     })

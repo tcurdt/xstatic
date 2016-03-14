@@ -21,7 +21,7 @@ Test('extracts frontmatter', function(t) {
         type: Change.A,
         lmod: 1,
         path: 'content/posts/2014/slug1/index.md',
-        load: Lazy.load({ body: '---\ntitle: title1\n---\npost1' }),
+        load: Lazy.load({ body: { data: '---\ntitle: title1\n---\npost1' }}),
       },
     ]).then(function(changes1){
 
@@ -31,7 +31,7 @@ Test('extracts frontmatter', function(t) {
       t.ok(file, 'exists')
 
       return file.load.then(function(f){
-        t.equal(f.body, 'post1')
+        t.equal(f.body.data, 'post1')
         t.equal(f.meta.title, 'title1')
       })
 

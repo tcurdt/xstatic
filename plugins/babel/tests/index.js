@@ -22,7 +22,7 @@ Test('compiles jsx to js', function(t) {
         type: Change.A,
         lmod: 1,
         path: 'content/test.js',
-        load: Lazy.load({ body: 'const doc = <div>JSX</div>' }),
+        load: Lazy.load({ body: { data: 'const doc = <div>JSX</div>' }}),
       },
     ]).then(function(changes){
 
@@ -33,7 +33,7 @@ Test('compiles jsx to js', function(t) {
       t.ok(file, 'exists')
 
       return file.load.then(function(f){
-        t.ok(f.body.includes('React.createElement'), 'transpile JSX to JS')
+        t.ok(f.body.data.includes('React.createElement'), 'transpile JSX to JS')
       })
 
       // collection.get('content/test.js.map').load.then(function(f){

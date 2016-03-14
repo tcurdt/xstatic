@@ -44,27 +44,35 @@ function Collection(name, inputs, defaults) {
       const filePath = options.path(new FilePath(file.path)).toString()
       const fileLmod = self.maxLmod(dependencies)
       const fileMeta = file.meta || {}
+      const fileLoad = file.load
 
       const fileNew = {
         lmod: fileLmod,
         path: filePath,
         meta: fileMeta,
-        load: new LazyPromise(function(resolve, reject) {
-          file.load.then(function(doc) {
-            const d = _.merge(doc, {
-              lmod: fileLmod,
-              path: filePath,
-              meta: _.merge(fileMeta, doc.meta),
-            })
-            resolve(d)
-          }).catch(function(err) {
-            reject(err)
-          })
-        })
+        load: fileLoad,
       }
 
       files.push(fileNew)
       return fileNew
+    })
+
+    files.forEach(function(file) {
+      const load = file.load
+      file.load = new LazyPromise(function(resolve, reject) {
+        load.then(function(doc) {
+          const d = {
+            lmod: file.lmod,
+            path: file.path,
+            meta: _.merge(file.meta, doc.meta),
+            body: doc.body,
+          }
+
+          resolve(d)
+        }).catch(function(err) {
+          reject(err)
+        })
+      })
     })
 
     const lmod = self.maxLmod(inputs)

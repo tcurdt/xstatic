@@ -3,8 +3,9 @@
 const Xstatic = require('xstatic-core')
 
 const _ = require('@tcurdt/tinyutils')
-const Path = require('path')
 const Sass = require('node-sass')
+
+const Path = require('path')
 
 module.exports = function(project) { return function(files, defaults) {
 
@@ -21,7 +22,7 @@ module.exports = function(project) { return function(files, defaults) {
     return new Promise(function(resolve, reject) {
 
       Sass.render( _.merge(options.sass, {
-        data: doc.body.toString(),
+        data: doc.body.data.toString(),
         functions: {
           'env($name)': function(name) {
             const value = process.env[name.getValue()]
@@ -56,7 +57,7 @@ module.exports = function(project) { return function(files, defaults) {
 
                 done({
                   file: pathAbs,
-                  contents: foundDoc.body.toString()
+                  contents: foundDoc.body.data.toString()
                 })
 
               } catch(err) {
@@ -75,7 +76,10 @@ module.exports = function(project) { return function(files, defaults) {
           reject(err)
         } else {
           resolve({
-            body: result.css.toString()
+            body: {
+              mime: "text/css",
+              data: result.css.toString()
+            }
           })
         }
       })
@@ -92,10 +96,10 @@ module.exports = function(project) { return function(files, defaults) {
       // sass files starting with '_' are includes that
       // should not produce an output file
       if (base[0] !== '_') {
-	create({
-	  path: file.path,
-	  load: file.load.then(sass),
-	}, [ file ])
+        create({
+          path: file.path,
+          load: file.load.then(sass),
+        }, [ file ])
       }
     })
   }

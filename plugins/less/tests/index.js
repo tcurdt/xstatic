@@ -22,7 +22,7 @@ Test('converts less to css', function(t) {
         type: Change.A,
         lmod: 1,
         path: 'design/styles/test.less',
-        load: Lazy.load({ body: 'h1 { color: black }' }),
+        load: Lazy.load({ body: { data: 'h1 { color: black }' }}),
       },
     ]).then(function(changes1){
 
@@ -33,7 +33,7 @@ Test('converts less to css', function(t) {
       t.ok(file, 'exists')
 
       return file.load.then(function(f){
-        t.ok(f.body.match(/^h1/), 'has css')
+        t.ok(f.body.data.match(/^h1/), 'has css')
         // t.ok(f.body.match(/sourceMappingURL/), 'has map')
       })
 
@@ -48,13 +48,13 @@ Test('imports', function(t) {
         type: Change.A,
         lmod: 1,
         path: 'design/styles/other.less',
-        load: Lazy.load({ body: 'h1 { color: black }' }),
+        load: Lazy.load({ body: { data: 'h1 { color: black }' }}),
       },
       {
         type: Change.A,
         lmod: 1,
         path: 'design/styles/test.less',
-        load: Lazy.load({ body: '@import "other.less";' }),
+        load: Lazy.load({ body: { data: '@import "other.less";' }}),
       },
     ]).then(function(changes1){
 
@@ -65,7 +65,7 @@ Test('imports', function(t) {
       t.ok(file, 'exists')
 
       return file.load.then(function(f){
-        t.ok(f.body.match(/^h1/), 'has css')
+        t.ok(f.body.data.match(/^h1/), 'has css')
       })
 
     })

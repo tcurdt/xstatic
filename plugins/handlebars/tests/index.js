@@ -34,7 +34,7 @@ Test('variable expansion from project, collection and document context', functio
         type: Change.A,
         lmod: 1,
         path: 'content/page1.txt',
-        load: Lazy.load({ body: 'page1:{{site.title}}:{{foo}}:{{biffy}}', meta: { foo: 'FIGHTERS' }}),
+        load: Lazy.load({ body: { data: 'page1:{{site.title}}:{{foo}}:{{biffy}}' }, meta: { foo: 'FIGHTERS' }}),
       },
 
     ]).then(function(changes1){
@@ -44,7 +44,7 @@ Test('variable expansion from project, collection and document context', functio
       const file = collection.get('content/page1.txt')
 
       return file.load.then(function(f){
-        t.equal(f.body, 'page1:TITLE:FIGHTERS:CLYRO')
+        t.equal(f.body.data, 'page1:TITLE:FIGHTERS:CLYRO')
       }).catch(function(err){ t.fail(err) })
 
     })
@@ -70,13 +70,13 @@ Test('loading of partials', function(t) {
         type: Change.A,
         lmod: 1,
         path: 'design/partials/base.txt',
-        load: Lazy.load({ body: 'PARTIAL', path: 'design/partials/base.txt' }),
+        load: Lazy.load({ body: { data: 'PARTIAL' }, path: 'design/partials/base.txt' }),
       },
       {
         type: Change.A,
         lmod: 1,
         path: 'content/page1.txt',
-        load: Lazy.load({ body: 'B:{{>base}}:E' }),
+        load: Lazy.load({ body: { data: 'B:{{>base}}:E' }}),
       },
 
     ]).then(function(changes1){
@@ -86,7 +86,7 @@ Test('loading of partials', function(t) {
       const file = collection.get('content/page1.txt')
 
       return file.load.then(function(f){
-        t.equal(f.body, 'B:PARTIAL:E')
+        t.equal(f.body.data, 'B:PARTIAL:E')
       }).catch(function(err){ t.fail(err) })
 
     })
@@ -118,7 +118,7 @@ Test('use of custom helpers', function(t) {
         type: Change.A,
         lmod: 1,
         path: 'content/page1.txt',
-        load: Lazy.load({ body: '{{#foo}}{{/foo}}' }),
+        load: Lazy.load({ body: { data: '{{#foo}}{{/foo}}' }}),
       },
 
     ]).then(function(changes1){
@@ -128,7 +128,7 @@ Test('use of custom helpers', function(t) {
       const file = collection.get('content/page1.txt')
 
       return file.load.then(function(f){
-        t.equal(f.body, 'FIGHTERS')
+        t.equal(f.body.data, 'FIGHTERS')
       }).catch(function(err){ t.fail(err) })
 
     })

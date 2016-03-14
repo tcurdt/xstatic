@@ -6,10 +6,13 @@ module.exports = function(project) { return function(files, options) {
 
   const collection = new Xstatic.collection('json', [ files ], options)
 
-  function parse(file) {
-    const json = JSON.parse(file.body)
+  function parse(doc) {
+    const json = JSON.parse(doc.body.data)
     return {
-      json: json
+      body: {
+        mime: "object/json",
+        data: json
+      }
     }
   }
 
@@ -17,8 +20,8 @@ module.exports = function(project) { return function(files, options) {
 
     files.forEach(function(file){
       create({
-	path: file.path,
-	load: file.load.then(parse),
+        path: file.path,
+        load: file.load.then(parse),
       }, [ file ])
     })
   }

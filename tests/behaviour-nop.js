@@ -20,7 +20,7 @@ Test('files should just be copied', function(t) {
         type: Change.A,
         lmod: 1,
         path: 'content/posts/2014/slug1/index.md',
-        load: Lazy.load({ body: 'content' }),
+        load: Lazy.load({ body: { data: 'content' }}),
       },
 
     ]).then(function(changes){
@@ -45,7 +45,7 @@ Test('files should just be copied - even when going through merge', function(t) 
         type: Change.A,
         lmod: 1,
         path: 'content/posts/2014/slug1/index.md',
-        load: Lazy.load({ body: 'content' }),
+        load: Lazy.load({ body: { data: 'content' }}),
       },
 
     ]).then(function(changes){

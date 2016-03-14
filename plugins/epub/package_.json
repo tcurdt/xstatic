@@ -2,6 +2,7 @@
   "name": "xstatic-epub",
   "description" : "xstatic plugin to generate epub files",
   "dependencies": {
-    "archiver": "0.21.0"
+    "archiver": "0.21.0",
+    "@tcurdt/tinyutils": "1.0.0"
   }
 }

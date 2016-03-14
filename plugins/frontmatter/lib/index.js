@@ -15,11 +15,14 @@ module.exports = function(project) { return function(files, defaults) {
   const collection = new Xstatic.collection('frontmatter', [ files ], options)
 
   function frontmatter(doc) {
-    const result = Frontmatter(doc.body.toString())
+    const result = Frontmatter(doc.body.data.toString())
 
     return _.merge(doc, {
       meta: _.merge(options.default, result.attributes),
-      body: result.body,
+      body: {
+        mime: "text/any",
+        data: result.body
+      }
     })
   }
 
@@ -27,8 +30,8 @@ module.exports = function(project) { return function(files, defaults) {
 
     files.forEach(function(file) {
       create(_.merge(file, {
-	path: file.path,
-	load: file.load.then(frontmatter),
+        path: file.path,
+        load: file.load.then(frontmatter),
       }), [ file ])
     })
   }

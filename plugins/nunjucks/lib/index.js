@@ -3,8 +3,9 @@
 const Xstatic = require('xstatic-core')
 
 const _ = require('@tcurdt/tinyutils')
-const Path = require('path')
 const Nunjucks = require('nunjucks')
+
+const Path = require('path')
 
 module.exports = function(project) { return function(files, defaults) {
 
@@ -46,7 +47,7 @@ module.exports = function(project) { return function(files, defaults) {
         getSource: function(path, cb) {
           loadLayout(path).then(function(loaderDoc) {
             cb(null, {
-              src: loaderDoc.body.toString(),
+              src: loaderDoc.body.data.toString(),
               path: path,
               noCache: true
             })
@@ -57,7 +58,7 @@ module.exports = function(project) { return function(files, defaults) {
       }
 
       const env = new Nunjucks.Environment(loader, options.compile)
-      const template = Nunjucks.compile(doc.body.toString(), env, doc.path)
+      const template = Nunjucks.compile(doc.body.data.toString(), env, doc.path)
       return Promise.resolve(template)
     }
   }
@@ -89,9 +90,9 @@ module.exports = function(project) { return function(files, defaults) {
       const contentPromise = Promise.all([file.load, contextPromise]).then(_.spread(function(doc, context) {
 
         // render page
-        const pagePromise = doc.body ? engine.then(precompile(doc))
-          .then(render(Xstatic.context.renderContext(project, context, doc)))
-          : Promise.resolve(doc.json)
+        const pagePromise = doc.body.mime == "object/json"
+          ? Promise.resolve(doc.body.data)
+          : engine.then(precompile(doc)).then(render(Xstatic.context.renderContext(project, context, doc)))
 
         const layout = (doc.meta && doc.meta.layout) || options.layout
         if (layout) {
@@ -118,14 +119,19 @@ module.exports = function(project) { return function(files, defaults) {
 
       // build doc
       const docPromise = Promise.all([file.load, contentPromise]).then(_.spread(function(doc, content) {
+
         return _.merge(doc, {
-          body: content
+          body: {
+            mime: "text/any",
+            data: content
+          }
         })
+
       }))
 
       create({
-	path: file.path,
-	load: docPromise,
+        path: file.path,
+        load: docPromise,
       }, deps(file))
     })
   }
