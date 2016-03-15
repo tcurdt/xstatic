@@ -17,7 +17,7 @@
     "tape": "4.5.1",
     "blue-tape": "0.2.0",
     "istanbul": "0.4.2",
-    "nyc": "6.0.0",
+    "nyc": "6.1.1",
     "faucet": "0.0.1"
   },
   "main": "lib/index.js",
@@ -29,5 +29,8 @@
     "coverage": "nyc --reporter=text npm test | cat"
   },
   "name": "xstatic-filter",
-  "description": "xstatic plugin to filter files based on patterns"
+  "description": "xstatic plugin to filter files based on patterns",
+  "dependencies": {
+    "minimatch": "3.0.0"
+  }
 }

@@ -8,6 +8,7 @@
     "babel-core": "6.4.0",
     "babel-plugin-transform-react-jsx": "6.4.0",
     "archiver": "0.21.0",
+    "minimatch": "3.0.0",
     "front-matter": "2.0.5",
     "handlebars": "4.0.5",
     "less": "2.5.3",
@@ -16,7 +17,6 @@
     "nunjucks": "2.3.0",
     "node-sass": "3.3.3",
     "chokidar": "1.4.2",
-    "minimatch": "3.0.0",
     "mkdirp": "0.5.1",
     "browser-sync": "2.11.1",
     "@tcurdt/filepath": "1.0.0"

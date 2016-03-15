@@ -17,7 +17,7 @@
     "tape": "4.5.1",
     "blue-tape": "0.2.0",
     "istanbul": "0.4.2",
-    "nyc": "6.0.0",
+    "nyc": "6.1.1",
     "faucet": "0.0.1"
   },
   "main": "lib/index.js",
@@ -31,6 +31,7 @@
   "name": "xstatic-sass",
   "description": "xstatic plugin to convert sass to css",
   "dependencies": {
-    "node-sass": "3.3.3"
+    "node-sass": "3.3.3",
+    "@tcurdt/tinyutils": "1.0.0"
   }
 }
