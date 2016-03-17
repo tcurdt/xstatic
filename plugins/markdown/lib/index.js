@@ -13,7 +13,7 @@ module.exports = function(project) { return function(files, defaults) {
     path: function(path) { return path.setExt('html') },
     marked: {
       highlight: function(code, lang) {
-        return Highlight.highlightBlock(code).value
+        return Highlight.highlightAuto(code).value
       },
       renderer: renderer
     }

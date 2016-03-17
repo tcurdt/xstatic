@@ -24,7 +24,7 @@
     "test": "istanbul test tape -- tests/*.js | faucet",
     "coverage": "nyc --reporter=text npm test | cat"
   },
-  "version": "1.4.1",
+  "version": "1.4.2",
   "author": "Torsten Curdt",
   "license": "Apache-2.0",
   "repository": {
