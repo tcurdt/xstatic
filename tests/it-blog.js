@@ -5,6 +5,12 @@ const Xstatic = require('xstatic-core')
 const Lazy = Xstatic.lazy
 const Change = Xstatic.changes
 
+function update(file, doc) {
+  file.load = Lazy.load(doc)
+  doc.file = file
+  return file
+}
+
 function setup(t, cb) {
   const project = new Xstatic('build')
   const files = project.glob('content/**/*')
@@ -57,24 +63,27 @@ function add(t) {
   return setup(t, function(project, collection) {
     return collection.update([
 
-      {
+      update({
         type: Change.A,
         lmod: 1,
         path: 'content/posts/2014/slug1/index.md',
-        load: Lazy.load({ body: { data: '---\ntitle: t2014\n---\ncontent' }}),
-      },
-      {
+      }, {
+        body: { data: '---\ntitle: t2014\n---\ncontent' }
+      }),
+      update({
         type: Change.A,
         lmod: 1,
         path: 'content/posts/2015/slug1/index.md',
-        load: Lazy.load({ body: { data: '---\ntitle: t2015\n---\ncontent' }}),
-      },
-      {
+      }, {
+        body: { data: '---\ntitle: t2015\n---\ncontent' }
+      }),
+      update({
         type: Change.A,
         lmod: 1,
         path: 'design/templates/post.html',
-        load: Lazy.load({ body: { data: 'TEMPLATE {{position}}/{{length}} {{{content}}}' }}),
-      },
+      }, {
+        body: { data: 'TEMPLATE {{position}}/{{length}} {{{content}}}' }
+      }),
 
     ]).then(function(changes){
 
@@ -119,12 +128,13 @@ Test('updating a post updates the post page, feed and sitemap', function(t) {
   return add(t).then(function(collection){
     return collection.update([
 
-      {
+      update({
         type: Change.M,
         lmod: 2,
         path: 'content/posts/2014/slug1/index.md',
-        load: Lazy.load({ body: { data: 'content' }}),
-      },
+      }, {
+        body: { data: 'content' }
+      }),
 
     ]).then(function(changes){
 
@@ -149,12 +159,13 @@ Test('updating the post template updates all post pages (but not the sitemap or 
   return add(t).then(function(collection){
     return collection.update([
 
-      {
+      update({
         type: Change.M,
         lmod: 2,
         path: 'design/templates/post.html',
-        load: Lazy.load({ body: { data: 'content' }}),
-      },
+      }, {
+        body: { data: 'content' }
+      }),
 
     ]).then(function(changes){
 
@@ -177,13 +188,21 @@ Test('updating the post template updates all post pages (but not the sitemap or 
 Test('deleting a post deletes the post page and updates feed and sitemap', function(t) {
   return add(t).then(function(collection){
     return collection.update([
-      { type: Change.D, lmod: 2, path: 'content/posts/2014/slug1/index.md' },
 
-      {
+      update({
         type: Change.D,
         lmod: 2,
         path: 'content/posts/2014/slug1/index.md',
-      },
+      }, {
+        body: { data: 'content' }
+      }),
+      update({
+        type: Change.D,
+        lmod: 2,
+        path: 'content/posts/2014/slug1/index.md',
+      }, {
+        body: { data: 'content' }
+      }),
 
     ]).then(function(changes){
 

@@ -1,8 +1,8 @@
 'use strict'
 
 const Xstatic = require('xstatic-core')
-
 const _ = require('@tcurdt/tinyutils')
+
 const Sass = require('node-sass')
 
 const Path = require('path')
@@ -18,7 +18,7 @@ module.exports = function(project) { return function(files, defaults) {
   const collection = new Xstatic.collection('sass', [ files ], options)
 
   function sass(doc) {
-    const pathParent = Path.resolve(doc.path)
+    const pathParent = Path.resolve(doc.file.path)
     return new Promise(function(resolve, reject) {
 
       Sass.render( _.merge(options.sass, {
@@ -89,18 +89,19 @@ module.exports = function(project) { return function(files, defaults) {
 
 
   collection.build = function(create) {
+    return _.collect(function(add) {
+      files.forEach(function(file) {
 
-    files.forEach(function(file){
-
-      const base = Path.basename(file.path)
-      // sass files starting with '_' are includes that
-      // should not produce an output file
-      if (base[0] !== '_') {
-        create({
-          path: file.path,
-          load: file.load.then(sass),
-        }, [ file ])
-      }
+        const base = Path.basename(file.path)
+        // sass files starting with '_' are includes that
+        // should not produce an output file
+        if (base[0] !== '_') {
+          add(create({
+            path: file.path,
+            load: file.load.then(sass),
+          }, [ file ]))
+        }
+      })
     })
   }
 

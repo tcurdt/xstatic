@@ -4,6 +4,6 @@
   "dependencies": {
     "babel-core": "6.4.0",
     "babel-plugin-transform-react-jsx": "6.4.0",
-    "@tcurdt/tinyutils": "1.0.0"
+    "@tcurdt/tinyutils": "1.0.1"
   }
 }

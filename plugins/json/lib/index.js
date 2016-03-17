@@ -1,6 +1,7 @@
 'use strict'
 
 const Xstatic = require('xstatic-core')
+const _ = require('@tcurdt/tinyutils')
 
 module.exports = function(project) { return function(files, options) {
 
@@ -10,19 +11,21 @@ module.exports = function(project) { return function(files, options) {
     const json = JSON.parse(doc.body.data)
     return {
       body: {
-        mime: "object/json",
+        mime: 'object/json',
         data: json
       }
     }
   }
 
   collection.build = function(create) {
+    return _.collect(function(add) {
 
-    files.forEach(function(file){
-      create({
-        path: file.path,
-        load: file.load.then(parse),
-      }, [ file ])
+      files.forEach(function(file){
+        add(create({
+          path: file.path,
+          load: file.load.then(parse),
+        }, [ file ]))
+      })
     })
   }
 

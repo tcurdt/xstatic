@@ -3,6 +3,6 @@
   "description" : "xstatic plugin to apply handlebars templates",
   "dependencies": {
     "handlebars": "4.0.5",
-    "@tcurdt/tinyutils": "1.0.0"
+    "@tcurdt/tinyutils": "1.0.1"
   }
 }

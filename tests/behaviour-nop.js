@@ -5,6 +5,13 @@ const Xstatic = require('xstatic-core')
 const Lazy = Xstatic.lazy
 const Change = Xstatic.changes
 
+
+function update(file, doc) {
+  file.load = Lazy.load(doc)
+  doc.file = file
+  return file
+}
+
 function setup(t, cb) {
   const project = new Xstatic('build')
   return cb(project)
@@ -16,17 +23,18 @@ Test('files should just be copied', function(t) {
 
     return collection.update([
 
-      {
+      update({
         type: Change.A,
         lmod: 1,
         path: 'content/posts/2014/slug1/index.md',
-        load: Lazy.load({ body: { data: 'content' }}),
-      },
+      }, {
+        body: { data: 'content' }
+      }),
 
-    ]).then(function(changes){
+    ]).then(function(changes) {
 
-      t.ok(collection.length === 1, 'has results')
-      return collection.forEach(function(item){
+      t.equal(collection.length, 1, 'has results')
+      return collection.forEach(function(item) {
         t.equal(item.load.isFulfilled, false)
       })
 
@@ -41,18 +49,19 @@ Test('files should just be copied - even when going through merge', function(t) 
 
     return collection.update([
 
-      {
+      update({
         type: Change.A,
         lmod: 1,
         path: 'content/posts/2014/slug1/index.md',
-        load: Lazy.load({ body: { data: 'content' }}),
-      },
+      }, {
+        body: { data: 'content' }
+      }),
 
-    ]).then(function(changes){
+    ]).then(function(changes) {
 
-      t.ok(collection.length === 1, 'has results')
+      t.equal(collection.length, 1, 'has results')
 
-      return collection.forEach(function(item){
+      return collection.forEach(function(item) {
         t.equal(item.load.isFulfilled, false)
       })
 

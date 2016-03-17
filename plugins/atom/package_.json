@@ -4,7 +4,7 @@
   "dependencies": {
     "xmlbuilder": "4.2.0",
     "moment": "2.11.2",
-    "@tcurdt/tinyutils": "1.0.0"
+    "@tcurdt/tinyutils": "1.0.1"
   },
   "devDependencies": {
     "libxmljs": "0.17.0"

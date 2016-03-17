@@ -67,10 +67,12 @@ module.exports = function(project) { return function(files, defaults) {
 
   collection.build = function(create) {
 
-    create({
-      path: options.filename,
-      load: sitemap(files),
-    }, [ files ])
+    return [
+      create({
+        path: options.filename,
+        load: sitemap(files),
+      }, [ files ])
+    ]
   }
 
   return collection

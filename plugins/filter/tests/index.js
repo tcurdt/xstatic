@@ -14,28 +14,35 @@ function setup(t, cb) {
   return cb(project, collection)
 }
 
+function update(file, doc) {
+  file.load = Lazy.load(doc)
+  doc.file = file
+  return file
+}
 
 Test('should only pass on matching files', function(t) {
   return setup(t, function(project, collection) {
     return collection.update([
 
-      {
+      update({
         type: Change.A,
         lmod: 1,
         path: 'content/posts/2014/slug1/index.md',
-        load: Lazy.load({ body: { data: 'content' }}),
-      },
-      {
+      }, {
+        body: { data: 'content' }
+      }),
+      update({
         type: Change.A,
         lmod: 1,
         path: 'design/styles/site.css',
-        load: Lazy.load({ body: { data: 'content' }}),
-      },
+      }, {
+        body: { data: 'content' }
+      }),
 
     ]).then(function(changes){
 
-      t.ok(changes.length === 1, 'has right number changes')
-      t.ok(collection.length === 1, 'has right number results')
+      t.equal(changes.length, 1, 'has right number changes')
+      t.equal(collection.length, 1, 'has right number results')
 
       return collection.forEach(function(item){
         t.equal(item.load.isFulfilled, false, 'not unnessarily loaded')

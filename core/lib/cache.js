@@ -19,8 +19,11 @@ function Cache(target) {
     target.lmod = lmod
     target.length = cache.size
     target.load = new LazyPromise(function(resolve, reject) {
-      Promise.all(target.map(function(file){ return file.load })).then(function(docs) {
+      const allLoaded = target.map(function(file) { return file.load })
+      Promise.all(allLoaded).then(function(docs) {
         resolve(docs)
+      }).catch(function(error) {
+        reject(error)
       })
     })
   }

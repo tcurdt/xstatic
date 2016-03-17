@@ -14,16 +14,26 @@ function setup(t, cb) {
   return cb(project, collection)
 }
 
+function update(file, doc) {
+  file.load = Lazy.load(doc)
+  doc.file = file
+  return file
+}
+
 Test('compiles jsx to js', function(t) {
   return setup(t, function(project, collection) {
 
     return collection.update([
-      {
+
+      update({
         type: Change.A,
         lmod: 1,
         path: 'content/test.js',
-        load: Lazy.load({ body: { data: 'const doc = <div>JSX</div>' }}),
-      },
+      }, {
+        meta: { title: 'title post1' },
+        body: { data: 'const doc = <div>JSX</div>' }
+      }),
+
     ]).then(function(changes){
 
       t.ok(collection.length === 1, 'has results')

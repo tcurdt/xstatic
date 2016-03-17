@@ -14,28 +14,37 @@ function setup(t, cb) {
   return cb(project, collection)
 }
 
+function update(file, doc) {
+  file.load = Lazy.load(doc)
+  doc.file = file
+  return file
+}
+
 Test('converts sass|less|styl to css', function(t) {
   return setup(t, function(project, collection) {
     return collection.update([
 
-      {
+      update({
         type: Change.A,
         lmod: 1,
         path: 'design/styles/test1.sass',
-        load: Lazy.load({ body: { data: 'h1 { color: black }' }}),
-      },
-      {
+      }, {
+        body: { data: 'h1 { color: black }' }
+      }),
+      update({
         type: Change.A,
         lmod: 1,
         path: 'design/styles/test2.less',
-        load: Lazy.load({ body: { data: 'h1 { color: black }' }}),
-      },
-      // {
+      }, {
+        body: { data: 'h1 { color: black }' }
+      }),
+      // update({
       //   type: Change.A,
       //   lmod: 1,
       //   path: 'design/styles/test3.styl',
-      //   load: Lazy.load({ body: 'h1\n  color black' }),
-      // },
+      // }, {
+      //   body: { data: 'h1\n  color black' }
+      // }),
 
     ]).then(function(changes) {
 

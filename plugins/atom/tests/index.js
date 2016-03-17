@@ -21,32 +21,55 @@ function setup(t, cb) {
   return cb(project, collection)
 }
 
+function update(file, doc) {
+  file.load = Lazy.load(doc)
+  doc.file = file
+  return file
+}
+
 Test('creates feed of all posts', function(t) {
   return setup(t, function(project, collection) {
     return collection.update([
 
-      {
+      update({
         type: Change.A,
         lmod: 1445556599000,
         path: 'content/posts/2014/slug1/index.txt',
-        load: Lazy.load({
-          meta: { title: 'title post1' },
-          lmod: 1445556599000,
-          path: 'content/posts/2014/slug1/index.txt',
-          body: { data: 'post1' }
-        }),
-      },
-      {
+      }, {
+        meta: { title: 'title post1' },
+        body: { data: 'post1' }
+      }),
+      update({
         type: Change.A,
         lmod: 1445556599000 - 60*1000,
         path: 'content/posts/2015/slug1/index.txt',
-        load: Lazy.load({
-          meta: { title: 'title post2' },
-          lmod: 1445556599000 - 60*1000,
-          path: 'content/posts/2015/slug1/index.txt',
-          body: { data: 'post2' }
-        }),
-      },
+      }, {
+        meta: { title: 'title post2' },
+        body: { data: 'post2' }
+      }),
+
+      // {
+      //   type: Change.A,
+      //   lmod: 1445556599000,
+      //   path: 'content/posts/2014/slug1/index.txt',
+      //   load: Lazy.load({
+      //     meta: { title: 'title post1' },
+      //     lmod: 1445556599000,
+      //     path: 'content/posts/2014/slug1/index.txt',
+      //     body: { data: 'post1' }
+      //   }),
+      // },
+      // {
+      //   type: Change.A,
+      //   lmod: 1445556599000 - 60*1000,
+      //   path: 'content/posts/2015/slug1/index.txt',
+      //   load: Lazy.load({
+      //     meta: { title: 'title post2' },
+      //     lmod: 1445556599000 - 60*1000,
+      //     path: 'content/posts/2015/slug1/index.txt',
+      //     body: { data: 'post2' }
+      //   }),
+      // },
 
     ]).then(function(changes){
 

@@ -41,12 +41,14 @@ module.exports = function(project) { return function(files, defaults) {
   }
 
   collection.build = function(create) {
+    return _.collect(function(add) {
 
-    files.forEach(function(file) {
-      create(_.merge(file, {
-        path: file.path,
-        load: file.load.then(markdown),
-      }), [ file ])
+      files.forEach(function(file) {
+        add(create({
+          path: file.path,
+          load: file.load.then(markdown),
+        }, [ file ]))
+      })
     })
   }
 

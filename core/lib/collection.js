@@ -38,47 +38,53 @@ function Collection(name, inputs, defaults) {
       return Promise.resolve([])
     }
 
-    const files = []
-    self.build(function(file, dependencies) {
+    const buildFiles = Promise.resolve(self.build(function(file, dependencies) {
 
-      const filePath = options.path(new FilePath(file.path)).toString()
-      const fileLmod = self.maxLmod(dependencies)
-      const fileMeta = file.meta || {}
-      const fileLoad = file.load
+        const filePath = options.path(new FilePath(file.path)).toString()
+        const fileLmod = self.maxLmod(dependencies)
+        const fileLoad = file.load
 
-      const fileNew = {
-        lmod: fileLmod,
-        path: filePath,
-        meta: fileMeta,
-        load: fileLoad,
-      }
+        const fileNew = {
+          lmod: fileLmod,
+          path: filePath,
+          load: fileLoad,
+        }
 
-      files.push(fileNew)
-      return fileNew
-    })
+        return fileNew
+    }))
 
-    files.forEach(function(file) {
-      const load = file.load
-      file.load = new LazyPromise(function(resolve, reject) {
-        load.then(function(doc) {
-          const d = {
-            lmod: file.lmod,
-            path: file.path,
-            meta: _.merge(file.meta, doc.meta),
-            body: doc.body,
-          }
+    return buildFiles.then(function(files) {
 
-          resolve(d)
-        }).catch(function(err) {
-          reject(err)
+      files.forEach(function(file) {
+        const load = file.load
+        if (!load) {
+          console.log('load is null', file)
+        }
+        file.load = new LazyPromise(function(resolve, reject) {
+          load.then(function(doc) {
+
+            const docNew = {
+              // lmod: file.lmod,
+              // path: file.path,
+              file: file,
+              meta: _.merge({}, doc.meta),
+              body: doc.body,
+            }
+
+            resolve(docNew)
+          }).catch(function(err) {
+            reject(err)
+          })
         })
       })
+
+      const lmod = self.maxLmod(inputs)
+      const changed = self.applyFiles(files, lmod)
+
+      // console.log("plugin", self, "build", files)
+
+      return Promise.resolve(changed)
     })
-
-    const lmod = self.maxLmod(inputs)
-    const changed = self.applyFiles(files, lmod)
-
-    return Promise.resolve(changed)
   }
 
   function createPromise(changes) {

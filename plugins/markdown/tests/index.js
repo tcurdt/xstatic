@@ -14,26 +14,34 @@ function setup(t, cb) {
   return cb(project, collection)
 }
 
+function update(file, doc) {
+  file.load = Lazy.load(doc)
+  doc.file = file
+  return file
+}
 
 Test('converts markdown to html', function(t) {
   return setup(t, function(project, collection) {
     return collection.update([
-      {
+
+      update({
         type: Change.A,
         lmod: 1,
         path: 'content/posts/2014/slug1/index.md',
-        load: Lazy.load({ body: { data: '# test' }}),
-      },
+      }, {
+        body: { data: '# test' }
+      }),
+
     ]).then(function(changes1){
 
-      t.ok(collection.length === 1, 'has result')
+      t.equal(collection.length, 1, 'has result')
 
       const file = collection.get('content/posts/2014/slug1/index.html')
 
       t.ok(file, 'exists')
 
-      return file.load.then(function(f){
-        t.equal(f.body.data, '<h1 id="test">test</h1>\n')
+      return file.load.then(function(doc){
+        t.equal(doc.body.data, '<h1 id="test">test</h1>\n')
       })
 
     })

@@ -15,6 +15,11 @@ function setup(t, cb) {
   return cb(project)
 }
 
+function update(file, doc) {
+  file.load = Lazy.load(doc)
+  doc.file = file
+  return file
+}
 
 Test('variable expansion from project, collection and document context', function(t) {
   return setup(t, function(project) {
@@ -30,21 +35,23 @@ Test('variable expansion from project, collection and document context', functio
 
     return collection.update([
 
-      {
+      update({
         type: Change.A,
         lmod: 1,
         path: 'content/page1.txt',
-        load: Lazy.load({ body: { data: 'page1:{{site.title}}:{{foo}}:{{biffy}}' }, meta: { foo: 'FIGHTERS' }}),
-      },
+      }, {
+        meta: { foo: 'FIGHTERS' },
+        body: { data: 'page1:{{site.title}}:{{foo}}:{{biffy}}' }
+      }),
 
     ]).then(function(changes1){
 
-      t.ok(collection.length === 1, 'has results')
+      t.equal(collection.length, 1, 'has results')
 
       const file = collection.get('content/page1.txt')
 
-      return file.load.then(function(f){
-        t.equal(f.body.data, 'page1:TITLE:FIGHTERS:CLYRO')
+      return file.load.then(function(doc) {
+        t.equal(doc.body.data, 'page1:TITLE:FIGHTERS:CLYRO')
       }).catch(function(err){ t.fail(err) })
 
     })
@@ -66,31 +73,32 @@ Test('loading of partials', function(t) {
 
     return collection.update([
 
-      {
+      update({
         type: Change.A,
         lmod: 1,
         path: 'design/partials/base.txt',
-        load: Lazy.load({ body: { data: 'PARTIAL' }, path: 'design/partials/base.txt' }),
-      },
-      {
+      }, {
+        body: { data: 'PARTIAL' }
+      }),
+      update({
         type: Change.A,
         lmod: 1,
         path: 'content/page1.txt',
-        load: Lazy.load({ body: { data: 'B:{{>base}}:E' }}),
-      },
+      }, {
+        body: { data: 'B:{{>base}}:E' }
+      }),
 
     ]).then(function(changes1){
 
-      t.ok(collection.length === 1, 'has results')
+      t.equal(collection.length, 1, 'has results')
 
       const file = collection.get('content/page1.txt')
 
-      return file.load.then(function(f){
-        t.equal(f.body.data, 'B:PARTIAL:E')
-      }).catch(function(err){ t.fail(err) })
+      return file.load.then(function(doc) {
+        t.equal(doc.body.data, 'B:PARTIAL:E')
+      }).catch(function(err) { t.fail(err) })
 
     })
-
   })
 })
 
@@ -114,21 +122,22 @@ Test('use of custom helpers', function(t) {
 
     return collection.update([
 
-      {
+      update({
         type: Change.A,
         lmod: 1,
         path: 'content/page1.txt',
-        load: Lazy.load({ body: { data: '{{#foo}}{{/foo}}' }}),
-      },
+      }, {
+        body: { data: '{{#foo}}{{/foo}}' }
+      }),
 
     ]).then(function(changes1){
 
-      t.ok(collection.length === 1, 'has results')
+      t.equal(collection.length, 1, 'has results')
 
       const file = collection.get('content/page1.txt')
 
-      return file.load.then(function(f){
-        t.equal(f.body.data, 'FIGHTERS')
+      return file.load.then(function(doc) {
+        t.equal(doc.body.data, 'FIGHTERS')
       }).catch(function(err){ t.fail(err) })
 
     })

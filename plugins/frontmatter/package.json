@@ -1,5 +1,5 @@
 {
-  "version": "1.3.0",
+  "version": "1.4.0",
   "author": "Torsten Curdt",
   "license": "Apache-2.0",
   "repository": {
@@ -10,10 +10,10 @@
     "node": ">= 4.2.0"
   },
   "peerDependencies": {
-    "xstatic-core": "1.3.x"
+    "xstatic-core": "1.4.x"
   },
   "devDependencies": {
-    "xstatic-core": "1.3.0",
+    "xstatic-core": "1.4.0",
     "tape": "4.5.1",
     "blue-tape": "0.2.0",
     "istanbul": "0.4.2",
@@ -32,6 +32,6 @@
   "description": "xstatic plugin to extract frontmatter",
   "dependencies": {
     "front-matter": "2.0.5",
-    "@tcurdt/tinyutils": "1.0.0"
+    "@tcurdt/tinyutils": "1.0.1"
   }
 }

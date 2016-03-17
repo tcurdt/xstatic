@@ -14,25 +14,34 @@ function setup(t, cb) {
   return cb(project, collection)
 }
 
+function update(file, doc) {
+  file.load = Lazy.load(doc)
+  doc.file = file
+  return file
+}
+
 Test('extracts frontmatter', function(t) {
   return setup(t, function(project, collection) {
     return collection.update([
-      {
+
+      update({
         type: Change.A,
         lmod: 1,
         path: 'content/posts/2014/slug1/index.md',
-        load: Lazy.load({ body: { data: '---\ntitle: title1\n---\npost1' }}),
-      },
+      }, {
+        body: { data: '---\ntitle: title1\n---\npost1' }
+      }),
+
     ]).then(function(changes1){
 
-      t.ok(collection.length === 1, 'has result')
+      t.equal(collection.length, 1, 'has result')
 
       const file = collection.get('content/posts/2014/slug1/index.html')
       t.ok(file, 'exists')
 
-      return file.load.then(function(f){
-        t.equal(f.body.data, 'post1')
-        t.equal(f.meta.title, 'title1')
+      return file.load.then(function(doc) {
+        t.equal(doc.body.data, 'post1')
+        t.equal(doc.meta.title, 'title1')
       })
 
     })

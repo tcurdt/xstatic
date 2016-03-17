@@ -1,8 +1,8 @@
 'use strict'
 
 const Xstatic = require('xstatic-core')
-
 const _ = require('@tcurdt/tinyutils')
+
 const Builder = require('xmlbuilder')
 const Moment = require('moment')
 
@@ -12,7 +12,7 @@ const Url = require('url')
 module.exports = function(project) { return function(files, defaults) {
 
   const options =  _.merge({
-    sort: function(a, b) { return a.path < b.path },
+    sort: function(a, b) { return a.file.path < b.file.path },
     filename: 'feed.xml',
     url: project.options.url,
     title: project.options.title,
@@ -84,11 +84,11 @@ module.exports = function(project) { return function(files, defaults) {
 
       const meta = doc.meta || {}
 
-      const entryId = urn(doc.path)
+      const entryId = urn(doc.file.path)
       const entryAuthor = meta.author || feedAuthor
       const entryTitle = meta.title || _.throw('feed item needs title')
-      const entryHref = join(options.url, doc.path) || _.throw('invalid href for doc ' + JSON.stringify(doc))
-      const entryUpdated = formatTimestamp(doc.lmod)
+      const entryHref = join(options.url, doc.file.path) || _.throw('invalid href for doc ' + JSON.stringify(doc))
+      const entryUpdated = formatTimestamp(doc.file.lmod)
       const entrySummary = meta.summary
       const entryContent = doc.body.data || _.throw('feed item has no content')
 
@@ -125,10 +125,19 @@ module.exports = function(project) { return function(files, defaults) {
 
   collection.build = function(create) {
 
-    create({
-      path: options.filename,
-      load: files.load.then(atom),
-    }, [ files ])
+    // return _.collect(function(add) {
+    //   add(create({
+    //     path: options.filename,
+    //     load: files.load.then(atom),
+    //   }, [ files ]))
+    // })
+
+    return [
+      create({
+        path: options.filename,
+        load: files.load.then(atom),
+      }, [ files ])
+    ]
   }
 
   return collection

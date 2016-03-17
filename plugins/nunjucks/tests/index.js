@@ -19,35 +19,44 @@ function setup(t, options) {
   }, options))
 }
 
+function update(file, doc) {
+  file.load = Lazy.load(doc)
+  doc.file = file
+  return file
+}
+
 Test('meta overrides layout', function(t) {
 
   const collection = setup(t, { layout: 'design/templates/post.tpl' })
 
   return collection.update([
 
-    {
+    update({
       type: Change.A,
       lmod: 1,
       path: 'content/posts/2014/slug1/index.txt',
-      load: Lazy.load({ body: { data: 'post1' }, meta:{ layout: 'page.tpl' }}),
-    },
-    {
+    }, {
+      meta: { layout: 'page.tpl' },
+      body: { data: 'post1' },
+    }),
+    update({
       type: Change.A,
       lmod: 1,
       path: 'design/templates/page.tpl',
-      load: Lazy.load({ body: { data: 'PAGE:{{ content|safe }}' }}),
-    },
+    }, {
+      body: { data: 'PAGE:{{ content|safe }}' }
+    }),
 
   ]).then(function(changes1){
 
-    t.ok(collection.length === 1, 'has results')
+    t.equal(collection.length, 1, 'has results')
 
     const file = collection.get('content/posts/2014/slug1/index.txt')
 
     t.ok(file, 'exists')
-    return file.load.then(function(f){
-      t.equal(f.body.data, 'PAGE:post1')
-    }).catch(function(err){ t.fail(err) })
+    return file.load.then(function(doc) {
+      t.equal(doc.body.data, 'PAGE:post1')
+    }).catch(function(err) { t.fail(err) })
 
   })
 })
@@ -59,28 +68,31 @@ Test('applies layout to all posts', function(t) {
 
   return collection.update([
 
-    {
+    update({
       type: Change.A,
       lmod: 1,
       path: 'content/posts/2014/slug1/index.txt',
-      load: Lazy.load({ body: { data: 'post1' }}),
-    },
-    {
+    }, {
+      body: { data: 'post1' }
+    }),
+    update({
       type: Change.A,
       lmod: 1,
       path: 'content/posts/2015/slug1/index.txt',
-      load: Lazy.load({ body: { data: 'post2' }}),
-    },
-    {
+    }, {
+      body: { data: 'post2' }
+    }),
+    update({
       type: Change.A,
       lmod: 1,
       path: 'design/templates/post.tpl',
-      load: Lazy.load({ body: { data: 'POST:{{ content|safe }}' }}),
-    },
+    }, {
+      body: { data: 'POST:{{ content|safe }}' }
+    }),
 
   ]).then(function(changes1){
 
-    t.ok(collection.length === 2, 'has results')
+    t.equal(collection.length, 2, 'has results')
 
     const file1 = collection.get('content/posts/2014/slug1/index.txt')
     const file2 = collection.get('content/posts/2015/slug1/index.txt')
@@ -89,13 +101,13 @@ Test('applies layout to all posts', function(t) {
     t.ok(file2, 'exists')
 
     return Promise.all([
-      file1.load.then(function(f){
-        t.equal(f.body.data, 'POST:post1')
-      }).catch(function(err){ t.fail(err) }),
+      file1.load.then(function(doc) {
+        t.equal(doc.body.data, 'POST:post1')
+      }).catch(function(err) { t.fail(err) }),
 
-      file2.load.then(function(f){
-        t.equal(f.body.data, 'POST:post2')
-      }).catch(function(err){ t.fail(err) })
+      file2.load.then(function(doc) {
+        t.equal(doc.body.data, 'POST:post2')
+      }).catch(function(err) { t.fail(err) })
     ])
   })
 })
@@ -106,24 +118,26 @@ Test('applies without layout', function(t) {
 
   return collection.update([
 
-    {
+    update({
       type: Change.A,
       lmod: 1,
       path: 'content/index.txt',
-      load: Lazy.load({ body: { data: 'PAGE:{{title}}' }, meta: { title: 'TITLE' }}),
-    },
+    }, {
+      meta: { title: 'TITLE' },
+      body: { data: 'PAGE:{{title}}' }
+    }),
 
   ]).then(function(changes1){
 
-    t.ok(collection.length === 1, 'has results')
+    t.equal(collection.length, 1, 'has results')
 
     const file = collection.get('content/index.txt')
 
     t.ok(file, 'exists')
 
-    return file.load.then(function(f){
-      t.equal(f.body.data, 'PAGE:TITLE')
-    }).catch(function(err){ t.fail(err) })
+    return file.load.then(function(doc) {
+      t.equal(doc.body.data, 'PAGE:TITLE')
+    }).catch(function(err) { t.fail(err) })
 
   })
 })
@@ -134,30 +148,32 @@ Test('resolves extends', function(t) {
 
   return collection.update([
 
-    {
+    update({
       type: Change.A,
       lmod: 1,
       path: 'content/index.txt',
-      load: Lazy.load({ body: { data: '{% extends \'base.tpl\' %}{% block content %}CHILD{% endblock %}' }}),
-    },
-    {
+    }, {
+      body: { data: '{% extends \'base.tpl\' %}{% block content %}CHILD{% endblock %}' }
+    }),
+    update({
       type: Change.A,
       lmod: 1,
       path: 'design/templates/base.tpl',
-      load: Lazy.load({ body: { data: 'PARENT:{% block content %}{% endblock %}' }}),
-    },
+    }, {
+      body: { data: 'PARENT:{% block content %}{% endblock %}' }
+    }),
 
   ]).then(function(changes1){
 
-    t.ok(collection.length === 1, 'has results')
+    t.equal(collection.length, 1, 'has results')
 
     const file = collection.get('content/index.txt')
 
     t.ok(file, 'exists')
 
-    return file.load.then(function(f){
-      t.equal(f.body.data, 'PARENT:CHILD')
-    }).catch(function(err){ t.fail(err) })
+    return file.load.then(function(doc) {
+      t.equal(doc.body.data, 'PARENT:CHILD')
+    }).catch(function(err) { t.fail(err) })
 
   })
 })
@@ -168,30 +184,32 @@ Test('resolves includes', function(t) {
 
   return collection.update([
 
-    {
+    update({
       type: Change.A,
       lmod: 1,
       path: 'content/index.txt',
-      load: Lazy.load({ body: { data: '{% include "partial.tpl" %}' }}),
-    },
-    {
+    }, {
+      body: { data: '{% include "partial.tpl" %}' }
+    }),
+    update({
       type: Change.A,
       lmod: 1,
       path: 'design/templates/partial.tpl',
-      load: Lazy.load({ body: { data: 'PARTIAL' }}),
-    },
+    }, {
+      body: { data: 'PARTIAL' }
+    }),
 
   ]).then(function(changes1){
 
-    t.ok(collection.length === 1, 'has results')
+    t.equal(collection.length, 1, 'has results')
 
     const file = collection.get('content/index.txt')
 
     t.ok(file, 'exists')
 
-    return file.load.then(function(f){
-      t.equal(f.body.data, 'PARTIAL')
-    }).catch(function(err){ t.fail(err) })
+    return file.load.then(function(doc) {
+      t.equal(doc.body.data, 'PARTIAL')
+    }).catch(function(err) { t.fail(err) })
 
   })
 })
@@ -202,24 +220,25 @@ Test('report errors', function(t) {
 
   return collection.update([
 
-    {
+    update({
       type: Change.A,
       lmod: 1,
       path: 'content/index.txt',
-      load: Lazy.load({ body: { data: '{{ a | b }}' }}),
-    },
+    }, {
+      body: { data: '{{ a | b }}' }
+    }),
 
   ]).then(function(changes1){
 
-    t.ok(collection.length === 1, 'has results')
+    t.equal(collection.length, 1, 'has results')
 
     const file = collection.get('content/index.txt')
 
     t.ok(file, 'exists')
 
-    return file.load.then(function(f){
+    return file.load.then(function(doc) {
       t.fail('error should fail')
-    }).catch(function(err){ t.pass('error on invalid') })
+    }).catch(function(err) { t.pass('error on invalid') })
 
   })
 })

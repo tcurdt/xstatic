@@ -1,4 +1,7 @@
 {
   "name": "xstatic-merge",
-  "description" : "xstatic plugin to merge collections"
+  "description" : "xstatic plugin to merge collections",
+  "dependencies": {
+    "@tcurdt/tinyutils": "1.0.1"
+  }
 }

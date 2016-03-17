@@ -1,4 +1,7 @@
 {
   "name": "xstatic-json",
-  "description" : "xstatic plugin to parse json files"
+  "description" : "xstatic plugin to parse json files",
+  "dependencies": {
+    "@tcurdt/tinyutils": "1.0.1"
+  }
 }

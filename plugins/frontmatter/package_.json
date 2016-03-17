@@ -3,6 +3,6 @@
   "description" : "xstatic plugin to extract frontmatter",
   "dependencies": {
     "front-matter": "2.0.5",
-    "@tcurdt/tinyutils": "1.0.0"
+    "@tcurdt/tinyutils": "1.0.1"
   }
 }

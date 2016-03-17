@@ -6,33 +6,36 @@ const _ = require('@tcurdt/tinyutils')
 module.exports = function(project) { return function(files, defaults) {
 
   const options =  _.merge({
-    sort: function(a, b) { return a.path < b.path },
+    sort: function(a, b) { return a.file.path < b.file.path },
   }, defaults)
 
   const collection = new Xstatic.collection('sort', [ files ], options)
 
   collection.build = function(create) {
+    return files.load.then(function(docs) {
+      return _.collect(function(add) {
 
-    const sorted = files.sorted(options.sort).map(function(file) {
-      return create(file, [ file ])
-    })
+        docs.sort(options.sort)
 
-    const len = sorted.length
-    let curr = null
-    for(var i=0; i<len; i++) {
-      const prev = curr
-      curr = sorted[i]
-      const next = (i + 1) < len ? sorted[i+1] : null
+        const len = docs.length
+        let doc = null
+        for(var i=0; i<len; i++) {
+          const prev = doc
+          doc = docs[i]
+          const next = (i + 1) < len ? docs[i+1] : null
 
-      const meta = _.merge(curr.meta, {
-        prev: prev,
-        next: next,
-        position: i,
-        length: len
+          const meta = _.merge(doc.meta, {
+            prev: prev,
+            next: next,
+            position: i,
+            length: len
+          })
+          doc.meta = meta
+
+          add(create(doc.file, [ doc.file ]))
+        }
       })
-
-      curr.meta = meta
-    }
+    })
   }
 
   return collection

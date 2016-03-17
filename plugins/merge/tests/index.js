@@ -16,22 +16,30 @@ function setup(t, cb) {
   return cb(project, collection, collectionA, collectionB)
 }
 
+function update(file, doc) {
+  file.load = Lazy.load(doc)
+  doc.file = file
+  return file
+}
+
 Test('files should be merged', function(t) {
   return setup(t, function(project, collection, collectionA, collectionB) {
     return collection.update([
 
-      {
+      update({
         type: Change.A,
         lmod: 1,
         path: 'content/posts/2014/slug1/index.md',
-        load: Lazy.load({ body: { data: 'content' }}),
-      },
-      {
+      }, {
+        body: { data: 'content' }
+      }),
+      update({
         type: Change.A,
         lmod: 1,
         path: 'design/styles/site.css',
-        load: Lazy.load({ body: { data: 'content' }}),
-      },
+      }, {
+        body: { data: 'content' }
+      }),
 
     ]).then(function(changes){
 

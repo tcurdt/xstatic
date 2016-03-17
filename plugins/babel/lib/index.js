@@ -1,8 +1,8 @@
 'use strict'
 
 const Xstatic = require('xstatic-core')
-
 const _ = require('@tcurdt/tinyutils')
+
 const Babel = require('babel-core')
 
 module.exports = function(project) { return function(files, defaults) {
@@ -46,17 +46,18 @@ module.exports = function(project) { return function(files, defaults) {
   }
 
   collection.build = function(create) {
-
-    files.forEach(function(file) {
-      const compile = file.load.then(babel)
-      create({
-        path: file.path,
-        load: compile.then(returnCode),
-      }, [ file ])
-      // create({
-      //   path: file.path + '.map',
-      //   load: compile.then(returnMap),
-      // }, [ file ])
+    return _.collect(function(add) {
+      files.forEach(function(file) {
+        const compile = file.load.then(babel)
+        add(create({
+          path: file.path,
+          load: compile.then(returnCode),
+        }, [ file ]))
+        // add(create({
+        //   path: file.path + '.map',
+        //   load: compile.then(returnMap),
+        // }, [ file ]))
+      })
     })
   }
 

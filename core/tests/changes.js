@@ -2,9 +2,16 @@
 
 const Test = require('blue-tape')
 const Change = require('../lib/changes')
+const Lazy = require('../lib/lazy')
 
 const FILES = 'files should match'
 const CHANGES = 'changes should match'
+
+function update(file, doc) {
+  file.load = Lazy.load(doc)
+  doc.file = file
+  return file
+}
 
 module.exports = function(setup) {
 
@@ -27,11 +34,13 @@ module.exports = function(setup) {
     return setup(t, function(collection) {
       return collection.update([
 
-        {
+        update({
           type: Change.A,
           lmod: 1,
           path: 'other/index.md',
-        },
+        }, {
+          body: { data: 'content' }
+        }),
 
       ]).then(function(changes){
 
@@ -47,11 +56,13 @@ module.exports = function(setup) {
     return setup(t, function(collection) {
       return collection.update([
 
-        {
+        update({
           type: Change.A,
           lmod: 1,
           path: 'content/posts/2014/slug1/index.md',
-        },
+        }, {
+          body: { data: 'content' }
+        }),
 
       ]).then(function(changes){
 
@@ -89,11 +100,13 @@ module.exports = function(setup) {
     return add(t).then(function(collection){
       return collection.update([
 
-        {
+        update({
           type: Change.A,
           lmod: 1,
           path: 'content/posts/2014/slug1/index.md',
-        },
+        }, {
+          body: { data: 'content' }
+        }),
 
       ]).then(function(changes) {
 
@@ -118,11 +131,13 @@ module.exports = function(setup) {
     return add(t).then(function(collection){
       return collection.update([
 
-        {
+        update({
           type: Change.A,
           lmod: 2,
           path: 'content/posts/2014/slug1/index.md',
-        },
+        }, {
+          body: { data: 'content' }
+        }),
 
       ]).then(function(changes){
 
@@ -150,11 +165,15 @@ module.exports = function(setup) {
   Test('modified (existing)', function(t) {
     return add(t).then(function(collection) {
       return collection.update([
-        {
-          type: Change.M,
+
+        update({
+          type: Change.A,
           lmod: 2,
           path: 'content/posts/2014/slug1/index.md',
-        },
+        }, {
+          body: { data: 'content' }
+        }),
+
       ]).then(function(changes) {
 
         t.equal(collection.lmod, 2)
@@ -181,11 +200,14 @@ module.exports = function(setup) {
   Test('modified (non-existing)', function(t) {
     return add(t).then(function(collection) {
       return collection.update([
-        {
+
+        update({
           type: Change.M,
           lmod: 1,
           path: 'content/test',
-        },
+        }, {
+          body: { data: 'content' }
+        }),
 
       ]).then(function(changes) {
 
@@ -218,11 +240,13 @@ module.exports = function(setup) {
     return add(t).then(function(collection) {
       return collection.update([
 
-        {
+        update({
           type: Change.D,
           lmod: 2,
           path: 'content/posts/2014/slug1/index.md',
-        },
+        }, {
+          body: { data: 'content' }
+        }),
 
       ]).then(function(changes) {
 
@@ -249,11 +273,13 @@ module.exports = function(setup) {
     return setup(t, function(collection) {
       return collection.update([
 
-        {
+        update({
           type: Change.D,
           lmod: 2,
           path: 'content/foo.md',
-        },
+        }, {
+          body: { data: 'content' }
+        }),
 
       ]).then(function(changes) {
 

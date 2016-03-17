@@ -1,7 +1,7 @@
 #!/bin/sh
 
-VERSION=1.3.0
-CORE=1.3.x
+VERSION=1.4.0
+CORE=1.4.x
 
 package-merge \
   plugins/*/package_.json \
