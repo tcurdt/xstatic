@@ -93,7 +93,20 @@ module.exports = function(setup) {
   }
 
   Test('initial add', function(t) {
-    return add(t)
+    return add(t).then(function(collection) {
+      return collection.load.then(function(docs) {
+        docs.forEach(function(doc) {
+          console.log(doc)
+          t.ok(doc.body)
+          t.ok(doc.file)
+          t.ok(doc.file.lmod)
+          t.ok(doc.file.path)
+          t.ok(doc.file.load)
+        })
+      }).then(function() {
+        return collection
+      })
+    })
   })
 
   Test('add existing (without modification)', function(t) {
@@ -283,9 +296,9 @@ module.exports = function(setup) {
 
       ]).then(function(changes) {
 
-        t.equal(collection.lmod, undefined, "lmod")
-        t.equal(changes.length, 0, "changes")
-        t.equal(collection.length, 0, "collection")
+        t.equal(collection.lmod, undefined, 'lmod')
+        t.equal(changes.length, 0, 'changes')
+        t.equal(collection.length, 0, 'collection')
 
       })
     })

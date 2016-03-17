@@ -19,7 +19,7 @@ module.exports = function(project) { return function(files, defaults) {
 
         const len = docs.length
         let doc = null
-        for(var i=0; i<len; i++) {
+        for(let i=0; i<len; i++) {
           const prev = doc
           doc = docs[i]
           const next = (i + 1) < len ? docs[i+1] : null

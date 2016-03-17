@@ -96,7 +96,7 @@ module.exports = function(project) { return function(files, defaults) {
         const contentPromise = Promise.all([file.load, contextPromise]).then(_.spread(function(doc, context) {
 
           // render page
-          const pagePromise = doc.body.mime == "object/json"
+          const pagePromise = doc.body.mime === 'object/json'
             ? Promise.resolve(doc.body.data)
             : engine.then(precompile(doc)).then(render(Xstatic.context.renderContext(project, context, doc)))
 

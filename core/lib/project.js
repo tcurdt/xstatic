@@ -55,7 +55,7 @@ function Project(target, defaults) {
     })
   }
 
-  function stats(path, cb) {
+  function getStats(path, cb) {
     Fs.stat(path, function(err, stats) {
       if (err === null) {
         cb(stats)
@@ -72,7 +72,7 @@ function Project(target, defaults) {
       // const cwd = process.cwd()
       // const src = Path.join(cwd, change.path)
       const dst = Path.join(target, change.path)
-      stats(dst, function(stats) {
+      getStats(dst, function(stats) {
 
         const unmodified = stats && stats.mtime.getTime() === change.lmod
 
@@ -228,7 +228,7 @@ function Project(target, defaults) {
 
   // FIMXE maybe add full cmd parsing https://github.com/bcoe/yargs
   this.process = function(collection, options) {
-    if(process.argv.indexOf("-w") != -1){
+    if(process.argv.indexOf('-w') !== -1){
       return this.watch(collection, options)
     } else {
       return this.build(collection)

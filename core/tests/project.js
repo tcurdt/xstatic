@@ -4,7 +4,7 @@ const Test = require('blue-tape')
 const Xstatic = require('../lib')
 
 function setup(t, cb) {
-  process.chdir(__dirname + '/..');
+  process.chdir(__dirname + '/..')
 
   const project = new Xstatic('build')
   const collection = project.glob('lib/*.js')

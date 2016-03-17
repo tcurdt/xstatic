@@ -30,7 +30,7 @@ module.exports = function(project) { return function(files, defaults) {
   function returnCode(result) {
     return {
       body: {
-        mime: "text/javascript",
+        mime: 'text/javascript',
         data: result.code
       }
     }
@@ -39,7 +39,7 @@ module.exports = function(project) { return function(files, defaults) {
   function returnMap(result) {
     return {
       body: {
-        mime: "text/json",
+        mime: 'text/json',
         data: JSON.stringify(result.map)
       }
     }

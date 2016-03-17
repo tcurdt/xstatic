@@ -46,8 +46,7 @@ function Glob(pattern, defaults) {
               loadReject(err)
             } else {
               loadResolve({
-                path: pathRel,
-                lmod: change.lmod,
+                file: file,
                 body: {
                   data: data
                 }

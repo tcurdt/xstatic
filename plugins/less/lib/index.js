@@ -28,7 +28,7 @@ module.exports = function(project) { return function(files, defaults) {
     })).then(function(result) {
       return {
         body: {
-          mime: "text/css",
+          mime: 'text/css',
           data: result.css
         }
       }

@@ -13,8 +13,6 @@ function Cache(target) {
     return _.max(collections.map(function(input) { return input.lmod }))
   }
 
-  update(undefined)
-
   function update(lmod) {
     target.lmod = lmod
     target.length = cache.size
@@ -154,6 +152,8 @@ function Cache(target) {
   target.values = function() {
     return Array.from(cache.values())
   }
+
+  update(undefined)
 
   return target
 }

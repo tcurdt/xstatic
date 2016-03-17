@@ -117,7 +117,7 @@ module.exports = function(project) { return function(files, defaults) {
 
     return {
       body: {
-        mime: "text/xml",
+        mime: 'text/xml',
         data: data
       }
     }

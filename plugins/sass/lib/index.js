@@ -77,7 +77,7 @@ module.exports = function(project) { return function(files, defaults) {
         } else {
           resolve({
             body: {
-              mime: "text/css",
+              mime: 'text/css',
               data: result.css.toString()
             }
           })

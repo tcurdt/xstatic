@@ -20,7 +20,7 @@ module.exports = function(project) { return function(files, defaults) {
     return _.merge(doc, {
       meta: _.merge(options.default, result.attributes),
       body: {
-        mime: "text/any",
+        mime: 'text/any',
         data: result.body
       }
     })
