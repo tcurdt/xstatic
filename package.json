@@ -2,7 +2,7 @@
   "name": "xstatic_integration_tests",
   "description": "xstatic integration tests",
   "dependencies": {
-    "xmlbuilder": "4.2.0",
+    "xmlbuilder": "6.0.0",
     "moment": "2.11.2",
     "@tcurdt/tinyutils": "1.0.1",
     "babel-core": "6.4.0",
@@ -13,7 +13,7 @@
     "less": "2.5.3",
     "marked": "0.3.5",
     "highlight.js": "9.2.0",
-    "nunjucks": "2.3.0",
+    "nunjucks": "2.4.1",
     "node-sass": "3.3.3",
     "chokidar": "1.4.2",
     "mkdirp": "0.5.1",
