@@ -2,11 +2,11 @@
   "name": "xstatic_integration_tests",
   "description": "xstatic integration tests",
   "dependencies": {
-    "xmlbuilder": "6.0.0",
+    "xmlbuilder": "7.0.0",
     "moment": "2.11.2",
     "@tcurdt/tinyutils": "1.0.1",
     "babel-core": "6.4.0",
-    "babel-plugin-transform-react-jsx": "6.4.0",
+    "babel-plugin-transform-react-jsx": "6.7.4",
     "minimatch": "3.0.0",
     "front-matter": "2.0.5",
     "handlebars": "4.0.5",
@@ -17,7 +17,7 @@
     "node-sass": "3.3.3",
     "chokidar": "1.4.2",
     "mkdirp": "0.5.1",
-    "browser-sync": "2.11.1",
+    "browser-sync": "2.11.2",
     "@tcurdt/filepath": "1.0.0"
   },
   "devDependencies": {
