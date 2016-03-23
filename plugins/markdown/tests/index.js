@@ -41,7 +41,7 @@ Test('converts markdown to html', function(t) {
       t.ok(file, 'exists')
 
       return file.load.then(function(doc){
-        t.equal(doc.body.data, '<h1 id="test">test</h1>\n')
+        t.equal(doc.body.data, '<h1><a name="test" class="anchor" href="#test"></a>test</h1>\n')
       })
 
     })
