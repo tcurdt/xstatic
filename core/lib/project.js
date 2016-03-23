@@ -253,14 +253,14 @@ function Project(target, defaults) {
     const bs = options && options.browsersync ? BrowserSync.create() : null
 
     if (bs) {
-      bs.init({
+      const opts = _.merge({
         server: target,
-        port: 8080,
+        port: 8000,
         open: false,
-        logLevel: 'silent'
-        // middleware: [app]
-      })
-      console.log('listening on port 8080')
+        logLevel: 'silent',
+      }, options.browsersync)
+      bs.init(opts)
+      console.log('listening on port ', opts.port)
     }
 
     watch(CONTINOUSLY, function(changes) {
