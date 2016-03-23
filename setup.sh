@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION=1.4.2
+VERSION=1.4.3
 CORE=1.4.x
 
 package-merge \

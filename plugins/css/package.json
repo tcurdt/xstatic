@@ -1,5 +1,5 @@
 {
-  "version": "1.4.2",
+  "version": "1.4.3",
   "author": "Torsten Curdt",
   "license": "Apache-2.0",
   "repository": {
@@ -13,7 +13,7 @@
     "xstatic-core": "1.4.x"
   },
   "devDependencies": {
-    "xstatic-core": "1.4.2",
+    "xstatic-core": "1.4.3",
     "tape": "4.5.1",
     "blue-tape": "0.2.0",
     "istanbul": "0.4.2",
@@ -31,9 +31,9 @@
   "name": "xstatic-css",
   "description": "xstatic plugin to pre-process css",
   "dependencies": {
-    "xstatic-filter": "1.4.2",
-    "xstatic-merge": "1.4.2",
-    "xstatic-less": "1.4.2",
-    "xstatic-sass": "1.4.2"
+    "xstatic-filter": "1.4.3",
+    "xstatic-merge": "1.4.3",
+    "xstatic-less": "1.4.3",
+    "xstatic-sass": "1.4.3"
   }
 }

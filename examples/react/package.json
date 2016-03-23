@@ -15,9 +15,9 @@
     "redux-devtools-log-monitor": "= 1.0.0-beta-3",
     "redux-thunk": "= 1.0.0",
 
-    "xstatic-core": "1.0.3",
-    "xstatic-babel": "1.0.3",
-    "xstatic-merge": "1.0.3",
-    "xstatic-filter": "1.0.3"
+    "xstatic-core": "1.4.3",
+    "xstatic-babel": "1.4.3",
+    "xstatic-merge": "1.4.3",
+    "xstatic-filter": "1.4.3"
   }
 }

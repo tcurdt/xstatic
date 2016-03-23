@@ -12,7 +12,7 @@
     "minimatch": "3.0.0",
     "mkdirp": "0.5.1",
     "moment": "2.11.2",
-    "browser-sync": "2.11.1",
+    "browser-sync": "2.11.2",
     "@tcurdt/filepath": "1.0.0",
     "@tcurdt/tinyutils": "1.0.1"
   },
@@ -24,7 +24,7 @@
     "test": "istanbul test tape -- tests/*.js | faucet",
     "coverage": "nyc --reporter=text npm test | cat"
   },
-  "version": "1.4.2",
+  "version": "1.4.3",
   "author": "Torsten Curdt",
   "license": "Apache-2.0",
   "repository": {

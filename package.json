@@ -5,7 +5,7 @@
     "xmlbuilder": "7.0.0",
     "moment": "2.11.2",
     "@tcurdt/tinyutils": "1.0.1",
-    "babel-core": "6.4.0",
+    "babel-core": "6.7.4",
     "babel-plugin-transform-react-jsx": "6.7.4",
     "minimatch": "3.0.0",
     "front-matter": "2.0.5",
@@ -42,7 +42,7 @@
     "coverage-upload-codecov": "test -f ./coverage/lcov.info && cat ./coverage/lcov.info | codecov",
     "coverage-upload-codacy": "test -f ./coverage/lcov.info && cat ./coverage/lcov.info | codacy-coverage"
   },
-  "version": "1.4.2",
+  "version": "1.4.3",
   "author": "Torsten Curdt",
   "license": "Apache-2.0",
   "repository": {
