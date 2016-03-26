@@ -31,7 +31,7 @@
   "name": "xstatic-sitemap",
   "description": "xstatic plugin to generate sitemap",
   "dependencies": {
-    "xmlbuilder": "7.0.0",
+    "xmlbuilder": "8.0.0",
     "@tcurdt/tinyutils": "1.0.1",
     "moment": "2.11.2"
   }

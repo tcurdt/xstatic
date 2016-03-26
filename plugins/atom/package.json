@@ -32,7 +32,7 @@
   "name": "xstatic-atom",
   "description": "xstatic plugin to generate atom feeds",
   "dependencies": {
-    "xmlbuilder": "7.0.0",
+    "xmlbuilder": "8.0.0",
     "moment": "2.11.2",
     "@tcurdt/tinyutils": "1.0.1"
   }
