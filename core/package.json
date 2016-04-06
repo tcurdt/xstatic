@@ -2,8 +2,8 @@
   "devDependencies": {
     "tape": "4.5.1",
     "blue-tape": "0.2.0",
-    "istanbul": "0.4.2",
-    "nyc": "6.1.1",
+    "istanbul": "0.4.3",
+    "nyc": "6.2.1",
     "faucet": "0.0.1"
   },
   "name": "xstatic-core",
