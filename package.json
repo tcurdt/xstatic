@@ -6,7 +6,7 @@
     "moment": "2.11.2",
     "@tcurdt/tinyutils": "1.0.1",
     "babel-core": "6.7.4",
-    "babel-plugin-transform-react-jsx": "6.7.4",
+    "babel-plugin-transform-react-jsx": "6.7.5",
     "minimatch": "3.0.0",
     "front-matter": "2.0.7",
     "handlebars": "4.0.5",
