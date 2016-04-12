@@ -5,7 +5,7 @@
     "xmlbuilder": "8.2.2",
     "moment": "2.11.2",
     "@tcurdt/tinyutils": "1.0.1",
-    "babel-core": "6.7.4",
+    "babel-core": "6.7.6",
     "babel-plugin-transform-react-jsx": "6.7.5",
     "minimatch": "3.0.0",
     "front-matter": "2.0.7",
@@ -17,7 +17,7 @@
     "node-sass": "3.3.3",
     "chokidar": "1.4.2",
     "mkdirp": "0.5.1",
-    "browser-sync": "2.11.2",
+    "browser-sync": "2.12.1",
     "@tcurdt/filepath": "1.0.0"
   },
   "devDependencies": {

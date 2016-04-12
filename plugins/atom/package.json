@@ -17,7 +17,7 @@
     "tape": "4.5.1",
     "blue-tape": "0.2.0",
     "istanbul": "0.4.3",
-    "nyc": "6.2.1",
+    "nyc": "6.4.0",
     "faucet": "0.0.1",
     "libxmljs": "0.17.0"
   },
@@ -32,7 +32,7 @@
   "name": "xstatic-atom",
   "description": "xstatic plugin to generate atom feeds",
   "dependencies": {
-    "xmlbuilder": "8.2.0",
+    "xmlbuilder": "8.2.2",
     "moment": "2.11.2",
     "@tcurdt/tinyutils": "1.0.1"
   }
