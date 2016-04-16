@@ -10,7 +10,7 @@ module.exports = function(project) { return function(files, defaults) {
 
   const renderer = new Marked.Renderer()
 
-  renderer.heading = function (text, level) {
+  renderer.heading = function(text, level) {
     const token = text.toLowerCase().replace(/[^\w]+/g, '-')
     return '<h' + level + '>'
       + '<a'
