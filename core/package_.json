@@ -4,7 +4,7 @@
     "chokidar": "1.4.2",
     "minimatch": "3.0.0",
     "mkdirp": "0.5.1",
-    "moment": "2.11.2",
+    "moment": "2.13.0",
     "browser-sync": "2.12.3",
     "@tcurdt/filepath": "1.0.0",
     "@tcurdt/tinyutils": "1.0.1"

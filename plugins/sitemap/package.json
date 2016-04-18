@@ -33,6 +33,6 @@
   "dependencies": {
     "xmlbuilder": "8.2.2",
     "@tcurdt/tinyutils": "1.0.1",
-    "moment": "2.11.2"
+    "moment": "2.13.0"
   }
 }
