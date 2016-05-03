@@ -17,7 +17,7 @@
     "tape": "4.5.1",
     "blue-tape": "0.2.0",
     "istanbul": "0.4.3",
-    "nyc": "6.4.0",
+    "nyc": "6.4.2",
     "faucet": "0.0.1"
   },
   "main": "lib/index.js",
@@ -31,8 +31,8 @@
   "name": "xstatic-babel",
   "description": "xstatic plugin to process js files with babel",
   "dependencies": {
-    "babel-core": "6.7.7",
-    "babel-plugin-transform-react-jsx": "6.7.5",
+    "babel-core": "6.8.0",
+    "babel-plugin-transform-react-jsx": "6.8.0",
     "@tcurdt/tinyutils": "1.0.1"
   }
 }
