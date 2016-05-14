@@ -1,8 +1,11 @@
 #!/bin/sh
 
+set -e
+
 VERSION=1.4.4
 CORE=1.4.x
 
+mv package.json package_old.json
 package-merge \
   plugins/*/package_.json \
   templates/testing.json \
@@ -13,7 +16,9 @@ package-merge \
   | sed \
     -e "s/VERSION/$VERSION/g" \
     -e "s/CORE/$CORE/g" \
+  | package-resolve package_old.json \
   > package.json
+rm package_old.json
 
 package-merge \
   templates/testing.json \
@@ -22,6 +27,7 @@ package-merge \
   | sed \
     -e "s/VERSION/$VERSION/g" \
     -e "s/CORE/$CORE/g" \
+  | package-resolve package.json \
   > core/package.json
 
 for PLUGIN in plugins/*/; do
@@ -34,5 +40,6 @@ for PLUGIN in plugins/*/; do
     | sed \
       -e "s/VERSION/$VERSION/g" \
       -e "s/CORE/$CORE/g" \
+    | package-resolve package.json \
     > plugins/$PLUGIN/package.json
 done

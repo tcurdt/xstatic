@@ -2,6 +2,6 @@
   "name": "xstatic-sort",
   "description" : "xstatic plugin to sort collections",
   "dependencies": {
-    "@tcurdt/tinyutils": "1.0.1"
+    "@tcurdt/tinyutils": "RESOLVE"
   }
 }

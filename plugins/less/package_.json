@@ -3,6 +3,6 @@
   "description" : "xstatic plugin to convert less to css",
   "dependencies": {
     "less": "2.5.3",
-    "@tcurdt/tinyutils": "1.0.1"
+    "@tcurdt/tinyutils": "RESOLVE"
   }
 }

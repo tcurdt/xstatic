@@ -2,7 +2,7 @@
   "name": "xstatic-nunjucks",
   "description" : "xstatic plugin to apply nunjucks templates",
   "dependencies": {
-    "nunjucks": "2.4.2",
-    "@tcurdt/tinyutils": "1.0.1"
+    "nunjucks": "RESOLVE",
+    "@tcurdt/tinyutils": "RESOLVE"
   }
 }

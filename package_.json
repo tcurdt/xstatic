@@ -6,7 +6,7 @@
   "dependencies": {
   },
   "devDependencies": {
-    "@tcurdt/package-utils": "1.0.2"
+    "@tcurdt/package-utils": "1.0.4"
   },
   "scripts": {
     "postinstall" : "./dependencies.sh",

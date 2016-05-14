@@ -2,8 +2,8 @@
   "name": "xstatic-babel",
   "description" : "xstatic plugin to process js files with babel",
   "dependencies": {
-    "babel-core": "6.8.0",
-    "babel-plugin-transform-react-jsx": "6.8.0",
-    "@tcurdt/tinyutils": "1.0.1"
+    "babel-core": "RESOLVE",
+    "babel-plugin-transform-react-jsx": "RESOLVE",
+    "@tcurdt/tinyutils": "RESOLVE"
   }
 }
