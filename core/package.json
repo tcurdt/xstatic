@@ -3,16 +3,16 @@
     "tape": "4.5.1",
     "blue-tape": "0.2.0",
     "istanbul": "0.4.3",
-    "nyc": "6.4.2",
+    "nyc": "6.4.4",
     "faucet": "0.0.1"
   },
   "name": "xstatic-core",
   "dependencies": {
-    "chokidar": "1.4.2",
+    "chokidar": "1.5.0",
     "minimatch": "3.0.0",
     "mkdirp": "0.5.1",
     "moment": "2.13.0",
-    "browser-sync": "2.12.5",
+    "browser-sync": "2.12.8",
     "@tcurdt/filepath": "1.0.0",
     "@tcurdt/tinyutils": "1.0.1"
   },
