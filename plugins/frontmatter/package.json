@@ -31,7 +31,7 @@
   "name": "xstatic-frontmatter",
   "description": "xstatic plugin to extract frontmatter",
   "dependencies": {
-    "front-matter": "2.0.7",
+    "front-matter": "2.0.8",
     "@tcurdt/tinyutils": "1.0.1"
   }
 }
