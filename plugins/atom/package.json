@@ -19,7 +19,7 @@
     "istanbul": "0.4.3",
     "nyc": "6.4.4",
     "faucet": "0.0.1",
-    "libxmljs": "0.17.1"
+    "libxmljs": "0.18.0"
   },
   "main": "lib/index.js",
   "files": [
