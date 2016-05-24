@@ -2,7 +2,7 @@
   "name": "xstatic-less",
   "description" : "xstatic plugin to convert less to css",
   "dependencies": {
-    "less": "2.7.1",
+    "less": "RESOLVE",
     "@tcurdt/tinyutils": "RESOLVE"
   }
 }
