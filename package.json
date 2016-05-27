@@ -17,7 +17,7 @@
     "node-sass": "3.7.0",
     "chokidar": "1.5.1",
     "mkdirp": "0.5.1",
-    "browser-sync": "2.12.8",
+    "browser-sync": "2.12.9",
     "@tcurdt/filepath": "1.0.0"
   },
   "devDependencies": {
