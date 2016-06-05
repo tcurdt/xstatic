@@ -23,6 +23,9 @@ module.exports = function(project) { return function(files, defaults) {
   }
 
   renderer.paragraph = function(text) {
+    if (text.indexOf('<figure') !== -1) {
+      return text
+    }
     const words = text.split(' ', 6)
     const token = words.map(function(word) {
       return word.toLowerCase().replace(/[^0-9a-z]+/g, 'a').charAt(0)
