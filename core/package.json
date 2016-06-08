@@ -8,7 +8,7 @@
   },
   "name": "xstatic-core",
   "dependencies": {
-    "chokidar": "1.5.1",
+    "chokidar": "1.5.2",
     "minimatch": "3.0.0",
     "mkdirp": "0.5.1",
     "moment": "2.13.0",
