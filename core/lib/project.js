@@ -183,7 +183,11 @@ function Project(target, defaults) {
     const ignoresLines = Fs.existsSync(ignoresPath)
       ? [ '^\.\w+', 'node_modules', target ].concat(Fs.readFileSync(ignoresPath).toString().split("\n"))
       : [ '^\.\w+', 'node_modules', target ]
-    const ignoresRegex = ignoresLines.map(function(line) { return new RegExp(line) })
+    const ignoresRegex = ignoresLines.filter(function(line){
+      return line.trim() !== ""
+    }).map(function(line) {
+      return new RegExp(line)
+    })
 
     Chokidar.watch('.', {
       cwd: '.',
