@@ -25,7 +25,7 @@
     "tape": "4.5.1",
     "blue-tape": "0.2.0",
     "istanbul": "0.4.3",
-    "nyc": "6.4.4",
+    "nyc": "6.6.0",
     "faucet": "0.0.1",
     "@tcurdt/package-utils": "1.0.4"
   },
