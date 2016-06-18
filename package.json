@@ -7,7 +7,7 @@
     "@tcurdt/tinyutils": "1.0.1",
     "babel-core": "6.9.1",
     "babel-plugin-transform-react-jsx": "6.8.0",
-    "minimatch": "3.0.0",
+    "minimatch": "3.0.2",
     "front-matter": "2.1.0",
     "handlebars": "4.0.5",
     "less": "2.7.1",
