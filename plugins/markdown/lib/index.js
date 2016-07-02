@@ -57,7 +57,14 @@ module.exports = function(project) { return function(files, defaults) {
       highlight: function(code, lang) {
         return Highlight.highlightAuto(code).value
       },
-      renderer: renderer
+      renderer: renderer,
+      gfm: true,
+      tables: true,
+      breaks: false,
+      pedantic: false,
+      sanitize: true,
+      smartLists: true,
+      smartypants: false
     }
   }, defaults)
 
