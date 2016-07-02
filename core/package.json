@@ -1,15 +1,15 @@
 {
   "devDependencies": {
-    "tape": "4.5.1",
+    "tape": "4.6.0",
     "blue-tape": "0.2.0",
-    "istanbul": "0.4.3",
-    "nyc": "6.4.4",
+    "istanbul": "0.4.4",
+    "nyc": "6.6.1",
     "faucet": "0.0.1"
   },
   "name": "xstatic-core",
   "dependencies": {
-    "chokidar": "1.5.2",
-    "minimatch": "3.0.0",
+    "chokidar": "1.6.0",
+    "minimatch": "3.0.2",
     "mkdirp": "0.5.1",
     "moment": "2.13.0",
     "browser-sync": "2.13.0",

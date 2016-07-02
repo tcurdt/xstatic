@@ -14,10 +14,10 @@
   },
   "devDependencies": {
     "xstatic-core": "1.4.4",
-    "tape": "4.5.1",
+    "tape": "4.6.0",
     "blue-tape": "0.2.0",
-    "istanbul": "0.4.3",
-    "nyc": "6.4.4",
+    "istanbul": "0.4.4",
+    "nyc": "6.6.1",
     "faucet": "0.0.1",
     "libxmljs": "0.18.0"
   },
