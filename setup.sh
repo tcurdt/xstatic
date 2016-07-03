@@ -2,7 +2,7 @@
 
 set -e
 
-VERSION=1.4.4
+VERSION=1.4.5
 CORE=1.4.x
 
 mv package.json package_old.json
