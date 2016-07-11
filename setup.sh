@@ -1,5 +1,5 @@
 #!/bin/sh
-
+#npm install -g package-utils
 set -e
 
 VERSION=1.4.5

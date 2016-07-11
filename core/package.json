@@ -3,7 +3,7 @@
     "tape": "4.6.0",
     "blue-tape": "0.2.0",
     "istanbul": "0.4.4",
-    "nyc": "6.6.1",
+    "nyc": "7.0.0",
     "faucet": "0.0.1"
   },
   "name": "xstatic-core",
@@ -11,7 +11,7 @@
     "chokidar": "1.6.0",
     "minimatch": "3.0.2",
     "mkdirp": "0.5.1",
-    "moment": "2.13.0",
+    "moment": "2.14.1",
     "browser-sync": "2.13.0",
     "@tcurdt/filepath": "1.0.0",
     "@tcurdt/tinyutils": "1.0.1"
