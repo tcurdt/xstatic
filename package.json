@@ -5,7 +5,7 @@
     "xmlbuilder": "8.2.2",
     "moment": "2.14.1",
     "@tcurdt/tinyutils": "1.0.1",
-    "babel-core": "6.11.4",
+    "babel-core": "6.13.0",
     "babel-plugin-transform-react-jsx": "6.8.0",
     "minimatch": "3.0.2",
     "front-matter": "2.1.0",
