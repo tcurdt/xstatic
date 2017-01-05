@@ -10,7 +10,7 @@
     "minimatch": "3.0.3",
     "front-matter": "2.1.1",
     "handlebars": "4.0.6",
-    "less": "2.7.1",
+    "less": "2.7.2",
     "marked": "0.3.6",
     "highlight.js": "9.8.0",
     "nunjucks": "3.0.0",
