@@ -3,7 +3,7 @@
   "description": "xstatic integration tests",
   "dependencies": {
     "xmlbuilder": "8.2.2",
-    "moment": "2.18.0",
+    "moment": "2.18.1",
     "@tcurdt/tinyutils": "1.0.1",
     "babel-core": "6.24.0",
     "babel-plugin-transform-react-jsx": "6.23.0",
