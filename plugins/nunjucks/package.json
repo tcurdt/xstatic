@@ -1,5 +1,5 @@
 {
-  "version": "1.4.5",
+  "version": "1.4.6",
   "author": "Torsten Curdt",
   "license": "Apache-2.0",
   "repository": {
@@ -13,11 +13,11 @@
     "xstatic-core": "1.4.x"
   },
   "devDependencies": {
-    "xstatic-core": "1.4.5",
-    "tape": "4.6.0",
-    "blue-tape": "0.2.0",
-    "istanbul": "0.4.4",
-    "nyc": "7.0.0",
+    "xstatic-core": "1.4.6",
+    "tape": "4.6.3",
+    "blue-tape": "1.0.0",
+    "istanbul": "0.4.5",
+    "nyc": "10.2.0",
     "faucet": "0.0.1"
   },
   "main": "lib/index.js",
@@ -31,7 +31,7 @@
   "name": "xstatic-nunjucks",
   "description": "xstatic plugin to apply nunjucks templates",
   "dependencies": {
-    "nunjucks": "2.4.2",
+    "nunjucks": "3.0.0",
     "@tcurdt/tinyutils": "1.0.1"
   }
 }

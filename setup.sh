@@ -2,7 +2,7 @@
 #npm install -g package-utils
 set -e
 
-VERSION=1.4.5
+VERSION=1.4.6
 CORE=1.4.x
 
 mv package.json package_old.json
