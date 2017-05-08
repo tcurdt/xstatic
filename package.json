@@ -15,7 +15,7 @@
     "highlight.js": "9.11.0",
     "nunjucks": "3.0.0",
     "node-sass": "4.5.2",
-    "chokidar": "1.6.1",
+    "chokidar": "1.7.0",
     "mkdirp": "0.5.1",
     "browser-sync": "2.18.8",
     "@tcurdt/filepath": "1.0.0"
