@@ -9,6 +9,8 @@
 
 # Xstatic Site Generator
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/tcurdt/xstatic.svg)](https://greenkeeper.io/)
+
 FIXME:
 
 - why?
