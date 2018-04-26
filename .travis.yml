@@ -3,7 +3,6 @@ sudo: false
 node_js:
   - "8"
   - "9"
-  - "10"
 env:
   - npm_config_coverage=1 CXX=g++-4.8
 addons:
