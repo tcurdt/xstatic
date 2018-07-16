@@ -18,7 +18,8 @@
     "chokidar": "2.0.4",
     "mkdirp": "0.5.1",
     "browser-sync": "2.24.5",
-    "@tcurdt/filepath": "1.0.0"
+    "@tcurdt/filepath": "1.0.0",
+    "snyk": "^1.88.1"
   },
   "devDependencies": {
     "libxmljs": "0.19.1",
@@ -40,7 +41,9 @@
     "coverage-upload": "npm run coverage-upload-coveralls && npm run coverage-upload-codecov && npm run coverage-upload-codacy",
     "coverage-upload-coveralls": "test -f ./coverage/lcov.info && cat ./coverage/lcov.info | coveralls",
     "coverage-upload-codecov": "test -f ./coverage/lcov.info && cat ./coverage/lcov.info | codecov",
-    "coverage-upload-codacy": "test -f ./coverage/lcov.info && cat ./coverage/lcov.info | codacy-coverage"
+    "coverage-upload-codacy": "test -f ./coverage/lcov.info && cat ./coverage/lcov.info | codacy-coverage",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "version": "1.4.6",
   "author": "Torsten Curdt",
@@ -52,5 +55,6 @@
   "engines": {
     "node": ">= 4.2.0"
   },
-  "private": true
+  "private": true,
+  "snyk": true
 }
