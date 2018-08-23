@@ -21,7 +21,7 @@
     "@tcurdt/filepath": "1.0.0"
   },
   "devDependencies": {
-    "libxmljs": "0.19.1",
+    "libxmljs": "0.19.2",
     "tape": "4.9.1",
     "blue-tape": "1.0.0",
     "istanbul": "0.4.5",
