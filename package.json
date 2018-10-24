@@ -2,7 +2,7 @@
   "name": "xstatic_integration_tests",
   "description": "xstatic integration tests",
   "dependencies": {
-    "xmlbuilder": "10.1.0",
+    "xmlbuilder": "10.1.1",
     "moment": "2.22.2",
     "@tcurdt/tinyutils": "1.0.1",
     "babel-core": "6.26.0",
