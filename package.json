@@ -12,7 +12,7 @@
     "handlebars": "4.1.2",
     "less": "3.9.0",
     "marked": "0.6.2",
-    "highlight.js": "9.15.7",
+    "highlight.js": "9.15.8",
     "nunjucks": "3.2.0",
     "node-sass": "4.12.0",
     "chokidar": "3.0.0",
