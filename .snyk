@@ -1,0 +1,74 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.13.5
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-450202:
+    - babel-core > babel-register > babel-core > babel-traverse > lodash:
+        patched: '2019-07-05T04:14:34.915Z'
+    - node-sass > lodash:
+        patched: '2019-07-05T04:14:34.915Z'
+    - babel-core > babel-generator > lodash:
+        patched: '2019-07-05T04:14:34.915Z'
+    - browser-sync > easy-extender > lodash:
+        patched: '2019-07-05T04:14:34.915Z'
+    - babel-core > babel-register > lodash:
+        patched: '2019-07-05T04:14:34.915Z'
+    - babel-core > babel-types > lodash:
+        patched: '2019-07-05T04:14:34.915Z'
+    - babel-core > babel-template > lodash:
+        patched: '2019-07-05T04:14:34.915Z'
+    - node-sass > sass-graph > lodash:
+        patched: '2019-07-05T04:14:34.915Z'
+    - babel-core > babel-traverse > lodash:
+        patched: '2019-07-05T04:14:34.915Z'
+    - node-sass > gaze > globule > lodash:
+        patched: '2019-07-05T04:14:34.915Z'
+    - babel-plugin-transform-react-jsx > babel-helper-builder-react-jsx > babel-types > lodash:
+        patched: '2019-07-05T04:14:34.915Z'
+    - babel-core > babel-traverse > babel-types > lodash:
+        patched: '2019-07-05T04:14:34.915Z'
+    - babel-core > babel-template > babel-types > lodash:
+        patched: '2019-07-05T04:14:34.915Z'
+    - babel-core > babel-helpers > babel-template > lodash:
+        patched: '2019-07-05T04:14:34.915Z'
+    - babel-core > babel-register > babel-core > lodash:
+        patched: '2019-07-05T04:14:34.915Z'
+    - babel-core > babel-template > babel-traverse > lodash:
+        patched: '2019-07-05T04:14:34.915Z'
+    - babel-core > babel-generator > babel-types > lodash:
+        patched: '2019-07-05T04:14:34.915Z'
+    - babel-core > lodash:
+        patched: '2019-07-05T04:14:34.915Z'
+    - babel-core > babel-helpers > babel-template > babel-traverse > lodash:
+        patched: '2019-07-05T04:14:34.915Z'
+    - babel-core > babel-template > babel-traverse > babel-types > lodash:
+        patched: '2019-07-05T04:14:34.915Z'
+    - babel-core > babel-register > babel-core > babel-template > lodash:
+        patched: '2019-07-05T04:14:34.915Z'
+    - babel-core > babel-register > babel-core > babel-generator > lodash:
+        patched: '2019-07-05T04:14:34.915Z'
+    - babel-core > babel-register > babel-core > babel-types > lodash:
+        patched: '2019-07-05T04:14:34.915Z'
+    - babel-core > babel-helpers > babel-template > babel-types > lodash:
+        patched: '2019-07-05T04:14:34.915Z'
+    - babel-core > babel-register > babel-core > babel-template > babel-types > lodash:
+        patched: '2019-07-05T04:14:34.915Z'
+    - babel-core > babel-register > babel-core > babel-template > babel-traverse > lodash:
+        patched: '2019-07-05T04:14:34.915Z'
+    - babel-core > babel-register > babel-core > babel-generator > babel-types > lodash:
+        patched: '2019-07-05T04:14:34.915Z'
+    - babel-core > babel-helpers > babel-template > babel-traverse > babel-types > lodash:
+        patched: '2019-07-05T04:14:34.915Z'
+    - babel-core > babel-register > babel-core > babel-traverse > babel-types > lodash:
+        patched: '2019-07-05T04:14:34.915Z'
+    - babel-core > babel-register > babel-core > babel-helpers > babel-template > lodash:
+        patched: '2019-07-05T04:14:34.915Z'
+    - babel-core > babel-register > babel-core > babel-helpers > babel-template > babel-types > lodash:
+        patched: '2019-07-05T04:14:34.915Z'
+    - babel-core > babel-register > babel-core > babel-template > babel-traverse > babel-types > lodash:
+        patched: '2019-07-05T04:14:34.915Z'
+    - babel-core > babel-register > babel-core > babel-helpers > babel-template > babel-traverse > lodash:
+        patched: '2019-07-05T04:14:34.915Z'
+    - babel-core > babel-register > babel-core > babel-helpers > babel-template > babel-traverse > babel-types > lodash:
+        patched: '2019-07-05T04:14:34.915Z'
