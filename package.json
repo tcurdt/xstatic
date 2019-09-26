@@ -9,7 +9,7 @@
     "babel-plugin-transform-react-jsx": "6.24.1",
     "minimatch": "3.0.4",
     "front-matter": "3.0.2",
-    "handlebars": "4.2.1",
+    "handlebars": "4.3.2",
     "less": "3.10.0",
     "marked": "0.7.0",
     "highlight.js": "9.15.9",
