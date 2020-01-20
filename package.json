@@ -14,7 +14,7 @@
     "marked": "0.7.0",
     "highlight.js": "9.17.0",
     "nunjucks": "3.2.0",
-    "node-sass": "4.12.0",
+    "node-sass": "4.13.1",
     "chokidar": "3.2.0",
     "mkdirp": "0.5.1",
     "browser-sync": "2.26.6",
