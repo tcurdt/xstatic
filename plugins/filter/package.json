@@ -31,7 +31,7 @@
   "name": "xstatic-filter",
   "description": "xstatic plugin to filter files based on patterns",
   "dependencies": {
-    "minimatch": "3.0.3",
+    "minimatch": "3.0.4",
     "@tcurdt/tinyutils": "1.0.1"
   }
 }
