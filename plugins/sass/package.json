@@ -31,7 +31,7 @@
   "name": "xstatic-sass",
   "description": "xstatic plugin to convert sass to css",
   "dependencies": {
-    "node-sass": "4.5.2",
+    "node-sass": "4.14.1",
     "@tcurdt/tinyutils": "1.0.1"
   }
 }
