@@ -12,7 +12,7 @@
     "minimatch": "3.0.3",
     "mkdirp": "0.5.1",
     "moment": "2.18.1",
-    "browser-sync": "2.18.8",
+    "browser-sync": "2.26.12",
     "@tcurdt/filepath": "1.0.0",
     "@tcurdt/tinyutils": "1.0.1"
   },
