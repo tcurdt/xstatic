@@ -32,7 +32,7 @@
   "description": "xstatic plugin to convert markdown to html",
   "dependencies": {
     "marked": "0.3.6",
-    "highlight.js": "9.9.0",
+    "highlight.js": "9.18.3",
     "@tcurdt/tinyutils": "1.0.1"
   }
 }
